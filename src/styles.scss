@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+@use "family";
+
+:root {
+  --title-family: "Atkinson Hyperlegible", Helvetica, Arial, sans-serif;
+  --main-family: "Luciole", Helvetica, Arial, sans-serif;
+  --bleu-ocean: #2a304b;
+  --bleu-mineral: #5785a1;
+  --bleu-pastel: #c3d7e0;
+  --orange: #f57f20;
+  --jaune-pale: #fae367;
+  --blanc: #fafafa;
+}
+
+:root,
+[data-selected-theme="light"] {
+}
+
+[data-selected-theme="dark"] {
+}
+
+html {
+  // background: var(--color-bg);
+  font-family: var(--main-family);
+}
+
+body {
+  margin: 0;
+  // color: var(--color-primary);
+}
+
+html,
+body {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+
+  /* fallback height */
+  min-height: 100vh;
+
+  /* new small viewport height for modern browsers */
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--title-family);
+}
