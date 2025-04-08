@@ -1,3 +1,5 @@
+@use "variables" as vars;
+
 header {
   background-color: var(--bleu-ocean);
   height: 120px;
@@ -76,6 +78,10 @@ header {
       font-size: 1.25em;
       margin: 0 3em;
 
+      @media screen and (max-width: vars.$lg) {
+        margin: 0 1em;
+      }
+
       a {
         color: var(--blanc);
         text-decoration: none;
@@ -98,6 +104,10 @@ header {
 .contact {
   align-content: center;
   margin-right: 2em;
+
+  @media screen and (max-width: vars.$lg) {
+    margin-right: 0;
+  }
 
   a {
     background-color: var(--bleu-pastel);
