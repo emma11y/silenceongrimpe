@@ -1,0 +1,103 @@
+<div
+  id="myCarousel"
+  class="carousel-tablist"
+  aria-roledescription="carousel"
+  aria-label="Highlighted television shows"
+>
+  <div class="carousel-inner">
+    <div class="controls">
+      <!-- <button
+        class="rotation"
+        type="button"
+        *ngIf="!disableControlButtons"
+        [attr.aria-label]="
+          isPlaying ? 'Stop automatic slide show' : 'Start automatic slide show'
+        "
+        (click)="onPlayOrPauseClick()"
+      >
+        <i class="fa-solid fa-play" *ngIf="!isPlaying" aria-hidden="true"></i>
+        <i class="fa-solid fa-pause" *ngIf="isPlaying" aria-hidden="true"></i>
+      </button>-->
+      <div class="tab-wrapper">
+        <div
+          role="tablist"
+          aria-label="Carrousel"
+          [ngClass]="{ focus: hasFocusTabs }"
+          (focusin)="hasFocusTabs = true"
+          (focusout)="hasFocusTabs = false"
+          #tabEl
+        >
+          <button
+            *ngFor="let carousel of carousels; let index = index"
+            [id]="'carousel-tab-' + carousel.id"
+            type="button"
+            role="tab"
+            [attr.aria-label]="'Slide ' + carousel.id"
+            [attr.aria-selected]="carousel.selected"
+            [attr.aria-controls]="'carousel-item-' + carousel.id"
+            (click)="onCarouselTabClick(carousel)"
+            (keydown)="onCarouselTabKeyDown($event)"
+            [tabindex]="carousel.selected ? '' : -1"
+          >
+            <i
+              class="fa-solid fa-circle"
+              aria-hidden="true"
+              [ngClass]="{ active: carousel.selected }"
+            ></i>
+          </button>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="previous"
+        aria-controls="myCarousel-items"
+        aria-label="Diaporama précédent"
+        (click)="onPreviousClick()"
+      >
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+
+      <button
+        type="button"
+        class="next"
+        aria-controls="myCarousel-items"
+        aria-label="Diaporama suivant"
+        (click)="onNextClick()"
+      >
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div
+      id="myCarousel-items"
+      class="carousel-items"
+      [ngClass]="{ focus: hasFocusCarousel }"
+      [ngClass]="{ playing: isPlaying }"
+      [attr.aria-live]="isPlaying ? 'off' : 'polite'"
+      (focusin)="hasFocusCarousel = !hasFocusCarousel"
+      #carouselEl
+    >
+      <div
+        class="carousel-item"
+        *ngFor="let carousel of carousels"
+        [ngClass]="{ active: carousel.selected }"
+        [id]="'carousel-item-' + carousel.id"
+        role="tabpanel"
+        aria-roledescription="slide"
+        [attr.aria-label]="carousel.id + ' sur ' + carousels.length"
+      >
+        <div class="carousel-image">
+          <img [src]="carousel.picture" [alt]="carousel.altPicture" />
+        </div>
+        <div class="carousel-caption">
+          <div class="carousel-caption-title">
+            <a href="">{{ carousel.title }}</a>
+          </div>
+
+          <div class="carousel-caption-body" *ngIf="carousel.subtitle">
+            <p [innerText]="carousel.subtitle"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
