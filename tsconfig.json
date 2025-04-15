@@ -16,7 +16,29 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "ES2022",
+    "paths": {
+      "@node_modules/*": ["./node_modules/*"],
+      "@app/*": ["./src/app/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@environments/*": ["./src/environments/*"],
+      "@settings/*": ["./src/settings/*"],
+      "@core/*": ["./src/core/*"],
+      "@guards/*": ["./src/core/guards/*"],
+      "@interceptors/*": ["./src/core/interceptors/*"],
+      "@resolvers/*": ["./src/core/resolvers/*"],
+      "@serializer/*": ["./src/core/serializer/*"],
+      "@services/*": ["./src/core/services/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@components/*": ["./src/shared/components/*"],
+      "@directives/*": ["./src/shared/directives/*"],
+      "@dtos/*": ["./src/shared/dtos/*"],
+      "@models/*": ["./src/shared/models/*"],
+      "@enums/*": ["./src/shared/enums/*"],
+      "@pipes/*": ["./src/shared/pipes/*"],
+      "@utilities/*": ["./src/shared/utilities/*"],
+      "@referentiels/*": ["./src/assets/referentiels/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -2,22 +2,10 @@
   id="myCarousel"
   class="carousel-tablist"
   aria-roledescription="carousel"
-  aria-label="Highlighted television shows"
+  aria-label="Des nouvelles du Collectif Silence on Grimpe !"
 >
   <div class="carousel-inner">
     <div class="controls">
-      <!-- <button
-        class="rotation"
-        type="button"
-        *ngIf="!disableControlButtons"
-        [attr.aria-label]="
-          isPlaying ? 'Stop automatic slide show' : 'Start automatic slide show'
-        "
-        (click)="onPlayOrPauseClick()"
-      >
-        <i class="fa-solid fa-play" *ngIf="!isPlaying" aria-hidden="true"></i>
-        <i class="fa-solid fa-pause" *ngIf="isPlaying" aria-hidden="true"></i>
-      </button>-->
       <div class="tab-wrapper">
         <div
           role="tablist"
@@ -71,8 +59,7 @@
       id="myCarousel-items"
       class="carousel-items"
       [ngClass]="{ focus: hasFocusCarousel }"
-      [ngClass]="{ playing: isPlaying }"
-      [attr.aria-live]="isPlaying ? 'off' : 'polite'"
+      aria-live="polite"
       (focusin)="hasFocusCarousel = !hasFocusCarousel"
       #carouselEl
     >

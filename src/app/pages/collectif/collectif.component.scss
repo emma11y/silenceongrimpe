@@ -1,0 +1,76 @@
+@use "variables" as vars;
+.header {
+  max-width: 30em;
+  margin: auto;
+
+  h1 {
+    font-size: 2em;
+    text-align: center;
+    color: var(--bleu-ocean);
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 1.2em;
+  }
+}
+
+.list {
+  margin: 5em 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+
+  .title {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--bleu-ocean);
+  }
+
+  &-item {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em;
+
+    @media screen and (max-width: vars.$md) {
+      width: 100%;
+      margin-bottom: 5em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    img {
+      width: 5em;
+      margin: auto;
+    }
+
+    .description {
+      margin-bottom: 2em;
+      height: 5em;
+      margin: auto;
+      font-size: 1.2em;
+    }
+
+    a {
+      background-color: var(--jaune-pale);
+      color: var(--noir);
+      padding: 1em;
+      border-radius: 2em;
+      width: 10em;
+      margin: auto;
+      text-decoration: none;
+      outline: none;
+
+      &:focus,
+      &:hover {
+        text-decoration: underline;
+        background-color: var(--orange);
+      }
+    }
+  }
+}
