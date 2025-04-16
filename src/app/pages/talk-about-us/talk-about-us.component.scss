@@ -1,0 +1,75 @@
+@use "variables" as vars;
+
+.talk-about-us {
+  padding: 1em 0;
+  background-color: var(--bleu-pastel);
+
+  h2 {
+    color: var(--bleu-ocean);
+    text-align: center;
+    font-size: 1.8em;
+  }
+
+  .quote {
+    &::before {
+      content: "\00275D";
+      padding-right: 0.25em;
+    }
+    &::after {
+      content: "\00275E";
+      padding-left: 0.25em;
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+
+    &-item {
+      width: calc(30% - 1em);
+      padding: 1em;
+      display: flex;
+      flex-direction: column;
+
+      @media screen and (max-width: vars.$md) {
+        width: 100%;
+        margin-bottom: 1em;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &-image {
+      background-color: var(--blanc);
+      border-radius: 50%;
+      width: 15em;
+      height: 15em;
+      margin: auto;
+      align-content: center;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &-description {
+      background-color: var(--blanc);
+      border-radius: 2em;
+      max-width: 20em;
+      margin: auto;
+      margin-top: -1.25em;
+      padding: 0 1em;
+
+      .title {
+        font-size: 1.5em;
+        font-weight: 600;
+        color: var(--bleu-ocean);
+      }
+    }
+  }
+}
