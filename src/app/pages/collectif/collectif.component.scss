@@ -50,7 +50,7 @@
     }
 
     .description {
-      margin-bottom: 2em;
+      margin-bottom: 1em;
       height: 5em;
       margin: auto;
       font-size: 1.2em;
@@ -65,6 +65,7 @@
       margin: auto;
       text-decoration: none;
       outline: none;
+      font-size: 1.1em;
 
       &:focus,
       &:hover {

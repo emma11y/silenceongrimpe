@@ -112,7 +112,7 @@ header {
   a {
     background-color: var(--bleu-pastel);
     color: var(--bleu-ocean);
-    border: 0.15em solid transparent;
+    // border: 0.15em solid transparent;
     padding: 0.5em 1em;
     border-radius: 2em;
     text-decoration: none;
@@ -121,9 +121,10 @@ header {
 
     &:hover,
     &:focus {
-      border-color: var(--bleu-pastel);
-      background-color: var(--bleu-ocean);
-      color: var(--bleu-pastel);
+      // border-color: var(--bleu-pastel);
+      background-color: var(--jaune-pale);
+      //color: var(--noir);
+      text-decoration: underline;
     }
   }
 }
