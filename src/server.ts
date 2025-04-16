@@ -1,5 +1,6 @@
 import {
   AngularNodeAppEngine,
+  CommonEngine,
   createNodeRequestHandler,
   isMainModule,
   writeResponseToNodeResponse,
@@ -13,6 +14,23 @@ const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
+const commonEngine = new CommonEngine();
+
+import { render } from '@netlify/angular-runtime/common-engine';
+
+export async function netlifyCommonEngineHandler(
+  request: Request,
+  context: any
+): Promise<Response> {
+  // Example API endpoints can be defined here.
+  // Uncomment and define endpoints as necessary.
+  // const pathname = new URL(request.url).pathname;
+  // if (pathname === '/api/hello') {
+  //   return Response.json({ message: 'Hello from the API' });
+  // }
+
+  return await render(commonEngine);
+}
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -34,7 +52,7 @@ app.use(
     maxAge: '1y',
     index: false,
     redirect: false,
-  }),
+  })
 );
 
 /**
@@ -44,7 +62,7 @@ app.use('/**', (req, res, next) => {
   angularApp
     .handle(req)
     .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
+      response ? writeResponseToNodeResponse(response, res) : next()
     )
     .catch(next);
 });
