@@ -1,6 +1,7 @@
 import {
   Component,
   inject,
+  Input,
   OnInit,
   TemplateRef,
   ViewChild,
@@ -16,6 +17,8 @@ import { DiaporamaService } from '@core/services/diaporama.service';
   styleUrl: './carrousel.component.scss',
 })
 export class CarrouselComponent implements OnInit {
+  @Input() carousels: CarouselItem[] = [];
+
   private readonly diaporamaService: DiaporamaService =
     inject(DiaporamaService);
 
@@ -26,19 +29,13 @@ export class CarrouselComponent implements OnInit {
   @ViewChild('carouselEl', { static: true })
   public carouselEl!: TemplateRef<HTMLDivElement>;
 
-  //data
-  public carousels: CarouselItem[] = [];
-  public timeInterval = 1500;
-
   // states
   public hasFocusTabs: boolean = false;
   public hasFocusCarousel: boolean = false;
 
   //#region LIFE CYCLES
 
-  public ngOnInit(): void {
-    this.carousels = this.diaporamaService.getDiaporama();
-  }
+  public ngOnInit(): void {}
 
   //#endregion
   //#region EVENTS

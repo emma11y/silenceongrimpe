@@ -1,0 +1,61 @@
+@use "variables" as vars;
+
+.membres-collectif {
+  .header {
+    margin: auto;
+
+    h1 {
+      font-size: 2em;
+      text-align: center;
+      color: var(--bleu-ocean);
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1.2em;
+    }
+  }
+
+  .list {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+
+    &-item {
+      padding: 1em;
+    }
+
+    &-image {
+      background-color: var(--blanc);
+      width: 15em;
+      height: 15em;
+      margin: auto;
+      align-content: center;
+
+      img {
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &-description {
+      margin-top: 1em;
+      .prenom {
+        text-transform: uppercase;
+        color: var(--bleu-ocean);
+        font-weight: 700;
+        margin: 0;
+        font-size: 1.2em;
+      }
+
+      .titre {
+        margin: 0;
+      }
+    }
+  }
+}

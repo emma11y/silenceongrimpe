@@ -92,6 +92,9 @@ header {
         &:focus {
           border-bottom-color: var(--blanc);
         }
+        &.active {
+          border-bottom-color: var(--orange);
+        }
       }
 
       &:first-child {
@@ -118,6 +121,7 @@ header {
     text-decoration: none;
     outline: none;
     font-size: 1.2em;
+    //  cursor: pointer;
 
     &:hover,
     &:focus {

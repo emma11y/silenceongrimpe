@@ -1,9 +1,36 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+} from '@angular/core';
+import {
+  provideRouter,
+  RouterModule,
+  withComponentInputBinding,
+} from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+  withEventReplay,
+} from '@angular/platform-browser';
+//import { provideAnimationsAsync } from '@node_modules/@angular/platform-browser/animations/async';
+/*import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@node_modules/@angular/common/http';*/
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay())]
+  providers: [
+    importProvidersFrom(
+      BrowserModule,
+      RouterModule.forRoot(routes),
+      ReactiveFormsModule
+    ),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes, withComponentInputBinding()),
+    provideClientHydration(withEventReplay()),
+  ],
 };
