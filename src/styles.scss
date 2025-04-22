@@ -10,23 +10,15 @@
   --jaune-pale: #fae367;
   --blanc: #fafafa;
   --noir: #000000;
-}
-
-:root,
-[data-selected-theme="light"] {
-}
-
-[data-selected-theme="dark"] {
+  --erreur: #ff0000;
 }
 
 html {
-  // background: var(--color-bg);
   font-family: var(--main-family);
 }
 
 body {
   margin: 0;
-  // color: var(--color-primary);
 }
 
 html,

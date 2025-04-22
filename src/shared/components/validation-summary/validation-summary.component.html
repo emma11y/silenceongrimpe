@@ -1,0 +1,9 @@
+<div
+  [id]="id"
+  class="error"
+  *ngIf="control && control.invalid && (control.dirty || control.touched)"
+>
+  <p *ngIf="control.hasError('required')">
+    Le champ {{ fieldName }} est obligatoire
+  </p>
+</div>

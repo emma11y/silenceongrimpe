@@ -1,0 +1,75 @@
+<div class="contact">
+  <form role="form" #form="ngForm">
+    <fieldset>
+      <legend><h2>Formulaire de contact</h2></legend>
+    </fieldset>
+    <div class="body">
+      <div class="group">
+        <label for="txtEmail" class="required">Votre e-mail</label>
+        <input
+          type="text"
+          id="txtEmail"
+          name="mail"
+          [(ngModel)]="contact.mail"
+          #mail="ngModel"
+          required
+          [attr.aria-invalid]="mail.invalid"
+          [attr.aria-describedby]="'email-error'"
+        />
+        <validation-summary
+          id="email-error"
+          [controlModel]="mail"
+          fieldName="e-mail"
+        ></validation-summary>
+      </div>
+      <div class="group">
+        <label for="txtMessage" class="required">Votre message</label>
+        <textarea
+          id="txtMessage"
+          name="message"
+          [(ngModel)]="contact.message"
+          #message="ngModel"
+          required
+          rows="15"
+          [attr.aria-invalid]="message.invalid"
+          [attr.aria-describedby]="'message-error'"
+        ></textarea>
+        <validation-summary
+          id="message-error"
+          [controlModel]="message"
+          fieldName="message"
+        ></validation-summary>
+      </div>
+      <div class="group">
+        <label for="txtCaptcha" class="required"
+          >Combien font {{ number1 }} + {{ number2 }} ?</label
+        >
+        <input
+          type="text"
+          id="txtCaptcha"
+          name="captcha"
+          [(ngModel)]="contact.captcha"
+          #captcha="ngModel"
+          required
+          [attr.aria-invalid]="captcha.invalid"
+          [attr.aria-describedby]="'txtExplicationCaptcha captcha-error'"
+        />
+
+        <validation-summary
+          id="captcha-error"
+          [controlModel]="captcha"
+          fieldName="captcha"
+        ></validation-summary>
+        <p id="txtExplicationCaptcha">
+          Il s'agit d'un captcha basé sur une opération mathématique requise
+          pour la validation du formulaire.
+        </p>
+      </div>
+      <div class="actions">
+        <button type="button" class="button" (click)="onSubmit(form)">
+          Envoyer
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

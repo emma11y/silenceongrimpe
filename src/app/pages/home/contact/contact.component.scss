@@ -1,0 +1,70 @@
+.contact {
+  padding: 1em 0;
+
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    legend {
+      width: 100%;
+      h2 {
+        color: var(--bleu-ocean);
+        text-align: center;
+        font-size: 1.8em;
+      }
+    }
+  }
+
+  .body {
+    max-width: 800px;
+    margin: auto;
+    padding: 1em;
+
+    .group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1em;
+
+      label {
+        &.required {
+          &::after {
+            content: "*";
+            padding-left: 0.5em;
+          }
+        }
+      }
+
+      input,
+      textarea {
+        border: 0.1em solid var(--noir);
+        border-radius: 0.25em;
+        padding: 0.5em;
+      }
+    }
+
+    #txtExplicationCaptcha {
+      margin-top: 0.5em;
+      font-size: 0.85em;
+    }
+
+    .actions {
+      text-align: right;
+      .button {
+        background-color: var(--blanc);
+        font-family: var(--main-family);
+        padding: 0.5em 2em;
+        border: 0.1em solid var(--noir);
+        border-radius: 0.25em;
+        font-size: 1em;
+
+        &:focus,
+        &:hover {
+          background-color: var(--bleu-ocean);
+          color: var(--blanc);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
