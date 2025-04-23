@@ -45,7 +45,7 @@
           >Combien font {{ number1 }} + {{ number2 }} ?</label
         >
         <input
-          type="text"
+          type="tel"
           id="txtCaptcha"
           name="captcha"
           [(ngModel)]="contact.captcha"
@@ -60,6 +60,10 @@
           [controlModel]="captcha"
           fieldName="captcha"
         ></validation-summary>
+        <p class="error" *ngIf="!isCaptchaValid() && contact.captcha">
+          Le captcha est incorrect. Veuillez réessayer.
+          {{ isCaptchaValid() }}
+        </p>
         <p id="txtExplicationCaptcha">
           Il s'agit d'un captcha basé sur une opération mathématique requise
           pour la validation du formulaire.

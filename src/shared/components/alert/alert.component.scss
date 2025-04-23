@@ -1,0 +1,100 @@
+.alert {
+  display: none;
+
+  flex-direction: row;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  z-index: 9999;
+  border: 0.1em solid;
+
+  &.display {
+    display: flex;
+  }
+
+  &-info {
+    background-color: var(--bleu-pastel);
+    color: var(--bleu-ocean);
+    border-color: var(--bleu-ocean);
+
+    p,
+    i {
+      color: var(--bleu-ocean);
+    }
+
+    button {
+      &:hover,
+      &:focus-visible {
+        background-color: var(--bleu-ocean);
+        i {
+          color: var(--bleu-pastel);
+        }
+      }
+    }
+  }
+
+  &-success {
+    background-color: var(--succes);
+    color: var(--blanc);
+
+    p,
+    i {
+      color: var(--blanc);
+    }
+
+    button {
+      &:hover,
+      &:focus-visible {
+        background-color: var(--blanc);
+        i {
+          color: var(--succes);
+        }
+      }
+    }
+  }
+
+  &-error {
+    background-color: var(--erreur);
+    color: var(--blanc);
+
+    p,
+    i {
+      color: var(--blanc);
+    }
+
+    button {
+      &:hover,
+      &:focus-visible {
+        background-color: var(--blanc);
+        i {
+          color: var(--erreur);
+        }
+      }
+    }
+  }
+
+  &-icon {
+    margin: auto;
+    padding: 1em;
+    font-size: 1.5em;
+  }
+
+  &-title {
+    margin: auto;
+    padding: 0.5em;
+    text-align: left;
+    width: 15em;
+    color: var(--bleu-pastel);
+  }
+
+  &-button {
+    height: 2em;
+    background: initial;
+    border: 0;
+    cursor: pointer;
+
+    i {
+      font-size: 1.5em;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<div
+  class="alert"
+  role="alert"
+  [ngClass]="{ display: hasDisplay }"
+  [class]="class"
+>
+  <i [class]="'alert-icon ' + icon" aria-hidden="true"></i>
+  <p class="alert-title">{{ message }}</p>
+  <button
+    type="button"
+    class="alert-button"
+    title="Masquer le message"
+    (click)="onDeleteAlert()"
+  >
+    <i class="fa-solid fa-times" aria-hidden="true"></i>
+  </button>
+</div>

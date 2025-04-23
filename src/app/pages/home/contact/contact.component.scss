@@ -40,12 +40,18 @@
         border: 0.1em solid var(--noir);
         border-radius: 0.25em;
         padding: 0.5em;
+        font-size: 14px;
       }
     }
 
     #txtExplicationCaptcha {
       margin-top: 0.5em;
       font-size: 0.85em;
+    }
+
+    .error {
+      margin: 0.5em 0;
+      color: var(--erreur);
     }
 
     .actions {
