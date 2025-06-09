@@ -4,10 +4,14 @@
   .header {
     margin: auto;
 
-    h1 {
+    h2 {
       font-size: 2em;
       text-align: center;
       color: var(--bleu-ocean);
+
+      @media screen and (max-width: vars.$sm) {
+        margin: 1em;
+      }
     }
 
     .subtitle {

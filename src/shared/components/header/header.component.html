@@ -1,62 +1,107 @@
 <header role="banner">
-  <div class="logo">
-    <img
-      src="../../../assets/imgs/logo-horizontal-blanc.png"
-      alt=""
-      loading="lazy"
-    />
-  </div>
-  <div class="menu">
-    <div class="row row-1">
-      <div class="reseaux-sociaux">
-        <ul>
-          <li>
-            <a href="">
-              <span class="sr-only">Facebook</span>
-              <i class="fa-brands fa-square-facebook" aria-hidden="true"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/company/silenceongrimpe">
-              <span class="sr-only">LinkedIn</span>
-              <i class="fa-brands fa-linkedin" aria-hidden="true"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/silenceongrimpe/">
-              <span class="sr-only">Instagram</span>
-              <i class="fa-brands fa-instagram" aria-hidden="true"></i
-            ></a>
-          </li>
-          <li>
-            <a href="">
-              <span class="sr-only">YouTube</span>
-              <i class="fa-brands fa-youtube" aria-hidden="true"></i
-            ></a>
-          </li>
-        </ul>
+  <div class="row banner">
+    <div class="logo">
+      <img
+        src="../../../assets/imgs/logo-horizontal-blanc.png"
+        alt=""
+        loading="lazy"
+      />
+    </div>
+    <div class="menu-desktop">
+      <div class="row row-1">
+        <div class="reseaux-sociaux">
+          <ul>
+            <li>
+              <a href="">
+                <span class="sr-only">Facebook</span>
+                <i class="fa-brands fa-square-facebook" aria-hidden="true"></i
+              ></a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/company/silenceongrimpe">
+                <span class="sr-only">LinkedIn</span>
+                <i class="fa-brands fa-linkedin" aria-hidden="true"></i
+              ></a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/silenceongrimpe/">
+                <span class="sr-only">Instagram</span>
+                <i class="fa-brands fa-instagram" aria-hidden="true"></i
+              ></a>
+            </li>
+            <li>
+              <a href="">
+                <span class="sr-only">YouTube</span>
+                <i class="fa-brands fa-youtube" aria-hidden="true"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+        <div class="contact">
+          <a href="">Contactez-nous</a>
+        </div>
       </div>
-      <div class="contact">
-        <a href="">Contactez-nous</a>
+      <div class="row row-2">
+        <nav class="navigation" role="navigation">
+          <ul>
+            <li>
+              <a href="/" routerLinkActive="/">Le collectif</a>
+            </li>
+            <li>
+              <a href="/actualites" routerLinkActive="/actualites"
+                >Actualités</a
+              >
+            </li>
+            <li>
+              <a href="/agenda" routerLinkActive="/agenda">Agenda</a>
+            </li>
+            <li>
+              <a href="/ressources" routerLinkActive="/ressources"
+                >Ressources</a
+              >
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
-    <div class="row row-2">
-      <nav class="navigation" role="navigation">
-        <ul>
-          <li>
-            <a href="/" routerLinkActive="/">Le collectif</a>
-          </li>
-          <li>
-            <a href="/actualites" routerLinkActive="/actualites">Actualités</a>
-          </li>
-          <li>
-            <a href="/agenda" routerLinkActive="/agenda">Agenda</a>
-          </li>
-          <li>
-            <a href="/ressources" routerLinkActive="/ressources">Ressources</a>
-          </li>
-        </ul>
-      </nav>
+    <div class="menu-mobile">
+      <button
+        type="button"
+        class="menu-mobile-button"
+        [attr.aria-expanded]="showMenuMobile"
+        aria-controls="menu-mobile-nav"
+        (click)="showMenuMobile = !showMenuMobile"
+      >
+        <span class="sr-only">
+          {{ showMenuMobile ? "Fermer le menu" : "Afficher le menu" }}</span
+        >
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
     </div>
   </div>
+  <!-- TODO Trap focus -->
+
+  <nav
+    id="menu-mobile-nav"
+    role="navigation"
+    class="menu-mobile-navigation row"
+    [ngClass]="{ show: showMenuMobile }"
+  >
+    <div class="navigation">
+      <ul>
+        <li>
+          <a href="/" routerLinkActive="/">Le collectif</a>
+        </li>
+        <li>
+          <a href="/actualites" routerLinkActive="/actualites">Actualités</a>
+        </li>
+        <li>
+          <a href="/agenda" routerLinkActive="/agenda">Agenda</a>
+        </li>
+        <li>
+          <a href="/ressources" routerLinkActive="/ressources">Ressources</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </header>
