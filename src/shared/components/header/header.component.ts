@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NgClass } from '@node_modules/@angular/common';
-import { RouterLinkActiveDirective } from '@shared/directives/router-link-active.directive';
+import { NgClass } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLinkActiveDirective, NgClass],
+  imports: [RouterLink, RouterLinkActive, NgClass],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

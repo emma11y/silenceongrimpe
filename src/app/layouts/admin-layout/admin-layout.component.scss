@@ -1,0 +1,128 @@
+@use "variables" as vars;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--bleu-ocean);
+
+  * {
+    outline: none;
+  }
+
+  @media screen and (max-width: vars.$md) {
+    display: block;
+  }
+
+  a {
+    color: var(--blanc);
+    font-weight: 300;
+    text-decoration: underline;
+    border-bottom: 0.25em solid transparent;
+    margin-right: 0.5em;
+    font-family: var(--main-family);
+
+    &:focus-visible,
+    &:hover {
+      text-decoration: none;
+      border-bottom-color: var(--blanc);
+    }
+  }
+
+  &-logo {
+    margin: 0.5em;
+
+    width: 20em;
+    height: 100%;
+    align-content: center;
+    border: 0.25em solid transparent;
+
+    @media screen and (max-width: vars.$sm) {
+      width: 65%;
+    }
+
+    &:focus-visible,
+    &:hover,
+    &:has(a:focus-visible) {
+      border-color: var(--blanc);
+    }
+
+    a {
+      border: none;
+      &:focus-visible,
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-banner {
+    display: flex;
+    align-items: center;
+    padding: 0.5em 0;
+
+    @media screen and (max-width: vars.$md) {
+      justify-content: space-between;
+    }
+
+    h1 {
+      margin: 0;
+      margin-left: 2em;
+      color: var(--blanc);
+      font-family: var(--main-family);
+
+      @media screen and (max-width: vars.$md) {
+        margin-left: 1em;
+      }
+    }
+  }
+
+  &-buttons {
+    align-content: center;
+    margin-right: 1em;
+
+    .actions {
+      text-align: right;
+
+      a {
+        margin-right: 3em;
+      }
+
+      button {
+        background-color: var(--bleu-pastel);
+        color: var(--bleu-ocean);
+        // border: 0.15em solid transparent;
+        padding: 0.5em 1em;
+        border-radius: 2em;
+        text-decoration: none;
+        outline: none;
+        font-size: 1em;
+        cursor: pointer;
+        font-family: var(--main-family);
+
+        &:hover,
+        &:focus {
+          // border-color: var(--bleu-pastel);
+          background-color: var(--jaune-pale);
+          //color: var(--noir);
+          text-decoration: underline;
+        }
+      }
+
+      @media screen and (max-width: vars.$md) {
+        text-align: center;
+      }
+    }
+
+    &-row {
+      display: flex;
+    }
+  }
+}
+
+.content {
+  margin: 0.5em 2em;
+}

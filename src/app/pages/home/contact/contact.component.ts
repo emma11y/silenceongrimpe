@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ContactForm } from './contact-form';
-import { FormsModule, NgForm } from '@node_modules/@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
-import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
-import { NgIf } from '@node_modules/@angular/common';
+import { NgIf } from '@angular/common';
+import { ContactForm } from './contact-form';
 import { AlertService } from '@core/services/alert.service';
+import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
+import emailjs from 'emailjs-com';
 
 @Component({
   selector: 'app-contact',
@@ -17,12 +18,28 @@ export class ContactComponent {
 
   public number1: number = this.getRandomInt(1, 10);
   public number2: number = this.getRandomInt(1, 10);
+  public regex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   public contact: ContactForm = new ContactForm();
 
-  onSubmit(form: NgForm): void {
-    if (!form.valid && !this.isCaptchaValid()) {
+  ngOnInit(): void {}
+
+  async onSubmit(form: NgForm): Promise<void> {
+    if (
+      !form.valid ||
+      !this.isCaptchaValid() ||
+      !this.isMailValid() ||
+      !this.contact.mail ||
+      !this.contact.message
+    ) {
       markControlAsTouchedOnForm(form.form);
+
+      if (this.contact.captcha) {
+        this.contact.captcha = '';
+      }
+
+      this.number1 = this.getRandomInt(1, 10);
+      this.number2 = this.getRandomInt(1, 10);
 
       this.alertService.showAlert(
         'error',
@@ -32,23 +49,50 @@ export class ContactComponent {
       return;
     }
 
-    form.resetForm();
+    emailjs
+      .send(
+        '',
+        '',
+        {
+          name: this.contact.name,
+          message: this.contact.message,
+          reply_to: this.contact.mail,
+        },
+        ''
+      )
+      .then(
+        (response) => {
+          form.resetForm();
 
-    this.number1 = this.getRandomInt(1, 10);
-    this.number2 = this.getRandomInt(1, 10);
+          this.number1 = this.getRandomInt(1, 10);
+          this.number2 = this.getRandomInt(1, 10);
 
-    // TODO envoyer mail
-
-    this.alertService.showAlert(
-      'success',
-      'Votre message a été envoyé, nous vous répondrons dans les brefs délais.'
-    );
+          this.alertService.showAlert(
+            'success',
+            'Votre message a été envoyé, nous vous répondrons dans les brefs délais.'
+          );
+        },
+        (error) => {
+          this.alertService.showAlert(
+            'error',
+            `Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer.`
+          );
+        }
+      );
   }
 
   isCaptchaValid(): boolean {
     if (this.contact.captcha) {
       const expectedSum = this.number1 + this.number2;
       return Number.parseInt(this.contact.captcha) === expectedSum;
+    }
+
+    return false;
+  }
+
+  isMailValid(): boolean {
+    if (this.contact.mail) {
+      return this.regex.test(this.contact.mail);
     }
 
     return false;

@@ -1,0 +1,92 @@
+.popup {
+  // display: block;
+
+  flex-direction: column;
+  max-height: 30rem;
+  //position: fixed;
+
+  margin: 0;
+  padding: 1em;
+
+  left: calc((100% / 2) - (30rem / 2));
+  top: 35%;
+
+  background-color: var(--color-bg);
+  border: 0.1em solid var(--color-primary);
+
+  &::backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg);
+  }
+
+  &-header {
+    text-align: right;
+  }
+
+  h1 {
+    color: var(--color-primary);
+    font-size: 1.2em;
+    text-align: center;
+  }
+
+  &-close {
+    border: 0.1em solid var(--color-primary);
+    &:focus {
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+    }
+  }
+
+  &.open {
+    display: block;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  &-container {
+    max-width: 30rem;
+    width: 30rem;
+    max-height: 30rem;
+  }
+
+  &-footer {
+    margin-top: 2em;
+    text-align: right;
+
+    .button-primary,
+    .button-secondary {
+      min-width: 7em;
+      border-radius: 0.25em;
+    }
+
+    .button-primary {
+      border: 0.1em solid var(--color-secondary);
+      background-color: var(--color-secondary);
+      color: var(--color);
+      margin-right: 0.5em;
+
+      &:focus,
+      &:focus-visible,
+      &:hover {
+        border: 0.1em solid var(--color-primary);
+        background-color: var(--color-primary);
+        color: var(--color-bg);
+      }
+    }
+
+    .button-secondary {
+      border: 0.1em solid var(--color-primary);
+
+      &:focus,
+      &:focus-visible,
+      &:hover {
+        border: 0.1em solid var(--color-primary);
+      }
+    }
+  }
+}

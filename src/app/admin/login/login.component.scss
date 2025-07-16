@@ -1,0 +1,79 @@
+.login-component {
+  margin: auto;
+  max-width: 500px;
+
+  fieldset {
+    margin: auto;
+    padding: 0;
+
+    legend {
+      text-align: center;
+      font-size: 1.5em;
+    }
+
+    form {
+      margin-bottom: 1em;
+    }
+  }
+
+  input {
+    margin-top: 0.5em;
+    padding: 0.5em;
+    font-size: 1em;
+
+    &:hover,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    padding: 1em 2em;
+  }
+
+  button {
+    background-color: var(--blanc);
+    font-family: var(--main-family);
+    padding: 0.5em 2em;
+    border: 0.1em solid var(--noir);
+    border-radius: 0.25em;
+    font-size: 1em;
+    display: block;
+    margin: 0.5em auto;
+
+    &:focus,
+    &:hover {
+      background-color: var(--bleu-ocean);
+      color: var(--blanc);
+      cursor: pointer;
+    }
+  }
+
+  .go-to {
+    margin-top: 1em;
+    text-align: center;
+  }
+
+  a {
+    color: var(--bleu-ocean);
+    font-weight: 300;
+    text-decoration: underline;
+    border-bottom: 0.25em solid transparent;
+    margin-right: 0.5em;
+
+    &:focus,
+    &:hover {
+      text-decoration: none;
+      border-bottom-color: var(--bleu-ocean);
+    }
+  }
+}
+
+::ng-deep {
+  .content:has(.login-component) {
+    min-height: calc(100vh - 15em);
+    align-content: center;
+  }
+}

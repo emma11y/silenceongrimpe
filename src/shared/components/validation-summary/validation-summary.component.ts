@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { NgIf } from '@node_modules/@angular/common';
-import { FormGroup, NgModel } from '@node_modules/@angular/forms';
+import { NgIf } from '@angular/common';
+import { FormGroup, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'validation-summary',

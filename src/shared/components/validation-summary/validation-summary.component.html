@@ -1,9 +1,14 @@
 <div
-  [id]="id"
+  role="alert"
   class="error"
   *ngIf="control && control.invalid && (control.dirty || control.touched)"
 >
   <p *ngIf="control.hasError('required')">
     Le champ {{ fieldName }} est obligatoire
   </p>
+  <p *ngIf="control.hasError('maxlength')">
+    Le champ {{ fieldName }} est limité à
+    {{ control.getError("maxlength").requiredLength }} caractères
+  </p>
+  <p *ngIf="control.hasError('pattern')">Le format de l'e-mail est invalide.</p>
 </div>

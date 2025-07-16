@@ -1,0 +1,40 @@
+<dialog
+  aria-labelledby="popup-title"
+  role="dialog"
+  id="popup"
+  class="popup"
+  #popup
+>
+  <div class="popup-container">
+    <div class="popup-body">
+      <div class="popup-header">
+        <button
+          type="button"
+          class="popup-close"
+          title="Fermer la fenêtre modale"
+          aria-controls="popup"
+          (click)="onClose()"
+          autofocus
+        >
+          Fermer <span class="sr-only">la fenêtre modale</span>
+          <i class="fa-solid fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="popup-content">
+        <h1 id="popup-title" class="popup-title">{{ title }}</h1>
+        <p class="text-center">
+          {{ message }}
+        </p>
+      </div>
+    </div>
+    <div class="popup-footer">
+      <!-- Mettre les boutons -->
+
+      @for (button of buttons; track $index) {
+      <button type="button" (click)="button.callback()" [class]="button.class">
+        {{ button.label }}
+      </button>
+      }
+    </div>
+  </div>
+</dialog>

@@ -5,6 +5,24 @@
     </fieldset>
     <div class="body">
       <div class="group">
+        <label for="txtNom" class="required">Votre nom</label>
+        <input
+          type="text"
+          id="txtNom"
+          name="name"
+          [(ngModel)]="contact.name"
+          #name="ngModel"
+          required
+          [attr.aria-invalid]="name.invalid"
+          [attr.aria-describedby]="'name-error'"
+        />
+        <validation-summary
+          id="name-error"
+          [controlModel]="name"
+          fieldName="nom"
+        ></validation-summary>
+      </div>
+      <div class="group">
         <label for="txtEmail" class="required">Votre e-mail</label>
         <input
           type="text"
@@ -14,13 +32,17 @@
           #mail="ngModel"
           required
           [attr.aria-invalid]="mail.invalid"
-          [attr.aria-describedby]="'email-error'"
+          [attr.aria-describedby]="'lblFormatAttenduMail email-error'"
+          [pattern]="regex"
         />
         <validation-summary
           id="email-error"
           [controlModel]="mail"
           fieldName="e-mail"
         ></validation-summary>
+        <p id="lblFormatAttenduMail">
+          {{ "Format attendu : nom@domaine.fr" }}
+        </p>
       </div>
       <div class="group">
         <label for="txtMessage" class="required">Votre message</label>
@@ -62,7 +84,6 @@
         ></validation-summary>
         <p class="error" *ngIf="!isCaptchaValid() && contact.captcha">
           Le captcha est incorrect. Veuillez réessayer.
-          {{ isCaptchaValid() }}
         </p>
         <p id="txtExplicationCaptcha">
           Il s'agit d'un captcha basé sur une opération mathématique requise

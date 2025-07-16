@@ -1,11 +1,14 @@
 <header role="banner">
   <div class="row banner">
     <div class="logo">
-      <img
-        src="../../../assets/imgs/logo-horizontal-blanc.png"
-        alt=""
-        loading="lazy"
-      />
+      <a routerLink="/">
+        <span class="sr-only">Accueil</span>
+        <img
+          src="../../../assets/imgs/logo-horizontal-blanc.png"
+          alt=""
+          loading="lazy"
+        />
+      </a>
     </div>
     <div class="menu-desktop">
       <div class="row row-1">
@@ -45,18 +48,34 @@
         <nav class="navigation" role="navigation">
           <ul>
             <li>
-              <a href="/" routerLinkActive="/">Le collectif</a>
+              <a
+                routerLink="/collectif"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Le collectif</a
+              >
             </li>
             <li>
-              <a href="/actualites" routerLinkActive="/actualites"
+              <a
+                routerLink="/actualites"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
                 >Actualités</a
               >
             </li>
             <li>
-              <a href="/agenda" routerLinkActive="/agenda">Agenda</a>
+              <a
+                routerLink="/agenda"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Agenda</a
+              >
             </li>
             <li>
-              <a href="/ressources" routerLinkActive="/ressources"
+              <a
+                routerLink="/ressources"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
                 >Ressources</a
               >
             </li>

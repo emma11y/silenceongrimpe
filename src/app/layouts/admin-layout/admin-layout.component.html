@@ -1,0 +1,47 @@
+<div class="layout">
+  <header class="header" role="banner">
+    <div class="header-banner">
+      <div class="header-logo">
+        <a
+          routerLink="/admin/tableau-de-bord"
+          aria-label="Retourner au tableau de bord"
+        >
+          <img
+            src="../../../assets/imgs/logo-horizontal-blanc.png"
+            alt=""
+            loading="lazy"
+          />
+        </a>
+      </div>
+      <div *ngIf="user">
+        <h1>
+          <a routerLink="/admin/tableau-de-bord">Tableau de bord</a>
+        </h1>
+      </div>
+    </div>
+    <div class="header-buttons">
+      <div class="actions" *ngIf="user">
+        <a routerLink="/" target="_blank"
+          >Aller sur le site
+          <i
+            class="fa-solid fa-arrow-up-right-from-square"
+            aria-hidden="true"
+          ></i>
+        </a>
+        <button type="button" class="link" (click)="onLogOut()">
+          Se déconnecter
+        </button>
+      </div>
+    </div>
+  </header>
+  <main role="main" id="content">
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+  <footer role="contentinfo" class="clearfix"></footer>
+</div>
+
+<app-alert #alert></app-alert>
+
+<app-popup #popup></app-popup>

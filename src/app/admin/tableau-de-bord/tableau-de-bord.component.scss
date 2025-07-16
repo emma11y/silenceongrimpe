@@ -1,0 +1,42 @@
+.dashboard {
+  position: absolute;
+  left: 15%;
+  top: 35%;
+
+  .row {
+    display: flex;
+    justify-content: center;
+
+    flex-wrap: wrap;
+  }
+
+  .col {
+    display: flex;
+
+    background-color: var(--bleu-pastel);
+    justify-content: space-around;
+    width: 20em;
+    margin: 2em;
+    min-height: 6em;
+    border: 0.15em solid var(--bleu-ocean);
+    box-shadow: var(--bleu-ocean) 0px 1px 3px, var(--bleu-ocean) 0px 1px 2px;
+    padding: 1em;
+    border-radius: 0.5em;
+
+    a {
+      color: var(--bleu-ocean);
+      margin: auto;
+      cursor: pointer;
+
+      &:focus-visible,
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &:has(a:focus-visible),
+    &:has(a:hover) {
+      background-color: var(--jaune-pale);
+    }
+  }
+}

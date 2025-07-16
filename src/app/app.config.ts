@@ -16,11 +16,11 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
-//import { provideAnimationsAsync } from '@node_modules/@angular/platform-browser/animations/async';
+//import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 /*import {
   provideHttpClient,
   withInterceptorsFromDi,
-} from '@node_modules/@angular/common/http';*/
+} from '@angular/common/http';*/
 
 export const appConfig: ApplicationConfig = {
   providers: [

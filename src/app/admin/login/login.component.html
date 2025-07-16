@@ -1,0 +1,42 @@
+<div class="login-component">
+  <fieldset>
+    <legend>Formulaire de connexion</legend>
+
+    <form role="form" [formGroup]="form">
+      <div class="group">
+        <label for="txtIdentifiant">Votre e-mail :</label>
+        <input
+          type="text"
+          id="txtIdentifiant"
+          formControlName="mail"
+          required
+        />
+
+        <validation-summary
+          [form]="form"
+          controlName="mail"
+          fieldName="Votre e-mail"
+        ></validation-summary>
+      </div>
+      <div class="group">
+        <label for="txtPassword">Votre mot de passe :</label>
+        <input
+          type="password"
+          id="txtPassword"
+          formControlName="password"
+          required
+        />
+        <validation-summary
+          [form]="form"
+          controlName="password"
+          fieldName="Votre mot de passe"
+        ></validation-summary>
+      </div>
+      <button type="submit" (click)="onClick()">Se connecter</button>
+    </form>
+  </fieldset>
+
+  <div class="go-to">
+    <a href="/">Revenir sur le site</a>
+  </div>
+</div>
