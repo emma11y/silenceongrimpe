@@ -1,0 +1,71 @@
+@use "variables" as vars;
+
+.liste,
+.import {
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+  }
+
+  td,
+  th {
+    border: 0.1em solid;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5em;
+    align-content: center;
+
+    &:first-child {
+      @media screen and (max-width: vars.$md) {
+        //   width: 30em;
+      }
+    }
+
+    &.titre,
+    &.date,
+    &.lieu {
+      width: 18%;
+    }
+
+    &.siteWeb {
+      width: 8%;
+
+      i {
+        color: var(--bleu-ocean);
+        margin-left: 0.1em;
+      }
+    }
+
+    &.icon {
+      width: 5%;
+      text-align: center;
+      &:has(.fa-square-check) {
+        //background-color: var(--bleu-ocean);
+        i {
+          color: var(--bleau-ocean);
+          font-size: 1.25em;
+        }
+      }
+      &:has(.fa-xmark) {
+        //background-color: var(--orange);
+        i {
+          color: var(--orange);
+          font-size: 1.25em;
+        }
+      }
+    }
+
+    &.actions {
+      width: 5%;
+      text-align: center;
+    }
+  }
+}

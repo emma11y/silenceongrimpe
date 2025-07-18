@@ -1,0 +1,56 @@
+@use "variables" as vars;
+@use "table-event";
+
+.liste {
+  h2 {
+    text-align: center;
+    font-size: 2em;
+    color: var(--bleu-ocean);
+  }
+
+  .link {
+    border: none;
+    background: initial;
+    font-size: 1em;
+    font-family: var(--main-family);
+    cursor: pointer;
+  }
+
+  .link,
+  a {
+    color: var(--bleu-ocean);
+    text-decoration: underline;
+    border-bottom: 0.25em solid transparent;
+    &:focus,
+    &:hover {
+      text-decoration: none;
+      border-bottom-color: var(--bleu-ocean);
+    }
+  }
+
+  button,
+  .button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    i {
+      font-size: 1em;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: var(--bleu-ocean);
+      color: var(--blanc);
+    }
+  }
+
+  .button,
+  button i {
+    padding: 0.25em;
+  }
+
+  &-new {
+    float: right;
+  }
+}

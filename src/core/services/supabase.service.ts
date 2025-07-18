@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { EvenementForm } from '@app/admin/formulaire/evenement-form';
 import { createBrowserClient } from '@supabase/ssr';
 import {
   AuthChangeEvent,
@@ -50,5 +51,56 @@ export class SupabaseService {
 
   signOut() {
     return this.supabase.auth.signOut();
+  }
+
+  createOrUpdateEvenement(evenement: EvenementForm) {
+    if (evenement.id) {
+      return this.supabase
+        .from('evenements')
+        .update(evenement)
+        .eq('id', evenement.id);
+    } else {
+      return this.supabase.from('evenements').insert(evenement).select();
+    }
+  }
+
+  deleteEvenement(id: number | undefined) {
+    return this.supabase.from('evenements').delete().eq('id', id);
+  }
+
+  getEvenementForm(id: number): any {
+    return this.supabase.from('evenements').select('*').eq('id', id);
+  }
+
+  getEvenements(): any {
+    return this.supabase.from('evenements').select('*');
+  }
+
+  async getEvenementExists(
+    titre: string,
+    date: string
+  ): Promise<number | null> {
+    const { data } = await this.supabase
+      .from('evenements')
+      .select('*')
+      .eq('titre', titre)
+      .eq('date', date);
+
+    if (data?.length) {
+      return data[0].id;
+    }
+
+    return null;
+  }
+
+  async addEvenements(evenements: EvenementForm[]) {
+    return await this.supabase.from('evenements').insert(evenements).select();
+  }
+
+  async updateEvenements(evenements: EvenementForm[]) {
+    const updates = evenements.map((evenement) =>
+      this.supabase.from('evenements').update(evenement).eq('id', evenement.id)
+    );
+    return Promise.all(updates);
   }
 }

@@ -1,0 +1,36 @@
+@use "table-event";
+@use "variables" as vars;
+
+.import {
+  h3 {
+    margin-top: 2em;
+  }
+
+  .buttons {
+    margin-bottom: 2em;
+    text-align: center;
+
+    button {
+      margin-top: 1em;
+      background-color: var(--bleu-pastel);
+      color: var(--bleu-ocean);
+      padding: 0.5em 1em;
+      border-radius: 2em;
+      text-decoration: none;
+      outline: none;
+      font-size: 1em;
+      cursor: pointer;
+      font-family: var(--main-family);
+
+      &:focus-visible,
+      &:hover {
+        background-color: var(--jaune-pale);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .fa-copy {
+    color: var(--erreur);
+  }
+}

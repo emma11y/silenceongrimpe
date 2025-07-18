@@ -1,1 +1,175 @@
-<p>formulaire works!</p>
+<div class="formulaire">
+  <fieldset>
+    <legend>
+      {{ isUpdate ? "Modifier l'évènement" : "Ajouter un nouvel évènement" }}
+    </legend>
+
+    <form role="form" #eventForm="ngForm">
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="titre">Titre</label>
+            <input
+              type="text"
+              id="titre"
+              name="titre"
+              [(ngModel)]="form.titre"
+              #titre="ngModel"
+              required
+              [attr.aria-invalid]="titre.invalid"
+            />
+
+            <validation-summary [controlModel]="titre" fieldName="titre" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="date">Date</label>
+            <input
+              type="text"
+              id="date"
+              name="date"
+              [(ngModel)]="form.date"
+              #date="ngModel"
+              required
+              [attr.aria-invalid]="date.invalid"
+            />
+
+            <validation-summary [controlModel]="date" fieldName="date" />
+          </div>
+        </div>
+        <div class="col">
+          <div class="group">
+            <label for="Lieu">Lieu</label>
+            <input
+              type="text"
+              id="lieu"
+              name="lieu"
+              [(ngModel)]="form.lieu"
+              #lieu="ngModel"
+              required
+              [attr.aria-invalid]="lieu.invalid"
+            />
+
+            <validation-summary [controlModel]="lieu" fieldName="lieu" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="siteWeb">Site web</label>
+            <input
+              type="text"
+              id="siteWeb"
+              name="siteWeb"
+              [(ngModel)]="form.siteWeb"
+              #siteWeb="ngModel"
+              required
+              [attr.aria-invalid]="siteWeb.invalid"
+            />
+
+            <validation-summary [controlModel]="siteWeb" fieldName="Site web" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <input
+              type="checkbox"
+              id="stt"
+              name="stt"
+              [(ngModel)]="form.stt"
+              #stt="ngModel"
+              (keyup.Enter)="form.stt = !form.stt"
+            />
+            <label for="stt">Sous-titres SME</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <input
+              type="checkbox"
+              id="ad"
+              name="ad"
+              [(ngModel)]="form.ad"
+              #ad="ngModel"
+              (keyup.Enter)="form.ad = !form.ad"
+            />
+            <label for="stt">Audiodescription</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <input
+              type="checkbox"
+              id="lsf"
+              name="lsf"
+              [(ngModel)]="form.lsf"
+              #lsf="ngModel"
+              (keyup.Enter)="form.lsf = !form.lsf"
+            />
+            <label for="lsf">LSF</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <input
+              type="checkbox"
+              id="transcription"
+              name="transcription"
+              [(ngModel)]="form.transcription"
+              #transcription="ngModel"
+              (keyup.Enter)="form.transcription = !form.transcription"
+            />
+            <label for="transcription">Transcription en direct</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <input
+              type="checkbox"
+              id="bim"
+              name="bim"
+              [(ngModel)]="form.bim"
+              #bim="ngModel"
+              (keyup.Enter)="form.bim = !form.bim"
+            />
+            <label for="bim">Boucle Induction Magnétique</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <input
+              type="checkbox"
+              id="pmr"
+              name="pmr"
+              [(ngModel)]="form.pmr"
+              #pmr="ngModel"
+              (keyup.Enter)="form.pmr = !form.pmr"
+            />
+            <label for="pmr">Accès PMR</label>
+          </div>
+        </div>
+      </div>
+      <button class="action" type="submit" (click)="onClick(eventForm)">
+        <span>
+          {{ isUpdate ? "Modifier l'événément" : "Créer l'événément" }}</span
+        >
+      </button>
+    </form>
+  </fieldset>
+</div>

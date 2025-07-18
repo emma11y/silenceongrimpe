@@ -14,6 +14,7 @@
           title="Fermer la fenêtre modale"
           aria-controls="popup"
           (click)="onClose()"
+          (keydown.enter)="onClose()"
           autofocus
         >
           Fermer <span class="sr-only">la fenêtre modale</span>
@@ -31,7 +32,12 @@
       <!-- Mettre les boutons -->
 
       @for (button of buttons; track $index) {
-      <button type="button" (click)="button.callback()" [class]="button.class">
+      <button
+        type="button"
+        (click)="button.callback()"
+        (keydown.enter)="button.callback()"
+        [class]="button.class"
+      >
         {{ button.label }}
       </button>
       }

@@ -1,1 +1,129 @@
-<p>liste works!</p>
+<div class="liste">
+  <h2>Liste des évènements</h2>
+
+  <a class="liste-new" routerLink="/admin/formulaire"
+    >Créer un nouvel évènement</a
+  >
+
+  <table>
+    <thead>
+      <tr>
+        <th class="titre">Titre</th>
+        <th class="date">Date</th>
+        <th class="lieu">Lieu</th>
+        <th class="siteWeb">Site Web</th>
+        <th class="icon">STT SME</th>
+        <th class="icon">AD</th>
+        <th class="icon">LSF</th>
+        <th class="icon">Trans-cription</th>
+        <th class="icon">BIM</th>
+        <th class="icon">Accès PMR</th>
+        <th class="actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (evenement of evenements; track $index) {
+      <tr>
+        <td class="titre">{{ evenement.titre }}</td>
+        <td class="date">{{ evenement.date }}</td>
+        <td class="lieu">{{ evenement.lieu }}</td>
+        <td class="siteWeb">
+          <a [href]="evenement.siteWeb" target="_blank"
+            >Site web
+            <span class="sr-only"
+              >de l'événèment {{ evenement.titre }} (Nouvelle fenêtre)</span
+            >
+            <i
+              class="fa-solid fa-arrow-up-right-from-square"
+              aria-hidden="true"
+            ></i>
+          </a>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': evenement.stt,
+              'fa-xmark': !evenement.stt
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ evenement.stt ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': evenement.ad,
+              'fa-xmark': !evenement.ad
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ evenement.ad ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': evenement.lsf,
+              'fa-xmark': !evenement.lsf
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ evenement.lsf ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': evenement.transcription,
+              'fa-xmark': !evenement.transcription
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{
+            evenement.transcription ? "Oui" : "Non"
+          }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': evenement.bim,
+              'fa-xmark': !evenement.bim
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ evenement.bim ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': evenement.pmr,
+              'fa-xmark': !evenement.pmr
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ evenement.pmr ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="actions">
+          <a
+            class="button"
+            [routerLink]="['/', 'admin', 'formulaire', evenement.id]"
+          >
+            <span class="sr-only">Modifier</span>
+
+            <i class="fa fa-solid fa-pen" aria-hidden="true"></i>
+          </a>
+
+          <button type="button" (click)="onDelete(evenement)">
+            <span class="sr-only">Supprimer</span>
+            <i class="fa fa-solid fa-trash" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

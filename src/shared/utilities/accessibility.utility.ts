@@ -1,13 +1,15 @@
 // ***************************************************************************************
 // trapFocusElements permet de tabuler sur les éléments qu'on veut focused
+
 // ***************************************************************************************
 export function trapFocusElements(
+  parentElement: any,
   focusedElement: any,
   selector: string,
   shiftKey: any
 ) {
   // Obtenir tous les éléments focusables dans le component
-  const elements = focusedElement.querySelectorAll(selector);
+  const elements = parentElement.querySelectorAll(selector);
 
   if (!elements.length) {
     return;

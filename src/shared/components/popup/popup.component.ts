@@ -38,9 +38,19 @@ export class PopupComponent {
 
   @HostListener('keydown', ['$event'])
   public onKeyDown(event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log('onKeyDown', event.key);
+
     if (event.key === 'Tab') {
       const focusedElement = document.activeElement;
-      trapFocusElements(focusedElement, 'button', event.shiftKey);
+      trapFocusElements(
+        this.popup.nativeElement,
+        focusedElement,
+        'button',
+        event.shiftKey
+      );
       return;
     }
   }

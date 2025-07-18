@@ -79,10 +79,22 @@ export const routes: Routes = [
           {
             path: 'formulaire',
             canActivate: [AuthGuard],
-            loadComponent: () =>
-              import('./admin/formulaire/formulaire.component').then(
-                (m) => m.FormulaireComponent
-              ),
+            children: [
+              {
+                path: '',
+                loadComponent: () =>
+                  import('./admin/formulaire/formulaire.component').then(
+                    (m) => m.FormulaireComponent
+                  ),
+              },
+              {
+                path: ':id',
+                loadComponent: () =>
+                  import('./admin/formulaire/formulaire.component').then(
+                    (m) => m.FormulaireComponent
+                  ),
+              },
+            ],
           },
           {
             path: 'liste',

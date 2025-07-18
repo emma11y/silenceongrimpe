@@ -1,1 +1,147 @@
-<p>import works!</p>
+<div class="import">
+  <h2>Importer l'agenda</h2>
+
+  <div>
+    <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" />
+  </div>
+
+  <div *ngIf="evenements.length">
+    <h3>Les événéments importés</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="titre">Titre</th>
+          <th class="date">Date</th>
+          <th class="lieu">Lieu</th>
+          <th class="siteWeb">Site Web</th>
+          <th class="icon">STT SME</th>
+          <th class="icon">AD</th>
+          <th class="icon">LSF</th>
+          <th class="icon">Trans-cription</th>
+          <th class="icon">BIM</th>
+          <th class="icon">Accès PMR</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (evenement of evenements; track $index) {
+        <tr>
+          <td class="titre">{{ evenement.titre }}</td>
+          <td class="date">{{ evenement.date }}</td>
+          <td class="lieu">{{ evenement.lieu }}</td>
+          <td class="siteWeb">
+            <a [href]="evenement.siteWeb" target="_blank"
+              >Site web
+              <span class="sr-only"
+                >de l'événèment {{ evenement.titre }} (Nouvelle fenêtre)</span
+              >
+              <i
+                class="fa-solid fa-arrow-up-right-from-square"
+                aria-hidden="true"
+              ></i>
+            </a>
+          </td>
+          <td class="icon">
+            <i
+              class="fa fa-solid"
+              [ngClass]="{
+                'fa-square-check': evenement.stt,
+                'fa-xmark': !evenement.stt
+              }"
+              aria-hidden="true"
+            ></i>
+            <span class="sr-only">{{ evenement.stt ? "Oui" : "Non" }}</span>
+          </td>
+          <td class="icon">
+            <i
+              class="fa fa-solid"
+              [ngClass]="{
+                'fa-square-check': evenement.ad,
+                'fa-xmark': !evenement.ad
+              }"
+              aria-hidden="true"
+            ></i>
+            <span class="sr-only">{{ evenement.ad ? "Oui" : "Non" }}</span>
+          </td>
+          <td class="icon">
+            <i
+              class="fa fa-solid"
+              [ngClass]="{
+                'fa-square-check': evenement.lsf,
+                'fa-xmark': !evenement.lsf
+              }"
+              aria-hidden="true"
+            ></i>
+            <span class="sr-only">{{ evenement.lsf ? "Oui" : "Non" }}</span>
+          </td>
+          <td class="icon">
+            <i
+              class="fa fa-solid"
+              [ngClass]="{
+                'fa-square-check': evenement.transcription,
+                'fa-xmark': !evenement.transcription
+              }"
+              aria-hidden="true"
+            ></i>
+            <span class="sr-only">{{
+              evenement.transcription ? "Oui" : "Non"
+            }}</span>
+          </td>
+          <td class="icon">
+            <i
+              class="fa fa-solid"
+              [ngClass]="{
+                'fa-square-check': evenement.bim,
+                'fa-xmark': !evenement.bim
+              }"
+              aria-hidden="true"
+            ></i>
+            <span class="sr-only">{{ evenement.bim ? "Oui" : "Non" }}</span>
+          </td>
+          <td class="icon">
+            <i
+              class="fa fa-solid"
+              [ngClass]="{
+                'fa-square-check': evenement.pmr,
+                'fa-xmark': !evenement.pmr
+              }"
+              aria-hidden="true"
+            ></i>
+            <span class="sr-only">{{ evenement.pmr ? "Oui" : "Non" }}</span>
+          </td>
+          <td class="actions">
+            <span *ngIf="evenement.id">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+              <span class="sr-only">{{ evenement.titre }} existe déjà</span>
+            </span>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
+    <p>{{ evenements.length }} éléments</p>
+
+    <div class="">
+      <h4>Rappel des icônes</h4>
+      <p>
+        <i class="fa-solid fa-copy" aria-hidden="true"></i> représente un
+        événément qui existe dans la base de données
+      </p>
+    </div>
+
+    <div class="buttons">
+      <button type="button" (click)="onAddAll()">
+        Importer tous les évènements
+      </button>
+
+      @if(hasEvenementsDupliques()){
+
+      <button type="button" style="margin-left: 1em" (click)="onAddSome()">
+        Importer que les évènements non dupliqués
+      </button>
+      }
+    </div>
+  </div>
+</div>
