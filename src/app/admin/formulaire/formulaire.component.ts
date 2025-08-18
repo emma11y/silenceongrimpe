@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { EvenementForm } from './evenement-form';
+import { Evenement } from './evenement-form';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
 import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
@@ -16,7 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class FormulaireComponent {
   public isUpdate = false;
 
-  public form: EvenementForm = new EvenementForm();
+  public form: Evenement = new Evenement();
 
   private readonly supabase: SupabaseService = inject(SupabaseService);
   private readonly alertService: AlertService = inject(AlertService);
@@ -30,7 +30,7 @@ export class FormulaireComponent {
         const { data: evenements } = await this.supabase.getEvenementForm(id);
         if (evenements.length) {
           this.isUpdate = true;
-          this.form = evenements[0] as unknown as EvenementForm;
+          this.form = evenements[0] as unknown as Evenement;
         } else {
           this.router.navigate(['admin', 'formulaire']);
         }

@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx';
 import { NgClass, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { EvenementForm } from '../formulaire/evenement-form';
+import { Evenement } from '../formulaire/evenement-form';
 import { SupabaseService } from '@core/services/supabase.service';
 import { PopupService } from '@core/services/popup.service';
 import { AlertService } from '@core/services/alert.service';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrl: './import.component.scss',
 })
 export class ImportComponent {
-  evenements: EvenementForm[] = [];
+  evenements: Evenement[] = [];
 
   private readonly supabaseService: SupabaseService = inject(SupabaseService);
   private readonly popupService: PopupService = inject(PopupService);
@@ -34,8 +34,9 @@ export class ImportComponent {
       const excelData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
       this.evenements = excelData.map((item: any) => {
         const evenement = {
-          titre: item['Evénéments 2025'],
-          date: item['Dates 2025'] + ' ' + 2025,
+          titre: item['Evénément'],
+          date: item['Date'],
+          annee: item['Année'],
           lieu: item['Lieu'],
           siteWeb: item['Site web'],
           stt: this.convertStringToBoolean(item['Obs. STT ?']),
@@ -44,10 +45,10 @@ export class ImportComponent {
           transcription: this.convertStringToBoolean(item['Obs. STT DIRECT ?']),
           bim: this.convertStringToBoolean(item['Obs. BIM ?']),
           pmr: this.convertStringToBoolean(item['Obs. PMR ?']),
-        } as EvenementForm;
+        } as Evenement;
 
         this.supabaseService
-          .getEvenementExists(evenement.titre, evenement.date)
+          .getEvenementExists(evenement.titre, evenement.date, evenement.annee)
           .then((value) => {
             if (value) {
               evenement.id = value;
@@ -135,7 +136,7 @@ export class ImportComponent {
     );
   }
 
-  private async onImportEvenements(items: EvenementForm[]) {
+  private async onImportEvenements(items: Evenement[]) {
     this.popupService.closePopup();
 
     const { error } = await this.supabaseService.addEvenements(items);
@@ -156,7 +157,7 @@ export class ImportComponent {
     this.router.navigate(['admin', 'liste']);
   }
 
-  private async onUpdateEvenements(items: EvenementForm[]) {
+  private async onUpdateEvenements(items: Evenement[]) {
     // const { data, error } = await this.supabaseService.updateEvenements(items);
   }
 }

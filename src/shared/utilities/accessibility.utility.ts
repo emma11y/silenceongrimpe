@@ -11,6 +11,8 @@ export function trapFocusElements(
   // Obtenir tous les éléments focusables dans le component
   const elements = parentElement.querySelectorAll(selector);
 
+  console.log('elements', elements);
+
   if (!elements.length) {
     return;
   }

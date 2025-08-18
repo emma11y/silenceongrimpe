@@ -1,0 +1,16 @@
+.library {
+  display: flex;
+  flex-direction: row;
+
+  .picture {
+    width: 15%;
+    padding: 1em;
+    img {
+      width: 100%;
+    }
+
+    p {
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<div class="library" role="list">
+  @for(img of images; track $index){
+
+  <div class="picture" role="listitem">
+    <img [src]="img.image" [alt]="img.alt" />
+    <p>{{ img.name }}</p>
+  </div>
+
+  }
+</div>

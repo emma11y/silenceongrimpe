@@ -51,14 +51,14 @@ export class ContactComponent {
 
     emailjs
       .send(
-        '',
-        '',
+        'service_vjz4nem',
+        'template_tanj0kg',
         {
           name: this.contact.name,
           message: this.contact.message,
           reply_to: this.contact.mail,
         },
-        ''
+        'LVwSjhpUHzlOdDoLg'
       )
       .then(
         (response) => {
@@ -66,7 +66,6 @@ export class ContactComponent {
 
           this.number1 = this.getRandomInt(1, 10);
           this.number2 = this.getRandomInt(1, 10);
-
           this.alertService.showAlert(
             'success',
             'Votre message a été envoyé, nous vous répondrons dans les brefs délais.'

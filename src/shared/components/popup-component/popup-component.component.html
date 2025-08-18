@@ -1,0 +1,20 @@
+<div
+  class="popup-component"
+  [ngClass]="{ opened: opened }"
+  #popup
+  role="dialog"
+>
+  <div class="backdrop" (click)="onClose()"></div>
+  <div class="popup">
+    <button
+      class="close-btn"
+      (click)="onClose()"
+      (keydown.enter)="onClose()"
+      aria-controls="popup"
+    >
+      <span class="sr-only">Fermer la fenêtre modale</span
+      ><i class="fa-solid fa-times" aria-hidden="true"></i>
+    </button>
+    <ng-template #container></ng-template>
+  </div>
+</div>

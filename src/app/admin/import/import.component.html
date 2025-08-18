@@ -28,7 +28,7 @@
         @for (evenement of evenements; track $index) {
         <tr>
           <td class="titre">{{ evenement.titre }}</td>
-          <td class="date">{{ evenement.date }}</td>
+          <td class="date">{{ evenement.date }} {{ evenement.annee }}</td>
           <td class="lieu">{{ evenement.lieu }}</td>
           <td class="siteWeb">
             <a [href]="evenement.siteWeb" target="_blank"

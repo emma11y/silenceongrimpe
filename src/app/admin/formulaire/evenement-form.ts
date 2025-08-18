@@ -1,7 +1,8 @@
-export class EvenementForm {
+export class Evenement {
   public id: number | undefined;
   public titre: string = '';
   public date: string = '';
+  public annee: string = '';
   public lieu: string = '';
   public siteWeb: string = '';
   public stt: boolean = false;

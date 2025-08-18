@@ -104,6 +104,14 @@ export const routes: Routes = [
                 (m) => m.ListeComponent
               ),
           },
+          {
+            path: 'bibliotheque-images',
+            canActivate: [AuthGuard],
+            loadComponent: () =>
+              import(
+                './admin/bibliotheque-images/bibliotheque-images.component'
+              ).then((m) => m.BibliothequeImagesComponent),
+          },
         ],
       },
       { path: '**', redirectTo: 'erreur/404' },

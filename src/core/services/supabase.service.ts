@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { EvenementForm } from '@app/admin/formulaire/evenement-form';
+import { Evenement } from '@app/admin/formulaire/evenement-form';
+import { Picture } from '@shared/models/picture';
 import { createBrowserClient } from '@supabase/ssr';
 import {
   AuthChangeEvent,
@@ -53,7 +54,7 @@ export class SupabaseService {
     return this.supabase.auth.signOut();
   }
 
-  createOrUpdateEvenement(evenement: EvenementForm) {
+  createOrUpdateEvenement(evenement: Evenement) {
     if (evenement.id) {
       return this.supabase
         .from('evenements')
@@ -78,13 +79,15 @@ export class SupabaseService {
 
   async getEvenementExists(
     titre: string,
-    date: string
+    date: string,
+    annee: string
   ): Promise<number | null> {
     const { data } = await this.supabase
       .from('evenements')
       .select('*')
       .eq('titre', titre)
-      .eq('date', date);
+      .eq('date', date)
+      .eq('annee', annee);
 
     if (data?.length) {
       return data[0].id;
@@ -93,14 +96,22 @@ export class SupabaseService {
     return null;
   }
 
-  async addEvenements(evenements: EvenementForm[]) {
+  async addEvenements(evenements: Evenement[]) {
     return await this.supabase.from('evenements').insert(evenements).select();
   }
 
-  async updateEvenements(evenements: EvenementForm[]) {
+  async updateEvenements(evenements: Evenement[]) {
     const updates = evenements.map((evenement) =>
       this.supabase.from('evenements').update(evenement).eq('id', evenement.id)
     );
     return Promise.all(updates);
+  }
+
+  async createImage(picture: Picture) {
+    return await this.supabase.from('images').insert(picture).select();
+  }
+
+  async getImages() {
+    return await this.supabase.from('images').select('*');
   }
 }

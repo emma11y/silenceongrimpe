@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AlertService } from '@core/services/alert.service';
 import { PopupService } from '@core/services/popup.service';
 import { SupabaseService } from '@core/services/supabase.service';
-import { EvenementForm } from '../formulaire/evenement-form';
+import { Evenement } from '../formulaire/evenement-form';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 
@@ -17,7 +17,7 @@ export class ListeComponent implements OnInit {
   private alertService: AlertService = inject(AlertService);
   private popupService: PopupService = inject(PopupService);
 
-  evenements: EvenementForm[] = [];
+  evenements: Evenement[] = [];
 
   public ngOnInit(): void {
     this.getEvenements();
@@ -26,12 +26,12 @@ export class ListeComponent implements OnInit {
   private getEvenements() {
     this.supabaseService.getEvenements().then((result: any) => {
       if (result.data) {
-        this.evenements = result.data as unknown as EvenementForm[];
+        this.evenements = result.data as unknown as Evenement[];
       }
     });
   }
 
-  onDelete(evenement: EvenementForm) {
+  onDelete(evenement: Evenement) {
     this.popupService.showPopup(
       'Supprimer la fiche',
       `Voulez-vous supprimer cet évènement ${evenement.titre} ?`,

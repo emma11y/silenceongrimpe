@@ -1,0 +1,33 @@
+.bibliotheque-images {
+  display: flex;
+  flex-direction: column;
+
+  .right {
+    align-self: end;
+  }
+
+  h2 {
+    font-size: 2em;
+    text-align: center;
+    color: var(--bleu-ocean);
+  }
+
+  button {
+    color: var(--bleu-ocean);
+    background-color: var(--bleu-pastel);
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: var(--main-family);
+    border: none;
+    display: block;
+    margin: 0.5em auto;
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--jaune-pale);
+    }
+  }
+}

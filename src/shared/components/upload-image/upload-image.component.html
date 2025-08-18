@@ -1,0 +1,67 @@
+<div class="upload-image">
+  <fieldset>
+    <legend>Ajouter une nouvelle image</legend>
+    <form role="form" #pictureForm="ngForm">
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="group">
+              <label>Image</label>
+              <input
+                type="file"
+                (change)="onFileChange($event)"
+                accept=".jpg, .png, .jpeg"
+                id="image"
+                name="image"
+                [(ngModel)]="form.image"
+                #image="ngModel"
+                required
+                [attr.aria-invalid]="image.invalid"
+              />
+              <div class="form-file">
+                <button type="button" (click)="onFileClick()">
+                  Choisir une image
+                </button>
+                <span *ngIf="!form.image">Aucun fichier sélectionné</span>
+                <span *ngIf="form.image">{{ form.name }}</span>
+              </div>
+              <validation-summary [controlModel]="image" fieldName="image" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="group">
+              <label for="alt">Décrire l'image</label>
+              <textarea
+                id="alt"
+                name="alt"
+                rows="10"
+                required
+                [(ngModel)]="form.alt"
+                #alt="ngModel"
+                required
+                [attr.aria-invalid]="alt.invalid"
+                aria-describedby="accessibilite"
+              ></textarea>
+              <p class="small" id="accessibilite">
+                Pour des raisons d'accessibilité, vous devez décrire l'image.
+              </p>
+              <validation-summary
+                [controlModel]="alt"
+                fieldName="décrire l'image"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row image" *ngIf="form.image">
+            <img id="preview" />
+          </div>
+        </div>
+      </div>
+
+      <button class="action" type="submit" (click)="onClick(pictureForm)">
+        Créer l'image
+      </button>
+    </form>
+  </fieldset>
+</div>
