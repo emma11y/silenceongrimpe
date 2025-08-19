@@ -5,6 +5,21 @@
     >Créer un nouvel évènement</a
   >
 
+  <div class="filtres">
+    <h3>Filtrer</h3>
+
+    <div class="row">
+      <div class="col">
+        <input
+          type="checkbox"
+          id="chkPastEvents"
+          [(ngModel)]="hasDisplayPastEvents"
+        />
+        <label for="chkPastEvents">Afficher les évènements passés</label>
+      </div>
+    </div>
+  </div>
+
   <table>
     <thead>
       <tr>
@@ -22,7 +37,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (evenement of evenements; track $index) {
+      @for (evenement of evenementsFiltered; track $index) {
       <tr>
         <td class="titre">{{ evenement.titre }}</td>
         <td class="date">{{ evenement.date }} {{ evenement.annee }}</td>

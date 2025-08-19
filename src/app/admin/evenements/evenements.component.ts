@@ -1,4 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { AlertService } from '@core/services/alert.service';
 import { PopupService } from '@core/services/popup.service';
 import { SupabaseService } from '@core/services/supabase.service';
@@ -6,10 +13,11 @@ import { Evenement } from '../evenement-form/evenement-form';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { filtrerPeriodes } from '@shared/utilities/period.utility';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-evenements',
-  imports: [RouterLink, NgClass],
+  imports: [RouterLink, NgClass, FormsModule],
   templateUrl: './evenements.component.html',
   styleUrl: './evenements.component.scss',
 })
@@ -19,6 +27,18 @@ export class EvenementsComponent implements OnInit {
   private popupService: PopupService = inject(PopupService);
 
   evenements: Evenement[] = [];
+  evenementsFiltered: Evenement[] = [];
+
+  hasDisplayPastEvents = signal(false);
+
+  constructor() {
+    effect(() => {
+      this.evenementsFiltered = filtrerPeriodes(
+        this.evenements,
+        !this.hasDisplayPastEvents()
+      ) as Evenement[];
+    });
+  }
 
   public ngOnInit(): void {
     this.getEvenements();
@@ -27,9 +47,12 @@ export class EvenementsComponent implements OnInit {
   private getEvenements() {
     this.supabaseService.getEvenements().then((result: any) => {
       if (result.data) {
-        const evenements = result.data as unknown as Evenement[];
+        this.evenements = result.data as unknown as Evenement[];
 
-        this.evenements = filtrerPeriodes(evenements, false) as Evenement[];
+        this.evenementsFiltered = filtrerPeriodes(
+          this.evenements,
+          !this.hasDisplayPastEvents()
+        ) as Evenement[];
       }
     });
   }
