@@ -1,0 +1,10 @@
+.display-image {
+  margin: 1em;
+
+  img {
+    //max-width: 100%;
+    width: 100%;
+    height: 500px;
+    object-fit: contain; /* ou contain selon ton choix */
+  }
+}

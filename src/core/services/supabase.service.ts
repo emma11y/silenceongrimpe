@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Evenement } from '@app/admin/formulaire/evenement-form';
+import { Evenement } from '@app/admin/evenement-form/evenement-form';
 import { Picture } from '@shared/models/picture';
 import { createBrowserClient } from '@supabase/ssr';
 import {
@@ -97,7 +97,7 @@ export class SupabaseService {
   }
 
   async addEvenements(evenements: Evenement[]) {
-    return await this.supabase.from('evenements').insert(evenements).select();
+    return await this.supabase.from('evenements').insert(evenements);
   }
 
   async updateEvenements(evenements: Evenement[]) {

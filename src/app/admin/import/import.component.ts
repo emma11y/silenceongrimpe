@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx';
 import { NgClass, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Evenement } from '../formulaire/evenement-form';
+import { Evenement } from '../evenement-form/evenement-form';
 import { SupabaseService } from '@core/services/supabase.service';
 import { PopupService } from '@core/services/popup.service';
 import { AlertService } from '@core/services/alert.service';
@@ -52,15 +52,11 @@ export class ImportComponent {
           .then((value) => {
             if (value) {
               evenement.id = value;
-            } else {
-              evenement.id = undefined;
             }
           });
 
         return evenement;
       });
-
-      console.log(this.evenements);
     };
     reader.readAsArrayBuffer(file);
   }
@@ -142,6 +138,8 @@ export class ImportComponent {
     const { error } = await this.supabaseService.addEvenements(items);
 
     if (error) {
+      console.log(error);
+
       this.alertService.showAlert(
         'error',
         "Une erreur s'est produite, veuillez réessayer : " + error.message
@@ -154,7 +152,7 @@ export class ImportComponent {
       'Les évènements ont correctement été importés dans la base de données'
     );
 
-    this.router.navigate(['admin', 'liste']);
+    this.router.navigate(['admin', 'evenements']);
   }
 
   private async onUpdateEvenements(items: Evenement[]) {

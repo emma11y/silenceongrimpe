@@ -7,7 +7,7 @@ import { RessourcesComponent } from './pages/ressources/ressources.component';
 import { MentionsLegalesComponent } from './pages/mentions-legales/mentions-legales.component';
 import { CollectifComponent } from './pages/collectif/collectif.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AuthGuard } from '@core/services/guards/auth.guard';
+import { AuthGuard } from '@core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -77,31 +77,31 @@ export const routes: Routes = [
               ),
           },
           {
-            path: 'formulaire',
+            path: 'evenement',
             canActivate: [AuthGuard],
             children: [
               {
                 path: '',
                 loadComponent: () =>
-                  import('./admin/formulaire/formulaire.component').then(
-                    (m) => m.FormulaireComponent
-                  ),
+                  import(
+                    './admin/evenement-form/evenement-form.component'
+                  ).then((m) => m.EvenementFormComponent),
               },
               {
                 path: ':id',
                 loadComponent: () =>
-                  import('./admin/formulaire/formulaire.component').then(
-                    (m) => m.FormulaireComponent
-                  ),
+                  import(
+                    './admin/evenement-form/evenement-form.component'
+                  ).then((m) => m.EvenementFormComponent),
               },
             ],
           },
           {
-            path: 'liste',
+            path: 'evenements',
             canActivate: [AuthGuard],
             loadComponent: () =>
-              import('./admin/liste/liste.component').then(
-                (m) => m.ListeComponent
+              import('./admin/evenements/evenements.component').then(
+                (m) => m.EvenementsComponent
               ),
           },
           {

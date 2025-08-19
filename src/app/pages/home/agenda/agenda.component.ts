@@ -1,8 +1,9 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { Evenement } from '@app/admin/formulaire/evenement-form';
+import { Evenement } from '@app/admin/evenement-form/evenement-form';
 import { SupabaseService } from '@core/services/supabase.service';
 import { AgendaItem } from './agenda-item';
+import { filtrerPeriodes } from '@shared/utilities/period.utility';
 
 @Component({
   selector: 'app-agenda',
@@ -22,7 +23,9 @@ export class AgendaComponent implements OnInit {
   private getEvenements() {
     this.supabaseService.getEvenements().then((result: any) => {
       if (result.data) {
-        this.items = result.data;
+        this.items = filtrerPeriodes(
+          result.data as AgendaItem[]
+        ) as AgendaItem[];
 
         this.items.forEach((item, index) => (item.index = index));
         this.items[0].selected = true;

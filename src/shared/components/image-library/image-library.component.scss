@@ -1,12 +1,21 @@
 .library {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
 
   .picture {
-    width: 15%;
-    padding: 1em;
+    cursor: pointer;
+    border: 0.1em solid transparent;
+
+    &:hover,
+    &:focus {
+      border-color: var(--bleu-ocean);
+    }
+
     img {
       width: 100%;
+      height: 250px;
+      object-fit: cover; /* ou contain selon ton choix */
     }
 
     p {

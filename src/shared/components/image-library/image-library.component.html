@@ -2,8 +2,15 @@
   @for(img of images; track $index){
 
   <div class="picture" role="listitem">
-    <img [src]="img.image" [alt]="img.alt" />
-    <p>{{ img.name }}</p>
+    <div
+      role="button"
+      tabindex="0"
+      (click)="onDisplayImageClick(img)"
+      [title]="'Afficher l\'image ' + img.name"
+    >
+      <img [src]="img.image" [alt]="img.alt" />
+      <p>{{ img.name }}</p>
+    </div>
   </div>
 
   }

@@ -2,17 +2,18 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AlertService } from '@core/services/alert.service';
 import { PopupService } from '@core/services/popup.service';
 import { SupabaseService } from '@core/services/supabase.service';
-import { Evenement } from '../formulaire/evenement-form';
+import { Evenement } from '../evenement-form/evenement-form';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { filtrerPeriodes } from '@shared/utilities/period.utility';
 
 @Component({
-  selector: 'app-liste',
+  selector: 'app-evenements',
   imports: [RouterLink, NgClass],
-  templateUrl: './liste.component.html',
-  styleUrl: './liste.component.scss',
+  templateUrl: './evenements.component.html',
+  styleUrl: './evenements.component.scss',
 })
-export class ListeComponent implements OnInit {
+export class EvenementsComponent implements OnInit {
   private supabaseService: SupabaseService = inject(SupabaseService);
   private alertService: AlertService = inject(AlertService);
   private popupService: PopupService = inject(PopupService);
@@ -26,7 +27,9 @@ export class ListeComponent implements OnInit {
   private getEvenements() {
     this.supabaseService.getEvenements().then((result: any) => {
       if (result.data) {
-        this.evenements = result.data as unknown as Evenement[];
+        const evenements = result.data as unknown as Evenement[];
+
+        this.evenements = filtrerPeriodes(evenements, false) as Evenement[];
       }
     });
   }

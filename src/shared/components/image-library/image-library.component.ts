@@ -1,5 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { SupabaseService } from '@core/services/supabase.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Picture } from '@shared/models/picture';
 
 @Component({
@@ -8,17 +7,12 @@ import { Picture } from '@shared/models/picture';
   templateUrl: './image-library.component.html',
   styleUrl: './image-library.component.scss',
 })
-export class ImageLibraryComponent implements OnInit {
-  private readonly supabase: SupabaseService = inject(SupabaseService);
+export class ImageLibraryComponent {
+  @Input() images: Picture[] = [];
+  @Output() outputDisplayPicture: EventEmitter<Picture> =
+    new EventEmitter<Picture>();
 
-  public images: Picture[] = [];
-
-  public ngOnInit(): void {
-    this.supabase.getImages().then((result: any) => {
-      if (result.data) {
-        this.images = result.data as unknown as Picture[];
-        console.log(this.images);
-      }
-    });
+  public onDisplayImageClick(picture: Picture): void {
+    this.outputDisplayPicture.emit(picture);
   }
 }

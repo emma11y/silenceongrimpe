@@ -8,12 +8,12 @@ import { AlertService } from '@core/services/alert.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-formulaire',
+  selector: 'app-evenement-form',
   imports: [ReactiveFormsModule, FormsModule, ValidationSummaryComponent],
-  templateUrl: './formulaire.component.html',
-  styleUrl: './formulaire.component.scss',
+  templateUrl: './evenement-form.component.html',
+  styleUrl: './evenement-form.component.scss',
 })
-export class FormulaireComponent {
+export class EvenementFormComponent {
   public isUpdate = false;
 
   public form: Evenement = new Evenement();
@@ -60,12 +60,11 @@ export class FormulaireComponent {
       this.isUpdate = true;
       this.alertService.showAlert('success', "L'évènement a bien été créé.");
       /*if (data) {
-        this.router.navigate(['admin', 'formulaire', data[0].id]);
+        this.router.navigate(['admin', 'evenement', data[0].id]);
       }*/
     } else {
       this.alertService.showAlert('success', "L'événément a bien été modifié.");
-      // this.router.navigate(['admin', 'liste']);
     }
-    this.router.navigate(['admin', 'liste']);
+    this.router.navigate(['admin', 'evenements']);
   }
 }
