@@ -8,6 +8,7 @@ import { MentionsLegalesComponent } from './pages/mentions-legales/mentions-lega
 import { CollectifComponent } from './pages/collectif/collectif.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthGuard } from '@core/guards/auth.guard';
+import { AgendaResolver } from '@core/resolvers/agenda.resolver';
 
 export const routes: Routes = [
   {
@@ -32,7 +33,13 @@ export const routes: Routes = [
           },
           {
             path: 'agenda',
-            component: AgendaComponent,
+            resolve: {
+              items: AgendaResolver,
+            },
+            loadComponent: () =>
+              import('./pages/agenda/agenda.component').then(
+                (m) => m.AgendaComponent
+              ),
           },
           {
             path: 'ressources',
