@@ -33,7 +33,7 @@
     color: var(--bleu-ocean);
     text-decoration: underline;
     border-bottom: 0.25em solid transparent;
-    &:focus,
+    &:focus-visible,
     &:hover {
       text-decoration: none;
       border-bottom-color: var(--bleu-ocean);
@@ -50,7 +50,7 @@
       font-size: 1em;
     }
 
-    &:focus,
+    &:focus-visible,
     &:hover {
       background-color: var(--bleu-ocean);
       color: var(--blanc);

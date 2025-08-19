@@ -43,7 +43,7 @@ input[type="text"] {
   border-radius: 0.25em;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     border-color: var(--orange);
   }
 }

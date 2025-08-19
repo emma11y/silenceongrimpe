@@ -26,7 +26,7 @@
         outline: none;
 
         &:hover,
-        &:focus {
+        &:focus-visible {
           i {
             background-color: var(--blanc);
             color: var(--bleu-ocean);
@@ -50,7 +50,7 @@
       border-bottom: 0.25em solid transparent;
       margin-right: 0.5em;
 
-      &:focus,
+      &:focus-visible,
       &:hover {
         text-decoration: none;
         border-bottom-color: var(--blanc);

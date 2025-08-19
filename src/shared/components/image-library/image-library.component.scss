@@ -8,7 +8,7 @@
     border: 0.1em solid transparent;
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       border-color: var(--bleu-ocean);
     }
 

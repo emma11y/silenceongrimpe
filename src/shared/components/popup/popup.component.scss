@@ -39,7 +39,7 @@
     padding: 0.5em;
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       text-decoration: underline;
     }
   }
@@ -47,7 +47,7 @@
   &-close {
     border: 0.1em solid var(--bleu-ocean);
     &:hover,
-    &:focus {
+    &:focus-visible {
       background-color: var(--jaune-pale);
       text-decoration: underline;
     }
@@ -86,7 +86,7 @@
       color: var(--blanc);
       margin-right: 0.5em;
 
-      &:focus,
+      &:focus-visible,
       &:hover {
         border-color: var(--jaune-pale);
         background-color: var(--jaune-pale);
@@ -97,7 +97,7 @@
     .button-secondary {
       border: 0.1em solid var(--bleu-ocean);
 
-      &:focus,
+      &:focus-visible,
       &:hover {
         border-color: var(--bleu-ocean);
         background-color: var(--jaune-pale);

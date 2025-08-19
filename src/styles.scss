@@ -28,6 +28,8 @@ body {
   min-height: 100vh;
   width: 100%;
   font-size: 1em;
+  font-family: var(--main-family);
+  color: var(--bleu-ocean);
 }
 
 * {
@@ -53,6 +55,14 @@ h4,
 h5,
 h6 {
   font-family: var(--title-family);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+p {
+  line-height: 1.5;
 }
 
 .row {

@@ -65,7 +65,7 @@
         border-radius: 0.25em;
         font-size: 1em;
 
-        &:focus,
+        &:focus-visible,
         &:hover {
           background-color: var(--bleu-ocean);
           color: var(--blanc);

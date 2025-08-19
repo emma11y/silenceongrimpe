@@ -103,7 +103,7 @@
         font-family: var(--main-family);
 
         &:hover,
-        &:focus {
+        &:focus-visible {
           // border-color: var(--bleu-pastel);
           background-color: var(--jaune-pale);
           //color: var(--noir);

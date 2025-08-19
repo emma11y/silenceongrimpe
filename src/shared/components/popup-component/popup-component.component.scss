@@ -33,7 +33,7 @@
     font-family: var(--main-family);
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       border-color: var(--bleu-ocean);
       background-color: var(--jaune-pale);
     }

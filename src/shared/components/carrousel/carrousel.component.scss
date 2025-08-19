@@ -86,7 +86,7 @@
         }
 
         &:hover,
-        &:focus {
+        &:focus-visible {
           background-color: var(--orange);
 
           i {
@@ -151,7 +151,7 @@
           border: 2px solid transparent;
 
           &:hover,
-          &:focus {
+          &:focus-visible {
             border-color: var(--blanc);
             background-color: rgb(0 0 0 / 100%);
             outline: none;
