@@ -146,38 +146,52 @@
   .pagination {
     display: flex;
     justify-content: center;
-    gap: 0.1rem;
-    margin-top: 0.5rem;
+    gap: 0.1em;
+    margin: 1em;
     flex-wrap: wrap;
   }
 
   .dot {
     cursor: pointer;
-    background: transparent;
+    /* background: transparent;
     border: 0.1em solid var(--bleu-ocean);
 
     background-color: var(--bleu-ocean);
     width: 1em;
     height: 1em;
     border-radius: 50%;
-    margin: 0.25em;
+    margin: 0.25em;*/
+
+    border: none;
+    background-color: transparent;
+
+    i {
+      font-size: 0.9em;
+      color: var(--bleu-ocean);
+    }
 
     &[aria-current="true"] {
-      background-color: var(--jaune-pale);
+      i {
+        color: var(--jaune-pale);
+        border: 0.1em solid var(--bleu-ocean);
+        border-radius: 0.5em;
+      }
     }
 
     &:hover,
     &:focus-visible {
-      background-color: var(--orange);
+      i {
+        color: var(--orange);
+      }
     }
   }
 
   .toc {
     margin: 2em 0;
-    a {
-      border: none;
-      background-color: var(--jaune-pale);
 
+    a {
+      background-color: var(--jaune-pale);
+      border: 0.1em solid var(--bleu-ocean);
       &:hover,
       &:focus-visible {
         background-color: var(--orange);
