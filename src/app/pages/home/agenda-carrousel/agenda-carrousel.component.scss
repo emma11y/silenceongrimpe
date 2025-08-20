@@ -1,21 +1,15 @@
+@use "variables" as vars;
+@use "toc";
+
 .agenda {
   padding: 1em 0;
   background-color: var(--gris);
-  margin: 0 1em;
 
   h2 {
     color: var(--bleu-ocean);
     text-align: center;
     font-size: 1.8em;
   }
-
-  /*.carousel {
-    border: 1px solid #d9d9d9;
-    border-radius: 12px;
-    padding: 1rem;
-    background: #fafafa;
-    position: relative;
-  }*/
 
   .carousel__header {
     display: flex;
@@ -27,6 +21,7 @@
   .carousel__viewport {
     scroll-snap-type: x mandatory;
     overflow-x: hidden;
+    margin: 0 1em;
   }
 
   .carousel__list {
@@ -44,7 +39,7 @@
     flex: 0 0 100%; /* mobile: 1 élément */
     scroll-snap-align: start;
 
-    @media (min-width: 900px) {
+    @media screen and (min-width: vars.$md) {
       flex-basis: calc((100% - 2rem) / 3); /* desktop: 3 */
     }
   }
@@ -55,10 +50,9 @@
     border-radius: 0.25em;
     background-color: var(--bleu-ocean);
     padding: 1em;
-    //height: 300px;
 
-    @media (min-width: 900px) {
-      height: 85%;
+    @media screen and (min-width: vars.$md) {
+      height: 300px;
     }
 
     &:focus-visible,
@@ -146,23 +140,6 @@
       &:focus-visible {
         background-color: var(--orange);
       }
-
-      /*appearance: none;
-    border: 1px solid #d9d9d9;
-    background: #fff;
-    border-radius: 999px;
-    padding: 0.5rem 0.75rem;
-    font: inherit;
-    cursor: pointer;
-
-    &:hover {
-      background: #f3f3f3;
-    }
-
-    &:focus-visible {
-      outline: 3px solid #1a73e8;
-      outline-offset: 2px;
-    }*/
     }
   }
 
@@ -192,6 +169,19 @@
     &:hover,
     &:focus-visible {
       background-color: var(--orange);
+    }
+  }
+
+  .toc {
+    margin: 2em 0;
+    a {
+      border: none;
+      background-color: var(--jaune-pale);
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--orange);
+      }
     }
   }
 }

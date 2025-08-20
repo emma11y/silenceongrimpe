@@ -1,4 +1,5 @@
 @use "variables" as vars;
+@use "toc";
 
 .ressources {
   max-width: 900px;
@@ -36,39 +37,6 @@
     iframe {
       width: 100%;
       height: 315px;
-    }
-  }
-
-  .tac {
-    margin: 3em 0;
-    display: flex;
-    flex-direction: column;
-    max-width: 30em;
-    justify-self: center;
-    text-align: center;
-
-    a {
-      background-color: var(--bleu-pastel);
-      color: var(--bleu-ocean);
-      border: 0.15em solid transparent;
-      padding: 0.5em 1em;
-      border-radius: 2em;
-      text-decoration: none;
-      outline: none;
-      font-size: 1.2em;
-      margin-bottom: 0.5em;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      &:hover,
-      &:focus-visible {
-        border-color: var(--bleu-ocean);
-        background-color: var(--jaune-pale);
-        //color: var(--noir);
-        text-decoration: underline;
-      }
     }
   }
 }

@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostListener,
   inject,
   OnInit,
   ViewChild,
@@ -10,10 +11,11 @@ import {
 import { SupabaseService } from '@core/services/supabase.service';
 import { AgendaItem } from './agenda-item';
 import { filtrerPeriodes } from '@shared/utilities/period.utility';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-agenda-carrousel',
-  imports: [NgIf],
+  imports: [NgIf, RouterLink],
   templateUrl: './agenda-carrousel.component.html',
   styleUrl: './agenda-carrousel.component.scss',
 })
@@ -51,7 +53,67 @@ export class AgendaCarrouselComponent implements OnInit {
         }
       }
     );
+
+    // Ajout swipe tactile
+    let startX = 0;
+    let endX = 0;
+
+    this.viewportRef.nativeElement.addEventListener(
+      'touchstart',
+      (e: TouchEvent) => {
+        startX = e.touches[0].clientX;
+      }
+    );
+
+    this.viewportRef.nativeElement.addEventListener(
+      'touchend',
+      (e: TouchEvent) => {
+        endX = e.changedTouches[0].clientX;
+        const deltaX = endX - startX;
+        if (Math.abs(deltaX) > 50) {
+          // seuil de détection du swipe
+          if (deltaX < 0) {
+            this.goTo(this.index + 1); // swipe gauche → élément suivant
+          } else {
+            this.goTo(this.index - 1); // swipe droite → élément précédent
+          }
+        }
+      }
+    );
   }*/
+
+  @HostListener('keydown', ['$event'])
+  public onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      this.goTo(this.index - 1);
+    }
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      this.goTo(this.index + 1);
+    }
+  }
+
+  startX = 0;
+  endX = 0;
+  @HostListener('touchstart', ['$event'])
+  public onTouchStart(event: TouchEvent) {
+    this.startX = event.touches[0].clientX;
+  }
+
+  @HostListener('touchend', ['$event'])
+  public onTouchEnd(event: TouchEvent) {
+    this.endX = event.changedTouches[0].clientX;
+    const deltaX = this.endX - this.startX;
+    if (Math.abs(deltaX) > 50) {
+      // seuil de détection du swipe
+      if (deltaX < 0) {
+        this.goTo(this.index + 1); // swipe gauche → élément suivant
+      } else {
+        this.goTo(this.index - 1); // swipe droite → élément précédent
+      }
+    }
+  }
 
   public isVisible(i: number): boolean {
     // Affiche l'élément courant et les deux suivants (pour desktop)

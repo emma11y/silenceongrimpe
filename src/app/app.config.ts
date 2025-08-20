@@ -26,7 +26,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(
       BrowserModule,
-      RouterModule.forRoot(routes),
+      RouterModule.forRoot(routes, {
+        scrollPositionRestoration: 'top',
+      }),
       ReactiveFormsModule
     ),
     provideZoneChangeDetection({ eventCoalescing: true }),
