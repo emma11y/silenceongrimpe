@@ -1,4 +1,4 @@
-import { AgendaComponent } from './agenda/agenda.component';
+import { AgendaCarrouselComponent } from './agenda-carrousel/agenda-carrousel.component';
 import { Component, inject } from '@angular/core';
 import { CarrouselComponent } from '@shared/components/carrousel/carrousel.component';
 import { CollectifComponent } from './collectif/collectif.component';
@@ -15,7 +15,7 @@ import { AProposComponent } from './a-propos/a-propos.component';
     CollectifComponent,
     AProposComponent,
     MembresCollectifComponent,
-    AgendaComponent,
+    AgendaCarrouselComponent,
     ContactComponent,
   ],
   templateUrl: './home.component.html',

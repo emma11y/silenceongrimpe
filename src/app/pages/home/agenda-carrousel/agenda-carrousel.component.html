@@ -1,0 +1,135 @@
+<div class="agenda">
+  <div class="header">
+    <h2>Agenda</h2>
+  </div>
+
+  <div
+    #status
+    id="status"
+    aria-live="polite"
+    class="sr-only"
+    [attr.aria-describedby]="'item' + index"
+  ></div>
+
+  <div class="controls">
+    <button type="button" (click)="goTo(index - 1)">
+      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      <span class="sr-only">Élément Précédent</span>
+    </button>
+    <button type="button" (click)="goTo(index + 1)">
+      <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      <span class="sr-only">Élément suivant</span>
+    </button>
+  </div>
+
+  <div class="carousel__viewport" #viewport>
+    <ul class="carousel__list">
+      @for(item of items; track $index){
+
+      <li
+        *ngIf="isVisible($index)"
+        class="carousel__slide"
+        role="tablist"
+        [attr.aria-label]="'Élément ' + ($index + 1) + ' sur ' + total"
+      >
+        <div
+          class="card"
+          role="tabpanel"
+          tabindex="0"
+          aria-roledescription="slide"
+          [id]="'item' + $index"
+        >
+          <h3>{{ item.titre }}</h3>
+          <p>{{ item.date }} {{ item.annee }}</p>
+
+          <p>{{ item.lieu }}</p>
+
+          <a [href]="item.siteWeb" target="_blank"
+            >Site web
+            <span class="sr-only"
+              >de l'évènement {{ item.titre }} - Nouvelle fenêtre</span
+            >
+            <i
+              class="fa-solid fa-arrow-up-right-from-square"
+              aria-hidden="true"
+            ></i
+          ></a>
+
+          <ul class="tags">
+            <li *ngIf="item.stt">Sous-titrage</li>
+            <li *ngIf="item.ad">Audiodescription</li>
+            <li *ngIf="item.lsf">LSF</li>
+            <li *ngIf="item.transcription">Vélotypie</li>
+            <li *ngIf="item.bim">Boucle magnétique</li>
+            <li *ngIf="item.pmr">Accès PMR</li>
+          </ul>
+        </div>
+      </li>
+      }
+    </ul>
+  </div>
+
+  <div class="pagination" aria-label="Pagination du carrousel">
+    @for(item of items; track $index){
+    <button
+      class="dot"
+      [attr.aria-current]="$index === index"
+      (click)="goTo($index)"
+    >
+      <span class="sr-only"> Aller à l'élément {{ $index + 1 }} </span>
+    </button>
+    }
+  </div>
+
+  <!--<div
+    class="list"
+    role="tablist"
+    aria-live="polite"
+    aria-relevant="additions text"
+  >
+    <div
+      class="item"
+      *ngFor="let item of items"
+      [ngClass]="{ active: item.selected }"
+      [id]="'item' + item.index"
+      role="tabpanel"
+      aria-roledescription="slide"
+      [attr.aria-label]="item.index + ' sur ' + items.length"
+      [tabindex]="item.selected ? 0 : -1"
+    >
+      <h3>{{ item.titre }} {{ item.index }}</h3>
+
+      <p>{{ item.date }} {{ item.annee }}</p>
+
+      <p>{{ item.lieu }}</p>
+
+      <a [href]="item.siteWeb" target="_blank"
+        >Site web
+        <span class="sr-only"
+          >de l'évènement {{ item.titre }} - Nouvelle fenêtre</span
+        >
+        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i
+      ></a>
+
+      <ul class="tags">
+        <li *ngIf="item.stt">Sous-titrage</li>
+        <li *ngIf="item.ad">Audiodescription</li>
+        <li *ngIf="item.lsf">LSF</li>
+        <li *ngIf="item.transcription">Vélotypie</li>
+        <li *ngIf="item.bim">Boucle magnétique</li>
+        <li *ngIf="item.pmr">Accès PMR</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="carousel-controls">
+    <button (click)="onPreviousClick()">
+      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      <span class="sr-only">Précédent</span>
+    </button>
+    <button (click)="onNextClick()">
+      <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      <span class="sr-only">Suivant</span>
+    </button>
+  </div>-->
+</div>

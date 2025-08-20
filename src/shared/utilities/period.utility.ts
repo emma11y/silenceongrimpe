@@ -1,5 +1,5 @@
 import { Evenement } from '@app/admin/evenement-form/evenement-form';
-import { AgendaItem } from '@app/pages/home/agenda/agenda-item';
+import { AgendaItem } from '@app/pages/home/agenda-carrousel/agenda-item';
 
 const mapping: Record<string, number> = {
   janvier: 0,

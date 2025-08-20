@@ -109,16 +109,36 @@
     <div class="navigation">
       <ul>
         <li>
-          <a href="/" routerLinkActive="/">Le collectif</a>
+          <a
+            routerLink="/collectif"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Le collectif</a
+          >
         </li>
         <li>
-          <a href="/actualites" routerLinkActive="/actualites">Actualités</a>
+          <a
+            routerLink="/actualites"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Actualités</a
+          >
         </li>
         <li>
-          <a href="/agenda" routerLinkActive="/agenda">Agenda</a>
+          <a
+            routerLink="/agenda"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Agenda</a
+          >
         </li>
         <li>
-          <a href="/ressources" routerLinkActive="/ressources">Ressources</a>
+          <a
+            routerLink="/ressources"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Ressources</a
+          >
         </li>
       </ul>
     </div>

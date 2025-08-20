@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { AgendaItem } from '@app/pages/home/agenda/agenda-item';
+import { AgendaItem } from '@app/pages/home/agenda-carrousel/agenda-item';
 import { SupabaseService } from '@core/services/supabase.service';
 import { filtrerPeriodes } from '@shared/utilities/period.utility';
 

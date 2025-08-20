@@ -211,21 +211,22 @@
 
         a {
           color: var(--blanc);
+        }
 
-          &.active {
-            border-bottom-color: var(--orange);
-          }
+        &:has(.active) {
+          background-color: var(--jaune-pale);
+          a {
+            color: var(--bleu-ocean);
 
-          &:focus-visible {
-            color: var(--blanc);
-            text-decoration: none;
-            outline: none;
-            border-bottom: 0.25em solid var(--blanc);
+            &:focus-visible {
+              border-color: var(--bleu-ocean);
+            }
           }
         }
 
+        &:has(:focus-visible),
         &:hover {
-          background-color: var(--blanc);
+          background-color: var(--orange);
 
           a {
             color: var(--bleu-ocean);

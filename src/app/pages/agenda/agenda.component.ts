@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AgendaItem } from '../home/agenda/agenda-item';
+import { AgendaItem } from '../home/agenda-carrousel/agenda-item';
 import { NgIf } from '@angular/common';
 
 @Component({
