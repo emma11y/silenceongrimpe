@@ -1,6 +1,12 @@
 <div class="contact">
   <fieldset>
-    <legend><h2>Formulaire de contact</h2></legend>
+    <legend>
+      @if(first){
+      <h1>Formulaire de contact</h1>
+      } @else{
+      <h2>Formulaire de contact</h2>
+      }
+    </legend>
     <form role="form" #form="ngForm">
       <div class="body">
         <div class="group">

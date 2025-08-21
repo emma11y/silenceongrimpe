@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
 import { NgIf } from '@angular/common';
@@ -14,6 +14,7 @@ import emailjs from 'emailjs-com';
   styleUrl: './contact.component.scss',
 })
 export class ContactComponent {
+  @Input() first: boolean = false;
   private readonly alertService: AlertService = inject(AlertService);
 
   public number1: number = this.getRandomInt(1, 10);

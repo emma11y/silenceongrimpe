@@ -8,9 +8,12 @@
 
     legend {
       width: 100%;
+      h1,
       h2 {
         color: var(--bleu-ocean);
         text-align: center;
+      }
+      h2 {
         font-size: 1.8em;
       }
     }

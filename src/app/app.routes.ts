@@ -9,6 +9,7 @@ import { AuthGuard } from '@core/guards/auth.guard';
 import { AgendaResolver } from '@core/resolvers/agenda.resolver';
 import { ImageComponent } from '@shared/components/image/image.component';
 import { ActualitesComponent } from './pages/actualites/actualites.component';
+import { PageContactComponent } from './pages/contact/contact.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,7 @@ export const routes: Routes = [
                 (m) => m.AgendaComponent
               ),
           },
+          { path: 'contact', component: PageContactComponent },
           {
             path: 'ressources',
             component: RessourcesComponent,
