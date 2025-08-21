@@ -23,3 +23,19 @@
     }
   }
 }
+
+::ng-deep dialog:has(.library) {
+  .library {
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)) !important;
+
+    .picture {
+      img {
+        height: 125px !important;
+      }
+
+      p {
+        font-size: 80%;
+      }
+    }
+  }
+}

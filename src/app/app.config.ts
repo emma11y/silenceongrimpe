@@ -16,6 +16,8 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ImageInterceptor } from '@core/interceptors/image.interceptor';
 //import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 /*import {
   provideHttpClient,
@@ -31,6 +33,7 @@ export const appConfig: ApplicationConfig = {
       }),
       ReactiveFormsModule
     ),
+    // { provide: HTTP_INTERCEPTORS, useClass: ImageInterceptor, multi: true },
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),

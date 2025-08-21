@@ -1,1 +1,172 @@
-<p>actualite-form works!</p>
+<div class="form-component">
+  <fieldset>
+    <legend>
+      {{ isUpdate ? "Modifier l'actualité" : "Créer une nouvelle actualité" }}
+    </legend>
+
+    @if (isUpdate) {
+    <div class="apercu">
+      <a [routerLink]="['/', 'actualites', form.slug, 'apercu']" target="_blank"
+        >Aperçu de la fiche
+        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i
+      ></a>
+    </div>
+    }
+
+    <form role="form" #actualiteForm="ngForm">
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="title">Titre</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              [(ngModel)]="form.title"
+              #title="ngModel"
+              required
+            />
+
+            <validation-summary [controlModel]="title" fieldName="titre" />
+          </div>
+        </div>
+        <div class="col">
+          <div class="group">
+            <div class="group-label-slug">
+              <label for="slug" aria-describedby="expSlug">Slug</label>
+
+              <button
+                type="button"
+                class="generate-slug"
+                (click)="onGenerateSlug()"
+              >
+                Générer un slug
+              </button>
+            </div>
+
+            <input
+              type="text"
+              id="slug"
+              name="slug"
+              [(ngModel)]="form.slug"
+              #slug="ngModel"
+              required
+            />
+
+            <p class="small" id="expSlug">
+              Le slug permet de créer une URL spécifique.
+            </p>
+
+            <validation-summary [controlModel]="slug" fieldName="slug" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="courtDescription" aria-describedby="descCourt"
+              >Description courte</label
+            >
+
+            <textarea
+              rows="3"
+              id="courtDescription"
+              name="courtDescription"
+              [(ngModel)]="form.courtDescription"
+              #courtDescription="ngModel"
+              maxlength="150"
+              [required]="form.aLaUne === true"
+            ></textarea>
+
+            <p class="small" id="descCourt">
+              La description courte, limitée à 150 caractères, est utilisée pour
+              l'actualité à la une dans le carrousel.
+            </p>
+
+            <validation-summary
+              [controlModel]="courtDescription"
+              fieldName="courtDescription"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="description" aria-describedby="descDescription"
+              >Description</label
+            >
+
+            <textarea
+              rows="5"
+              id="description"
+              name="description"
+              [(ngModel)]="form.description"
+              #description="ngModel"
+              required
+              maxlength="750"
+            ></textarea>
+
+            <p class="small" id="descDescription">
+              La description, limitée à 750 caractères, est utilisée pour le SEO
+              (référencement) et la liste des actualités.
+            </p>
+
+            <validation-summary
+              [controlModel]="description"
+              fieldName="description"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="editor">Contenu</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="vignette" aria-describedby="descImage">Image</label>
+
+            <p class="small" id="descImage">
+              L'image sert pour illustrer le carrousel si l'actualité est à la
+              une, la page actualités ainsi que les réseaux sociaux comme
+              vignette.
+            </p>
+
+            <div class="btn-image">
+              <button type="button" (click)="onChoosePicture()">
+                Choisir une image dans la bibliothèque
+              </button>
+            </div>
+
+            @if (form.vignetteId) {
+            <app-display-image [picture]="picture"></app-display-image>
+            }
+
+            <input
+              type="hidden"
+              id="vignette"
+              name="vignette"
+              [(ngModel)]="form.vignetteId"
+              #vignette="ngModel"
+              required
+            />
+
+            <validation-summary [controlModel]="vignette" fieldName="image" />
+          </div>
+        </div>
+      </div>
+      <div class="row"></div>
+
+      <button class="action" type="submit" (click)="onClick(actualiteForm)">
+        {{ isUpdate ? "Modifier l'actualité" : "Créer l'actualité" }}
+      </button>
+    </form>
+  </fieldset>
+
+  <app-popup-component #popup></app-popup-component>
+</div>

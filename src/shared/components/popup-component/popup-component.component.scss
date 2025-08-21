@@ -1,31 +1,69 @@
-.popup-component {
-  display: none;
+@use "variables" as vars;
 
+.backdrop {
   &.opened {
-    display: block;
-  }
-
-  .backdrop {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
   }
+}
+
+.popup-component {
+  display: none;
+
+  flex-direction: column;
+  overflow: auto;
+  height: 32rem;
+
+  left: calc((100% / 2) - (30rem / 2));
+
+  @media screen and (min-width: vars.$md) {
+    width: 900px;
+
+    left: calc((100% / 2) - (900px / 2));
+  }
+
+  //position: fixed;
+
+  margin: 0;
+  padding: 1em;
+
+  top: 50%;
+  transform: translateY(calc(50% - 32rem));
+
+  background-color: var(--blanc);
+  //  border: 0.2em solid var(--bleu-ocean);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  &.opened {
+    display: block;
+  }
+
   .popup {
-    position: fixed;
-    top: 50%;
+    /*top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);*/
+    /* left: calc((100% / 2) - (30rem / 2));
+    top: 35%;
     background: white;
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    min-width: 300px;
+    min-width: 300px;*/
     //position: relative;
   }
+
+  &::backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--noir);
+  }
+
   .close-btn {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    float: right;
     border: 0.1em solid transparent;
     background: transparent;
     font-size: 1.2rem;

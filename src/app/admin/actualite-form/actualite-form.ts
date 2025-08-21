@@ -1,0 +1,12 @@
+export class ActualiteForm {
+  public id: number | undefined;
+  public slug: string = '';
+  public title: string = '';
+  public courtDescription: string = '';
+  public description: string = '';
+  public html: string = '';
+  public datePublication: Date | undefined;
+  public publie: boolean = false;
+  public aLaUne: boolean = false;
+  public vignetteId: string | undefined;
+}

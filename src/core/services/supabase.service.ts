@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ActualiteForm } from '@app/admin/actualite-form/actualite-form';
 import { Evenement } from '@app/admin/evenement-form/evenement-form';
 import { Picture } from '@shared/models/picture';
 import { createBrowserClient } from '@supabase/ssr';
@@ -113,5 +114,33 @@ export class SupabaseService {
 
   async getImages() {
     return await this.supabase.from('images').select('*');
+  }
+
+  async getImage(guid: string): Promise<Picture | null> {
+    const result = await this.supabase
+      .from('images')
+      .select('*')
+      .eq('id', guid);
+
+    if (result.data && result.data.length > 0) {
+      return result.data[0];
+    }
+
+    return null;
+  }
+
+  createOrUpdateActualite(actualite: ActualiteForm) {
+    if (actualite.id) {
+      return this.supabase
+        .from('actualites')
+        .update(actualite)
+        .eq('id', actualite.id);
+    } else {
+      return this.supabase.from('actualites').insert(actualite);
+    }
+  }
+
+  getActualite(slug: string): any {
+    return this.supabase.from('actualites').select('*').eq('slug', slug);
   }
 }

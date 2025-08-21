@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
 import { PublicLayoutComponent } from './layouts/public-layout/public-layout.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ActualitesComponent } from './pages/actualites/actualites.component';
-import { AgendaComponent } from './pages/agenda/agenda.component';
 import { RessourcesComponent } from './pages/ressources/ressources.component';
 import { MentionsLegalesComponent } from './pages/mentions-legales/mentions-legales.component';
 import { CollectifComponent } from './pages/collectif/collectif.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { AgendaResolver } from '@core/resolvers/agenda.resolver';
+import { ImageComponent } from '@shared/components/image/image.component';
+import { ActualitesComponent } from './pages/actualites/actualites.component';
 
 export const routes: Routes = [
   {
@@ -119,7 +119,40 @@ export const routes: Routes = [
                 './admin/bibliotheque-images/bibliotheque-images.component'
               ).then((m) => m.BibliothequeImagesComponent),
           },
+          {
+            path: 'actualites',
+            canActivate: [AuthGuard],
+            loadComponent: () =>
+              import('./admin/actualites/actualites.component').then(
+                (m) => m.ActualitesComponent
+              ),
+          },
+          {
+            path: 'actualite',
+            canActivate: [AuthGuard],
+
+            children: [
+              {
+                path: '',
+                loadComponent: () =>
+                  import(
+                    './admin/actualite-form/actualite-form.component'
+                  ).then((m) => m.ActualiteFormComponent),
+              },
+              {
+                path: ':id',
+                loadComponent: () =>
+                  import(
+                    './admin/actualite-form/actualite-form.component'
+                  ).then((m) => m.ActualiteFormComponent),
+              },
+            ],
+          },
         ],
+      },
+      {
+        path: 'image/:guid',
+        component: ImageComponent,
       },
       { path: '**', redirectTo: 'erreur/404' },
     ],

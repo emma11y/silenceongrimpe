@@ -1,10 +1,12 @@
-<div
+<div class="backdrop" [ngClass]="{ opened: opened }" (click)="onClose()"></div>
+
+<dialog
+  role="dialog"
   class="popup-component"
   [ngClass]="{ opened: opened }"
   #popup
   role="dialog"
 >
-  <div class="backdrop" (click)="onClose()"></div>
   <div class="popup">
     <button
       class="close-btn"
@@ -17,4 +19,4 @@
     </button>
     <ng-template #container></ng-template>
   </div>
-</div>
+</dialog>

@@ -1,4 +1,12 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnInit,
+  ViewChild,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { SupabaseService } from '@core/services/supabase.service';
 import { DisplayImageComponent } from '@shared/components/display-image/display-image.component';
 import { ImageLibraryComponent } from '@shared/components/image-library/image-library.component';
@@ -13,7 +21,10 @@ import { Picture } from '@shared/models/picture';
   styleUrl: './bibliotheque-images.component.scss',
 })
 export class BibliothequeImagesComponent implements OnInit {
-  @ViewChild('popup') popup!: PopupComponentComponent;
+  @Input() pick: boolean = false;
+  @Output() outputClose: EventEmitter<Picture> = new EventEmitter<Picture>();
+
+  @ViewChild('popup', { static: true }) popup!: PopupComponentComponent;
 
   public images: Picture[] = [];
 
@@ -36,7 +47,12 @@ export class BibliothequeImagesComponent implements OnInit {
     await promise;
   }
 
-  public async onDisplayImageClick(picture: any) {
+  public async onDisplayImageClick(picture: Picture) {
+    if (this.pick) {
+      this.outputClose.emit(picture);
+      return;
+    }
+
     console.log(picture);
 
     const promise = this.popup.open(DisplayImageComponent, { picture });
