@@ -11,6 +11,7 @@ import { DisplayImageComponent } from '@shared/components/display-image/display-
 import { PopupComponentComponent } from '@shared/components/popup-component/popup-component.component';
 import { BibliothequeImagesComponent } from '../bibliotheque-images/bibliotheque-images.component';
 import { Picture } from '@shared/models/picture';
+import { PopupComponentService } from '@core/services/popup-component.service';
 
 @Component({
   selector: 'app-actualite-form',
@@ -18,7 +19,6 @@ import { Picture } from '@shared/models/picture';
     RouterLink,
     FormsModule,
     ValidationSummaryComponent,
-    PopupComponentComponent,
     DisplayImageComponent,
   ],
   templateUrl: './actualite-form.component.html',
@@ -29,8 +29,7 @@ export class ActualiteFormComponent {
   private alertService: AlertService = inject(AlertService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
-
-  @ViewChild('popup', { static: true }) popup!: PopupComponentComponent;
+  private readonly popup: PopupComponentService = inject(PopupComponentService);
 
   form: ActualiteForm = new ActualiteForm();
   picture!: Picture;
@@ -66,6 +65,10 @@ export class ActualiteFormComponent {
       return;
     }
 
+    /* if (this.form.publie && !this.form.datePublication) {
+      this.form.datePublication = new Date();
+    }*/
+
     const { data, error } = await this.superbase.createOrUpdateActualite(
       this.form
     );
@@ -91,9 +94,9 @@ export class ActualiteFormComponent {
       pick: true,
     });
 
-    this.popup['componentRef']?.instance.outputClose.subscribe(
+    this.popup.componentRef?.instance.outputClose.subscribe(
       (picture: Picture) => {
-        this.popup.onClose();
+        this.popup.close();
 
         if (picture && picture.id) {
           this.picture = picture;

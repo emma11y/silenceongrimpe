@@ -160,13 +160,34 @@
           </div>
         </div>
       </div>
-      <div class="row"></div>
+      <!-- <div class="row">
+        <div class="col">
+       
+            <input
+              type="checkbox"
+              id="aLaUne"
+              name="aLaUne"
+              [(ngModel)]="form.aLaUne"
+            />
+            <label for="aLaUne">A la une</label>
+     
+        </div>
+        <div class="col">
+    
+            <input
+              type="checkbox"
+              id="publie"
+              name="publie"
+              [(ngModel)]="form.publie"
+            />
+            <label for="publie">Publié</label>
+          </div>
+     
+      </div>-->
 
       <button class="action" type="submit" (click)="onClick(actualiteForm)">
         {{ isUpdate ? "Modifier l'actualité" : "Créer l'actualité" }}
       </button>
     </form>
   </fieldset>
-
-  <app-popup-component #popup></app-popup-component>
 </div>

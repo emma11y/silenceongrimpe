@@ -23,36 +23,27 @@ export class PopupComponentComponent {
   @ViewChild('container', { read: ViewContainerRef })
   container!: ViewContainerRef;
 
-  private componentRef?: ComponentRef<any>;
+  public componentRef?: ComponentRef<any>;
   private resolveFn?: (value: any) => void;
 
   public opened: boolean = false;
 
-  /** Affiche un composant dans le popup et retourne une promesse résolue à la fermeture */
-  public async open<T>(component: Type<T>, inputs?: Partial<T>): Promise<any> {
+  open<T>(component: Type<T>, inputs?: Partial<T>): Promise<any> {
     this.container.clear();
     this.componentRef = this.container.createComponent(component);
 
-    // injecte les inputs
     if (inputs) {
       Object.assign(this.componentRef.instance, inputs);
     }
 
     this.opened = true;
 
-    const closeBtn: HTMLButtonElement | null =
-      document.querySelector('.close-btn');
-    if (closeBtn) {
-      closeBtn.focus();
-    }
-
-    // retourne une promesse qui se résout à la fermeture
     return new Promise((resolve) => {
       this.resolveFn = resolve;
     });
   }
 
-  public onClose(result?: any) {
+  onClose(result?: any) {
     this.container.clear();
     this.componentRef?.destroy();
     this.resolveFn?.(result);

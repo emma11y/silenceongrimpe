@@ -7,16 +7,16 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+import { PopupComponentService } from '@core/services/popup-component.service';
 import { SupabaseService } from '@core/services/supabase.service';
 import { DisplayImageComponent } from '@shared/components/display-image/display-image.component';
 import { ImageLibraryComponent } from '@shared/components/image-library/image-library.component';
-import { PopupComponentComponent } from '@shared/components/popup-component/popup-component.component';
 import { UploadImageComponent } from '@shared/components/upload-image/upload-image.component';
 import { Picture } from '@shared/models/picture';
 
 @Component({
   selector: 'app-bibliotheque-images',
-  imports: [ImageLibraryComponent, PopupComponentComponent],
+  imports: [ImageLibraryComponent],
   templateUrl: './bibliotheque-images.component.html',
   styleUrl: './bibliotheque-images.component.scss',
 })
@@ -24,11 +24,13 @@ export class BibliothequeImagesComponent implements OnInit {
   @Input() pick: boolean = false;
   @Output() outputClose: EventEmitter<Picture> = new EventEmitter<Picture>();
 
-  @ViewChild('popup', { static: true }) popup!: PopupComponentComponent;
-
   public images: Picture[] = [];
 
   private readonly supabase: SupabaseService = inject(SupabaseService);
+
+  private readonly popupComponentService: PopupComponentService = inject(
+    PopupComponentService
+  );
 
   public ngOnInit(): void {
     this.getImages();
@@ -36,13 +38,14 @@ export class BibliothequeImagesComponent implements OnInit {
 
   public async addImageClick(): Promise<void> {
     // ouvre HelloComponent dans le popup, avec un input
-    const promise = this.popup.open(UploadImageComponent);
+    const promise = this.popupComponentService.open(UploadImageComponent);
 
-    // écoute l’événement `done` du composant enfant
-    this.popup['componentRef']?.instance.outputClose.subscribe(() => {
-      this.popup.onClose();
-      this.getImages();
-    });
+    this.popupComponentService.componentRef?.instance.outputClose.subscribe(
+      () => {
+        this.popupComponentService.close();
+        this.getImages();
+      }
+    );
 
     await promise;
   }
@@ -50,17 +53,19 @@ export class BibliothequeImagesComponent implements OnInit {
   public async onDisplayImageClick(picture: Picture) {
     if (this.pick) {
       this.outputClose.emit(picture);
+
       return;
     }
 
-    console.log(picture);
-
-    const promise = this.popup.open(DisplayImageComponent, { picture });
-
-    // écoute l’événement `done` du composant enfant
-    this.popup['componentRef']?.instance.outputClose.subscribe(() => {
-      this.popup.onClose();
+    const promise = this.popupComponentService.open(DisplayImageComponent, {
+      picture,
     });
+
+    this.popupComponentService.componentRef?.instance.outputClose.subscribe(
+      () => {
+        this.popupComponentService.close();
+      }
+    );
 
     await promise;
   }
