@@ -7,10 +7,19 @@ import { AlertService } from '@core/services/alert.service';
 import { PopupComponent } from '@shared/components/popup/popup.component';
 import { NgIf } from '@angular/common';
 import { PopupService } from '@core/services/popup.service';
+import { PopupComponentComponent } from '@shared/components/popup-component/popup-component.component';
+import { PopupComponentService } from '@core/services/popup-component.service';
 
 @Component({
   selector: 'app-admin-layout',
-  imports: [RouterLink, RouterOutlet, AlertComponent, PopupComponent, NgIf],
+  imports: [
+    RouterLink,
+    RouterOutlet,
+    AlertComponent,
+    PopupComponent,
+    NgIf,
+    PopupComponentComponent,
+  ],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.scss',
 })
@@ -19,6 +28,9 @@ export class AdminLayoutComponent {
   private router: Router = inject(Router);
   private alertService: AlertService = inject(AlertService);
   private popupService: PopupService = inject(PopupService);
+  private popupComponentService: PopupComponentService = inject(
+    PopupComponentService
+  );
 
   public user!: User;
 
@@ -28,6 +40,10 @@ export class AdminLayoutComponent {
 
   @ViewChild('popup', { static: true }) public popup:
     | PopupComponent
+    | undefined;
+
+  @ViewChild('popupComponent', { static: true }) public popupComponent:
+    | PopupComponentComponent
     | undefined;
 
   constructor() {
@@ -45,6 +61,10 @@ export class AdminLayoutComponent {
 
     if (this.popup) {
       this.popupService.setPopupComponent(this.popup);
+    }
+
+    if (this.popupComponent) {
+      this.popupComponentService.setPopupComponent(this.popupComponent);
     }
   }
 
