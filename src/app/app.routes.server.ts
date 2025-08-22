@@ -9,4 +9,12 @@ export const serverRoutes: ServerRoute[] = [
     path: 'admin/evenement/:id',
     renderMode: RenderMode.Server,
   },
+  {
+    path: 'admin/actualite/:id',
+    renderMode: RenderMode.Server,
+  },
+  {
+    path: 'image/:guid',
+    renderMode: RenderMode.Server,
+  },
 ];
