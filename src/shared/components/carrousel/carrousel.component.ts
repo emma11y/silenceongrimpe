@@ -1,5 +1,6 @@
 import {
   Component,
+  HostListener,
   inject,
   Input,
   OnInit,
@@ -66,6 +67,27 @@ export class CarrouselComponent implements OnInit {
       case 'ArrowRight':
         this.setSelectedToNextTab();
         break;
+    }
+  }
+
+  startX = 0;
+  endX = 0;
+  @HostListener('touchstart', ['$event'])
+  public onTouchStart(event: TouchEvent) {
+    this.startX = event.touches[0].clientX;
+  }
+
+  @HostListener('touchend', ['$event'])
+  public onTouchEnd(event: TouchEvent) {
+    this.endX = event.changedTouches[0].clientX;
+    const deltaX = this.endX - this.startX;
+    if (Math.abs(deltaX) > 50) {
+      // seuil de détection du swipe
+      if (deltaX < 0) {
+        this.setSelectedToNextTab(); // swipe gauche → élément suivant
+      } else {
+        this.setSelectedToPreviousTab(); // swipe droite → élément précédent
+      }
     }
   }
 
