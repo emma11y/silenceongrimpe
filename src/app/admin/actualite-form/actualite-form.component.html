@@ -17,17 +17,17 @@
       <div class="row">
         <div class="col">
           <div class="group">
-            <label for="title">Titre</label>
+            <label for="titre">Titre</label>
             <input
               type="text"
-              id="title"
-              name="title"
-              [(ngModel)]="form.title"
-              #title="ngModel"
+              id="titre"
+              name="titre"
+              [(ngModel)]="form.titre"
+              #titre="ngModel"
               required
             />
 
-            <validation-summary [controlModel]="title" fieldName="titre" />
+            <validation-summary [controlModel]="titre" fieldName="titre" />
           </div>
         </div>
         <div class="col">
@@ -123,6 +123,31 @@
         <div class="col">
           <div class="group">
             <label for="editor">Contenu</label>
+            <angular-editor
+              id="editor"
+              name="editor"
+              [placeholder]="'Ecrivez votre contenu...'"
+              [(ngModel)]="form.html"
+              required
+              #editor="ngModel"
+              [config]="editorConfig"
+            >
+              <ng-template
+                #customButtons
+                let-executeCommandFn="executeCommandFn"
+              >
+                <ae-toolbar-set>
+                  <button
+                    aeButton
+                    title="Insert image"
+                    (click)="onAddImage(executeCommandFn)"
+                  >
+                    <i class="fa-solid fa-image" aria-hidden="true"></i>
+                  </button>
+                </ae-toolbar-set>
+              </ng-template>
+            </angular-editor>
+            <validation-summary [controlModel]="editor" fieldName="contenu" />
           </div>
         </div>
       </div>
@@ -144,7 +169,7 @@
             </div>
 
             @if (form.vignetteId) {
-            <app-display-image [picture]="picture"></app-display-image>
+            <app-display-image [id]="form.vignetteId"></app-display-image>
             }
 
             <input

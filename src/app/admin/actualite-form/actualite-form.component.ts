@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, ComponentRef, inject, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AlertService } from '@core/services/alert.service';
 import { SupabaseService } from '@core/services/supabase.service';
@@ -12,6 +12,13 @@ import { PopupComponentComponent } from '@shared/components/popup-component/popu
 import { BibliothequeImagesComponent } from '../bibliotheque-images/bibliotheque-images.component';
 import { Picture } from '@shared/models/picture';
 import { PopupComponentService } from '@core/services/popup-component.service';
+import { UploadImageComponent } from '@shared/components/upload-image/upload-image.component';
+import { first } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import {
+  AngularEditorConfig,
+  AngularEditorModule,
+} from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-actualite-form',
@@ -20,6 +27,8 @@ import { PopupComponentService } from '@core/services/popup-component.service';
     FormsModule,
     ValidationSummaryComponent,
     DisplayImageComponent,
+    HttpClientModule,
+    AngularEditorModule,
   ],
   templateUrl: './actualite-form.component.html',
   styleUrl: './actualite-form.component.scss',
@@ -36,6 +45,58 @@ export class ActualiteFormComponent {
 
   isUpdate: boolean = false;
 
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '20rem',
+    //  minHeight: '5rem',
+    // maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: 'Enter text here...',
+    defaultParagraphSeparator: '',
+    //defaultFontName: 'Luciole',
+    /* defaultFontName: '',
+    defaultFontSize: '',
+    fonts: [
+      { class: 'arial', name: 'Arial' },
+      { class: 'times-new-roman', name: 'Times New Roman' },
+      { class: 'calibri', name: 'Calibri' },
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' },
+    ],*/
+    /*customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],*/
+    //uploadUrl: 'v1/image',
+    //upload: (file: File) => {  },
+    //uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['fontSize'],
+      ['fontName'],
+      ['insertImage', 'insertVideo'],
+      ['subscript', 'strikeThrough', 'superscript'],
+      ['justifyFull'],
+    ],
+  };
+
   constructor() {
     this.route.params.subscribe(async (value) => {
       const slug = value['slug'];
@@ -49,14 +110,26 @@ export class ActualiteFormComponent {
         }
       }
     });
+
+    /* this.popup.onClose.pipe(first()).subscribe((result) => {
+      console.log(result);
+
+      const componentRef: ComponentRef<UploadImageComponent> =
+        result.componentRef as ComponentRef<UploadImageComponent>;
+      const componentName = componentRef?.instance?.constructor?.name;
+      console.log('Component name:', componentName);
+      if (componentName === 'UploadImageComponent') {
+        setTimeout(() => this.onChoosePicture(), 100);
+      }
+    });*/
   }
 
   public onGenerateSlug() {
-    if (!this.form.title) {
+    if (!this.form.titre) {
       return;
     }
 
-    this.form.slug = convertToSlug(this.form.title);
+    this.form.slug = convertToSlug(this.form.titre);
   }
 
   public async onClick(form: NgForm): Promise<void> {
@@ -99,9 +172,52 @@ export class ActualiteFormComponent {
         this.popup.close();
 
         if (picture && picture.id) {
-          this.picture = picture;
+          //this.picture = picture;
           this.form.vignetteId = picture.id;
         }
+      }
+    );
+
+    await promise;
+  }
+
+  async onAddImage(executeCommandFn: (command: string, value: string) => void) {
+    // Exemple : tu pourrais ouvrir un FilePicker ou un prompt
+    /*const url = prompt('Entrez l’URL de l’image :');
+    if (url) {
+      executeCommandFn('insertImage', url);
+    }*/
+
+    const promise = this.popup.open(BibliothequeImagesComponent, {
+      pick: true,
+    });
+
+    this.popup.componentRef?.instance.outputClose.subscribe(
+      (picture: Picture) => {
+        this.popup.close();
+
+        if (picture && picture.id) {
+          executeCommandFn('insertImage', this.superbase.getUrl(picture.id));
+        }
+
+        /*if (picture && picture.image) {
+          //executeCommandFn('insertImage', picture.image);
+        }*/
+
+        // 2) Ajoute l’attribut ALT au dernier <img>
+        setTimeout(() => {
+          const editorElement = document.querySelector(
+            '#editor .angular-editor-textarea'
+          ) as HTMLElement;
+          if (editorElement) {
+            const imgs = editorElement.getElementsByTagName('img');
+            const lastImg = imgs[imgs.length - 1];
+            if (lastImg) {
+              lastImg.setAttribute('alt', picture.alt);
+              lastImg.style.width = '15em';
+            }
+          }
+        });
       }
     );
 

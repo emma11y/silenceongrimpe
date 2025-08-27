@@ -3,6 +3,7 @@ import {
   ComponentRef,
   createComponent,
   EnvironmentInjector,
+  EventEmitter,
   inject,
   Injectable,
   Type,
@@ -14,6 +15,8 @@ import { PopupComponentComponent } from '@shared/components/popup-component/popu
 })
 export class PopupComponentService {
   private popupComponent!: PopupComponentComponent;
+
+  public onClose: EventEmitter<any> = new EventEmitter<any>();
 
   setPopupComponent(popup: PopupComponentComponent) {
     this.popupComponent = popup;
@@ -31,5 +34,6 @@ export class PopupComponentService {
 
   close(result?: any) {
     this.popupComponent.onClose(result);
+    this.onClose.emit({ componentRef: this.componentRef, result });
   }
 }

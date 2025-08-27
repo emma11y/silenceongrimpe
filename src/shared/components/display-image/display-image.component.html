@@ -1,3 +1,3 @@
-<div class="display-image">
-  <img [src]="picture.image" [alt]="picture.alt" />
+<div class="display-image" *ngIf="picture">
+  <img [src]="this.url" [alt]="picture.alt" />
 </div>

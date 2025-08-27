@@ -1,7 +1,7 @@
 export class ActualiteForm {
   public id: number | undefined;
   public slug: string = '';
-  public title: string = '';
+  public titre: string = '';
   public courtDescription: string = '';
   public description: string = '';
   public html: string = '';

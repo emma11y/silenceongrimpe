@@ -30,7 +30,32 @@ export const routes: Routes = [
           },
           {
             path: 'actualites',
-            component: ActualitesComponent,
+            //component: ActualitesComponent,
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                loadComponent: () =>
+                  import('./pages/actualites/actualites.component').then(
+                    (m) => m.ActualitesComponent
+                  ),
+              },
+              {
+                path: ':slug',
+                loadComponent: () =>
+                  import(
+                    './pages/actualites/actualite/actualite.component'
+                  ).then((m) => m.ActualiteComponent),
+              },
+              {
+                path: ':slug/apercu',
+                canActivate: [AuthGuard],
+                loadComponent: () =>
+                  import(
+                    './pages/actualites/actualite/actualite.component'
+                  ).then((m) => m.ActualiteComponent),
+              },
+            ],
           },
           {
             path: 'agenda',
@@ -142,7 +167,7 @@ export const routes: Routes = [
                   ).then((m) => m.ActualiteFormComponent),
               },
               {
-                path: ':id',
+                path: ':slug',
                 loadComponent: () =>
                   import(
                     './admin/actualite-form/actualite-form.component'

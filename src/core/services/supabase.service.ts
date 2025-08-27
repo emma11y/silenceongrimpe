@@ -143,4 +143,8 @@ export class SupabaseService {
   getActualite(slug: string): any {
     return this.supabase.from('actualites').select('*').eq('slug', slug);
   }
+
+  getUrl(guid: string) {
+    return `${this.supabaseUrl}/functions/v1/get-image?guid=${guid}`;
+  }
 }
