@@ -2,7 +2,7 @@ import { Component, ComponentRef, inject, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AlertService } from '@core/services/alert.service';
 import { SupabaseService } from '@core/services/supabase.service';
-import { ActualiteForm } from './actualite-form';
+import { Actualite } from '@shared/models/actualite';
 import { convertToSlug } from '@shared/utilities/string.utility';
 import { FormsModule, NgForm } from '@angular/forms';
 import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
@@ -40,7 +40,7 @@ export class ActualiteFormComponent {
   private readonly router: Router = inject(Router);
   private readonly popup: PopupComponentService = inject(PopupComponentService);
 
-  form: ActualiteForm = new ActualiteForm();
+  form: Actualite = new Actualite();
   picture!: Picture;
 
   isUpdate: boolean = false;
@@ -104,7 +104,7 @@ export class ActualiteFormComponent {
         const { data: actualite } = await this.superbase.getActualite(slug);
         if (actualite) {
           this.isUpdate = true;
-          this.form = actualite as unknown as ActualiteForm;
+          this.form = actualite as unknown as Actualite;
         }
       }
     });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActualiteForm } from '@app/admin/actualite-form/actualite-form';
-import { Evenement } from '@app/admin/evenement-form/evenement-form';
+import { Actualite } from '@shared/models/actualite';
+import { Evenement } from '@shared/models/evenement';
 import { Picture } from '@shared/models/picture';
 import { createBrowserClient } from '@supabase/ssr';
 import {
@@ -129,7 +129,7 @@ export class SupabaseService {
     return null;
   }
 
-  createOrUpdateActualite(actualite: ActualiteForm) {
+  createOrUpdateActualite(actualite: Actualite) {
     if (actualite.id) {
       return this.supabase
         .from('actualites')
@@ -158,6 +158,10 @@ export class SupabaseService {
 
   getActualitesALaUne() {
     return this.supabase.from('actualites').select('*').eq('aLaUne', true);
+  }
+
+  deleteActualite(id: number | undefined) {
+    return this.supabase.from('actualites').delete().eq('id', id);
   }
 
   getUrl(guid: string) {

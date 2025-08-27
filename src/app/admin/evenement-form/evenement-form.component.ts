@@ -1,15 +1,20 @@
 import { Component, inject } from '@angular/core';
-import { Evenement } from './evenement-form';
+import { Evenement } from '@shared/models/evenement';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
 import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
 import { SupabaseService } from '@core/services/supabase.service';
 import { AlertService } from '@core/services/alert.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-evenement-form',
-  imports: [ReactiveFormsModule, FormsModule, ValidationSummaryComponent],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    ValidationSummaryComponent,
+    RouterLink,
+  ],
   templateUrl: './evenement-form.component.html',
   styleUrl: './evenement-form.component.scss',
 })

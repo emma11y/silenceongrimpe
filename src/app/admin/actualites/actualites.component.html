@@ -1,1 +1,54 @@
-<p>actualites works!</p>
+<div class="actualites">
+  <h2>Liste des actualités</h2>
+
+  <a class="new" routerLink="/admin/actualite">Créer une nouvelle actualité</a>
+
+  <table>
+    <thead>
+      <th class="id">Id</th>
+      <th class="titre">Titre</th>
+      <th class="datePublication">Date de publication</th>
+      <th class="publie">Publié ?</th>
+      <th class="aLaUne">A la une ?</th>
+      <th class="actions">Actions</th>
+    </thead>
+    <tbody>
+      @for(actualite of actualites; track $index){
+      <tr>
+        <td class="id">{{ actualite.id }}</td>
+        <td class="titre">{{ actualite.titre }}</td>
+        <td class="datePublication">
+          {{ actualite.datePublication | date : "dd MMMM yyyy" : "" : "fr-FR" }}
+        </td>
+        <td class="publie">
+          <input
+            type="checkbox"
+            [checked]="actualite.publie"
+            (click)="onPublie(actualite)"
+          />
+        </td>
+        <td class="aLaUne">
+          <input
+            type="checkbox"
+            [checked]="actualite.aLaUne"
+            (click)="OnALaUne(actualite)"
+          />
+        </td>
+        <td class="actions">
+          <a
+            class="button"
+            title="Modifier"
+            [routerLink]="['/', 'admin', 'actualite', actualite.slug]"
+          >
+            <i class="fa fa-solid fa-pen" aria-hidden="true"></i>
+          </a>
+
+          <button type="button" title="Supprimer" (click)="onDelete(actualite)">
+            <i class="fa fa-solid fa-trash" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

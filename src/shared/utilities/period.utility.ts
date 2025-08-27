@@ -1,4 +1,4 @@
-import { Evenement } from '@app/admin/evenement-form/evenement-form';
+import { Evenement } from '@shared/models/evenement';
 import { AgendaItem } from '@app/pages/home/agenda-carrousel/agenda-item';
 
 const mapping: Record<string, number> = {

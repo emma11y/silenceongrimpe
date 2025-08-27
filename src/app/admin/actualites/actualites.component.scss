@@ -1,0 +1,73 @@
+@use "table-event";
+
+.actualites {
+  h2 {
+    text-align: center;
+    font-size: 2em;
+    color: var(--bleu-ocean);
+  }
+
+  .new {
+    margin-bottom: 1em;
+    float: right;
+  }
+
+  table {
+    margin-bottom: 2em;
+
+    .id {
+      width: 5%;
+    }
+
+    .titre {
+      width: 50%;
+    }
+
+    .datePublication {
+      width: 20%;
+    }
+
+    .publie,
+    .aLaUne {
+      width: 10%;
+    }
+
+    .actions {
+      //   width: 10%;
+    }
+  }
+
+  .link,
+  a {
+    color: var(--bleu-ocean);
+    text-decoration: underline;
+    border-bottom: 0.25em solid transparent;
+    &:focus-visible,
+    &:hover {
+      text-decoration: none;
+      border-bottom-color: var(--bleu-ocean);
+    }
+  }
+
+  button,
+  .button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    i {
+      font-size: 1em;
+    }
+
+    &:focus-visible,
+    &:hover {
+      background-color: var(--bleu-ocean);
+      color: var(--blanc);
+    }
+  }
+
+  .button,
+  button i {
+    padding: 0.25em;
+  }
+}

@@ -18,14 +18,7 @@
 
   &-new {
     margin-bottom: 1em;
-  }
-
-  .link {
-    border: none;
-    background: initial;
-    font-size: 1em;
-    font-family: var(--main-family);
-    cursor: pointer;
+    float: right;
   }
 
   .link,
@@ -60,9 +53,5 @@
   .button,
   button i {
     padding: 0.25em;
-  }
-
-  &-new {
-    float: right;
   }
 }

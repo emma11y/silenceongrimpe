@@ -2,6 +2,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {
   ApplicationConfig,
   importProvidersFrom,
+  LOCALE_ID,
   provideZoneChangeDetection,
 } from '@angular/core';
 import {
@@ -24,6 +25,11 @@ import { ImageInterceptor } from '@core/interceptors/image.interceptor';
   withInterceptorsFromDi,
 } from '@angular/common/http';*/
 
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
+
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(
@@ -37,5 +43,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
+    [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   ],
 };

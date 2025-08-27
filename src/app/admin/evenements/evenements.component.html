@@ -1,7 +1,7 @@
 <div class="liste">
   <h2>Liste des évènements</h2>
 
-  <a class="liste-new" routerLink="/admin/formulaire"
+  <a class="liste-new" routerLink="/admin/evenement"
     >Créer un nouvel évènement</a
   >
 
@@ -125,6 +125,7 @@
         <td class="actions">
           <a
             class="button"
+            title="Modifier"
             [routerLink]="['/', 'admin', 'evenement', evenement.id]"
           >
             <span class="sr-only">Modifier</span>
@@ -132,8 +133,7 @@
             <i class="fa fa-solid fa-pen" aria-hidden="true"></i>
           </a>
 
-          <button type="button" (click)="onDelete(evenement)">
-            <span class="sr-only">Supprimer</span>
+          <button type="button" title="Supprimer" (click)="onDelete(evenement)">
             <i class="fa fa-solid fa-trash" aria-hidden="true"></i>
           </button>
         </td>

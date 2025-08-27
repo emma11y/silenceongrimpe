@@ -34,4 +34,17 @@
     margin-right: 0.5em;
     font-size: 1.5em;
   }
+
+  a {
+    color: var(--bleu-ocean);
+    font-family: var(--main-family);
+    border-bottom: 0.25em solid transparent;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: none;
+      border-bottom-color: var(--bleu-ocean);
+    }
+  }
 }

@@ -1,4 +1,4 @@
-export class ActualiteForm {
+export class Actualite {
   public id: number | undefined;
   public slug: string = '';
   public titre: string = '';

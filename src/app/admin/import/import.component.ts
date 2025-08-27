@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx';
 import { NgClass, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Evenement } from '../evenement-form/evenement-form';
+import { Evenement } from '@shared/models/evenement';
 import { SupabaseService } from '@core/services/supabase.service';
 import { PopupService } from '@core/services/popup.service';
 import { AlertService } from '@core/services/alert.service';

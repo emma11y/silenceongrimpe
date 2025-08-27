@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActualiteForm } from '@app/admin/actualite-form/actualite-form';
+import { Actualite } from '@shared/models/actualite';
 
 @Component({
   selector: 'app-actualite',
@@ -11,7 +11,7 @@ import { ActualiteForm } from '@app/admin/actualite-form/actualite-form';
   styleUrl: './actualite.component.scss',
 })
 export class ActualiteComponent {
-  actualite: ActualiteForm | undefined;
+  actualite: Actualite | undefined;
 
   private sanitizer: DomSanitizer = inject(DomSanitizer);
   private route: ActivatedRoute = inject(ActivatedRoute);
@@ -28,7 +28,7 @@ export class ActualiteComponent {
       this.router.navigateByUrl('/erreur/404');
     }
 
-    this.actualite = actualite as unknown as ActualiteForm;
+    this.actualite = actualite as unknown as Actualite;
   }
 
   sanitizeHtml(html: string): SafeHtml {

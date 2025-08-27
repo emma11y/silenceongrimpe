@@ -1,7 +1,8 @@
 @use "variables" as vars;
 
 .liste,
-.import {
+.import,
+.actualites {
   table {
     width: 100%;
     display: block;

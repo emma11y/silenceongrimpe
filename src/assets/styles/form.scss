@@ -1,9 +1,11 @@
 fieldset {
   border: none;
+  margin-top: 2em;
 
   legend {
     font-size: 2em;
     text-align: center;
+
     margin-bottom: 1em;
     font-family: var(--main-family);
     color: var(--bleu-ocean);

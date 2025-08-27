@@ -1,4 +1,4 @@
-import { Evenement } from '@app/admin/evenement-form/evenement-form';
+import { Evenement } from '@shared/models/evenement';
 
 export interface AgendaItem extends Evenement {
   index: number;
