@@ -10,10 +10,12 @@ import {
 import { CarouselItem } from '../../models/carousel-item';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { DiaporamaService } from '@core/services/diaporama.service';
+import { DisplayImageComponent } from '../display-image/display-image.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-carrousel',
-  imports: [NgClass, NgIf, NgFor],
+  imports: [NgClass, NgIf, NgFor, DisplayImageComponent, RouterLink],
   templateUrl: './carrousel.component.html',
   styleUrl: './carrousel.component.scss',
 })

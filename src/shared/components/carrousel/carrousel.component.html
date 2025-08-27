@@ -3,6 +3,7 @@
   class="carousel-tablist"
   aria-roledescription="carousel"
   aria-label="Des nouvelles du Collectif Silence on Grimpe !"
+  *ngIf="carousels.length > 0"
 >
   <div class="carousel-inner">
     <div class="controls">
@@ -63,25 +64,28 @@
       (focusin)="hasFocusCarousel = !hasFocusCarousel"
       #carouselEl
     >
+      @for( carousel of carousels; track $index) {
       <div
         class="carousel-item"
-        *ngFor="let carousel of carousels"
         [ngClass]="{ active: carousel.selected }"
         [id]="'carousel-item-' + carousel.id"
         role="tabpanel"
         aria-roledescription="slide"
-        [attr.aria-label]="carousel.id + ' sur ' + carousels.length"
+        [attr.aria-label]="$index + 1 + ' sur ' + carousels.length"
       >
         <div class="carousel-image">
-          <img
+          <!-- <img
             [src]="carousel.picture"
             [alt]="carousel.altPicture"
             loading="lazy"
-          />
+          />-->
+          <app-display-image [id]="carousel.guid" />
         </div>
         <div class="carousel-caption">
           <div class="carousel-caption-title">
-            <a href="">{{ carousel.title }}</a>
+            <a [routerLink]="'/actualites/' + carousel.slug">{{
+              carousel.title
+            }}</a>
           </div>
 
           <div class="carousel-caption-body" *ngIf="carousel.subtitle">
@@ -89,6 +93,7 @@
           </div>
         </div>
       </div>
+      }
     </div>
   </div>
 </div>

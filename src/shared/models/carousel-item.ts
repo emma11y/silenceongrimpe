@@ -1,7 +1,9 @@
 export interface CarouselItem {
   id: number;
-  picture: string;
-  altPicture: string;
+  slug: string;
+  guid: string;
+  //  picture: string;
+  // altPicture: string;
   title: string;
   subtitle?: string;
   selected: boolean;

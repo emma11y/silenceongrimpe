@@ -1,12 +1,12 @@
 import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Actualite } from '@shared/models/actualite';
 
 @Component({
   selector: 'app-actualite',
-  imports: [NgIf],
+  imports: [NgIf, RouterLink],
   templateUrl: './actualite.component.html',
   styleUrl: './actualite.component.scss',
 })

@@ -180,3 +180,21 @@
     }
   }
 }
+
+::ng-deep {
+  .carousel-image {
+    .display-image {
+      margin: 0 !important;
+    }
+
+    img {
+      width: 100% !important;
+      height: 600px !important;
+      object-fit: cover !important;
+
+      @media screen and (max-width: vars.$md) {
+        height: 400px;
+      }
+    }
+  }
+}

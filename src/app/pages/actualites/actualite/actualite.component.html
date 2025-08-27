@@ -1,4 +1,9 @@
 <div class="actualite" *ngIf="actualite">
+  <a routerLink="/actualites">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    <span>Revenir aux actualités</span></a
+  >
+
   <h1>{{ actualite.titre }}</h1>
   <div [innerHTML]="sanitizeHtml(actualite.html)"></div>
 </div>
