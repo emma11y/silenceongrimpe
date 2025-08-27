@@ -10,6 +10,9 @@ import { AgendaResolver } from '@core/resolvers/agenda.resolver';
 import { ImageComponent } from '@shared/components/image/image.component';
 import { ActualitesComponent } from './pages/actualites/actualites.component';
 import { PageContactComponent } from './pages/contact/contact.component';
+import { ActualitesResolver } from '@core/resolvers/actualites.resolver';
+import { ActualiteBySlugResolver } from '@core/resolvers/actualite-by-slug.resolver';
+import { ErrorComponent } from './pages/error/error.component';
 
 export const routes: Routes = [
   {
@@ -35,6 +38,9 @@ export const routes: Routes = [
               {
                 path: '',
                 pathMatch: 'full',
+                resolve: {
+                  actualites: ActualitesResolver,
+                },
                 loadComponent: () =>
                   import('./pages/actualites/actualites.component').then(
                     (m) => m.ActualitesComponent
@@ -42,6 +48,9 @@ export const routes: Routes = [
               },
               {
                 path: ':slug',
+                resolve: {
+                  actualite: ActualiteBySlugResolver,
+                },
                 loadComponent: () =>
                   import(
                     './pages/actualites/actualite/actualite.component'
@@ -50,6 +59,9 @@ export const routes: Routes = [
               {
                 path: ':slug/apercu',
                 canActivate: [AuthGuard],
+                resolve: {
+                  actualite: ActualiteBySlugResolver,
+                },
                 loadComponent: () =>
                   import(
                     './pages/actualites/actualite/actualite.component'
@@ -75,6 +87,39 @@ export const routes: Routes = [
           {
             path: 'mentions-legales',
             component: MentionsLegalesComponent,
+          },
+          {
+            path: 'erreur',
+            data: {
+              breadcumb: 'Erreur',
+            },
+            children: [
+              {
+                path: '',
+                component: ErrorComponent,
+              },
+              {
+                path: '401',
+                component: ErrorComponent,
+                data: {
+                  breadcrumb: 'Erreur 401',
+                },
+              },
+              {
+                path: '403',
+                component: ErrorComponent,
+                data: {
+                  breadcrumb: 'Erreur 403',
+                },
+              },
+              {
+                path: '404',
+                component: ErrorComponent,
+                data: {
+                  breadcrumb: 'Erreur 404',
+                },
+              },
+            ],
           },
         ],
       },

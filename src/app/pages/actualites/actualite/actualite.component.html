@@ -1,1 +1,4 @@
-<p>actualite works!</p>
+<div class="actualite" *ngIf="actualite">
+  <h1>{{ actualite.titre }}</h1>
+  <div [innerHTML]="sanitizeHtml(actualite.html)"></div>
+</div>

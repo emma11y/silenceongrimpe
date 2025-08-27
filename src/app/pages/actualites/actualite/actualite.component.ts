@@ -1,11 +1,37 @@
-import { Component } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActualiteForm } from '@app/admin/actualite-form/actualite-form';
 
 @Component({
   selector: 'app-actualite',
-  imports: [],
+  imports: [NgIf],
   templateUrl: './actualite.component.html',
-  styleUrl: './actualite.component.scss'
+  styleUrl: './actualite.component.scss',
 })
 export class ActualiteComponent {
+  actualite: ActualiteForm | undefined;
 
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  protected router: Router = inject(Router);
+
+  constructor() {
+    const actualite = this.route.snapshot.data['actualite'];
+
+    const isApercu = this.route.snapshot.url.some((segment) =>
+      segment.path.includes('apercu')
+    );
+
+    if (!actualite || (!isApercu && !actualite.publie)) {
+      this.router.navigateByUrl('/erreur/404');
+    }
+
+    this.actualite = actualite as unknown as ActualiteForm;
+  }
+
+  sanitizeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
 }

@@ -141,7 +141,23 @@ export class SupabaseService {
   }
 
   getActualite(slug: string): any {
-    return this.supabase.from('actualites').select('*').eq('slug', slug);
+    return this.supabase
+      .from('actualites')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+  }
+
+  getActualites() {
+    return this.supabase.from('actualites').select('*');
+  }
+
+  getActualitesPublies() {
+    return this.supabase.from('actualites').select('*').eq('publie', true);
+  }
+
+  getActualitesALaUne() {
+    return this.supabase.from('actualites').select('*').eq('aLaUne', true);
   }
 
   getUrl(guid: string) {

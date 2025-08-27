@@ -1,0 +1,26 @@
+@use "variables" as vars;
+
+.actualite {
+  max-width: 900px;
+
+  margin: 5em auto;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 2em;
+  }
+}
+
+::ng-deep {
+  p:has(img) {
+    text-align: center !important;
+  }
+
+  img {
+    width: 45%;
+
+    @media screen and (max-width: vars.$md) {
+      width: 100% !important;
+    }
+  }
+}

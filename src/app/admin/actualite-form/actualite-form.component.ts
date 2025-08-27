@@ -101,11 +101,9 @@ export class ActualiteFormComponent {
     this.route.params.subscribe(async (value) => {
       const slug = value['slug'];
       if (slug) {
-        const { data: actualites } = await this.superbase.getActualite(slug);
-        if (actualites) {
+        const { data: actualite } = await this.superbase.getActualite(slug);
+        if (actualite) {
           this.isUpdate = true;
-
-          const actualite = actualites[0];
           this.form = actualite as unknown as ActualiteForm;
         }
       }
