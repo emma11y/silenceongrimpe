@@ -1,8 +1,41 @@
 <div class="a-propos">
-  <h2>Ils parlent de nous !</h2>
+  <h2>On parle de nous !</h2>
 
   <div class="list" role="list">
+    @for(temoignage of temoignages; track $index){
     <div class="list-item" role="listitem">
+      <div class="list-image">
+        <img [alt]="temoignage.alt" [src]="temoignage.img" />
+      </div>
+      <div class="list-description">
+        <p class="title quote">
+          {{ temoignage.quote }}
+        </p>
+        <p>
+          {{ temoignage.subtitle }}
+        </p>
+        <button
+          type="button"
+          (click)="temoignage.open = !temoignage.open"
+          [attr.aria-expanded]="temoignage.open"
+          [attr.aria-controls]="'accordion-' + temoignage.id"
+          *ngIf="temoignage.html"
+        >
+          {{ temoignage.open ? "Voir moins" : "Voir plus" }}
+          <span class="sr-only"> le témoignage de {{ temoignage.name }}</span>
+        </button>
+
+        <div
+          class="body"
+          [innerHTML]="temoignage.html"
+          [id]="'accordion-' + temoignage.id"
+          [ngClass]="{ open: temoignage.open }"
+        ></div>
+      </div>
+    </div>
+    }
+
+    <!-- <div class="list-item" role="listitem">
       <div class="list-image">
         <img
           alt="24ème rencontres Ciné Montagne Grenoble Palais des sports 8-12 novembre 2022"
@@ -22,11 +55,47 @@
         />
       </div>
       <div class="list-description">
-        <p class="title quote"><span lang="en">Wonderfull</span></p>
-        <p>
-          "Un plaisir de travailler avec nous parce qu'on a vraiment des
-          superbes cookies."
-        </p>
+        <details>
+          <summary>
+            <p class="title quote">
+              Merci infiniment pour votre accompagnement !
+            </p>
+            <p>
+              Sans Silence en Grimpe, nous n’aurions jamais eu l’idée de nous
+              pencher sur cette thématique.
+            </p>
+            <button type="button"></button>
+          </summary>
+          <div class="body">
+            <p>
+              "Je me souviens encore de ma première rencontre avec Arnaud lors
+              du Salon de l’Escalade, où il est venu, avec beaucoup de
+              pédagogie, m’expliquer l’enjeu de rendre un événement tel que
+              notre festival de films accessible au public sourd et
+              malentendant."
+            </p>
+            <p>
+              Il est vrai que nous n’avions jamais envisagé cette question
+              auparavant. Grâce à son accompagnement et à l’aide de bénévoles
+              engagés, nous avons pu, dès la première année, proposer une soirée
+              accessible, avec des films sous-titrés et des échanges sur scène
+              interprétés en langue des signes française. Depuis, toutes les
+              projections des films en compétition sont accessibles : films
+              sous-titrés, accueil des personnes sourdes et malentendantes, et
+              interprétation en direct des échanges sur scène.
+            </p>
+            <p>
+              Sans Silence en Grimpe, nous n’aurions sans doute jamais eu l’idée
+              de nous pencher sur cette thématique. Nous leur sommes infiniment
+              reconnaissants de nous avoir accompagnés pour rendre cette
+              démarche la plus aboutie possible, en tenant compte du temps
+              bénévole de notre association et des contraintes budgétaires.
+            </p>
+            <p>
+              Tanya Naville Directrice du Festival de films Femmes en Montagne
+            </p>
+          </div>
+        </details>
       </div>
     </div>
     <div class="list-item" role="listitem">
@@ -43,6 +112,6 @@
           indispensable."
         </p>
       </div>
-    </div>
+    </div>-->
   </div>
 </div>

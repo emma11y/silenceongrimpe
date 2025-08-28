@@ -74,11 +74,6 @@
         [attr.aria-label]="$index + 1 + ' sur ' + carousels.length"
       >
         <div class="carousel-image">
-          <!-- <img
-            [src]="carousel.picture"
-            [alt]="carousel.altPicture"
-            loading="lazy"
-          />-->
           <app-display-image [id]="carousel.guid" />
         </div>
         <div class="carousel-caption">

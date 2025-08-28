@@ -2,8 +2,7 @@
 
 .collectif {
   .header {
-    max-width: 30em;
-    margin: auto;
+    margin: 0 1em;
 
     h1 {
       font-size: 2em;
@@ -26,55 +25,79 @@
     text-align: center;
 
     .title {
-      font-size: 1.5em;
-      font-weight: 600;
-      color: var(--bleu-ocean);
+      p {
+        font-size: 1.5em;
+        font-weight: 600;
+        color: var(--bleu-ocean);
+      }
     }
 
     &-item {
-      width: calc(30% - 1em);
+      width: calc(33% - 1em);
       padding: 1em;
       display: flex;
       flex-direction: column;
+      height: 100%;
+      min-height: 30em; // Hauteur identique pour tous
+      box-sizing: border-box;
+      justify-content: flex-start;
+
+      @media screen and (max-width: vars.$lg) {
+        min-height: 35em;
+      }
 
       @media screen and (max-width: vars.$md) {
         width: 100%;
         margin-bottom: 5em;
+        min-height: auto;
 
         &:last-child {
           margin-bottom: 0;
         }
       }
 
-      img {
-        width: 5em;
-        margin: auto;
+      .image {
+        img {
+          width: 5em;
+          margin: auto;
+        }
       }
 
       .description {
-        margin-bottom: 1em;
-        height: 5em;
-        margin: auto;
-        font-size: 1.2em;
-        max-width: 20em;
+        flex: 1; // Prend toute la place dispo
+        display: flex;
+        align-items: flex-start;
+        p {
+          //height: 10em;
+          //margin: auto;
+          font-size: 1.2em;
+          // max-width: 20em;
+          margin-bottom: 2em;
+        }
       }
 
-      a {
-        background-color: var(--jaune-pale);
-        color: var(--noir);
-        padding: 1em;
-        border: 0.1em solid var(--bleu-ocean);
-        border-radius: 2em;
-        width: 10em;
-        margin: auto;
-        text-decoration: none;
-        outline: none;
-        font-size: 1.1em;
+      .action {
+        margin-top: auto; // Pousse le bouton en bas
+        display: flex;
+        justify-content: center;
 
-        &:focus-visible,
-        &:hover {
-          text-decoration: underline;
-          background-color: var(--orange);
+        a {
+          background-color: var(--jaune-pale);
+          color: var(--noir);
+          padding: 1em;
+          border: 0.1em solid var(--bleu-ocean);
+          border-radius: 2em;
+          width: 10em;
+          margin: auto;
+          text-decoration: none;
+          outline: none;
+          font-size: 1.1em;
+
+          &:focus-visible,
+          &:hover {
+            text-decoration: underline;
+            background-color: var(--orange);
+          }
         }
       }
     }

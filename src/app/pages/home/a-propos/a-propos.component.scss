@@ -13,11 +13,11 @@
   .quote {
     &::before {
       content: "\00275D";
-      padding-right: 0.25em;
+      //  padding-right: 0.25em;
     }
     &::after {
       content: "\00275E";
-      padding-left: 0.25em;
+      // padding-left: 0.25em;
     }
   }
 
@@ -33,6 +33,7 @@
       padding: 1em;
       display: flex;
       flex-direction: column;
+      align-self: self-start;
 
       @media screen and (max-width: vars.$md) {
         width: 100%;
@@ -40,6 +41,35 @@
 
         &:last-child {
           margin-bottom: 0;
+        }
+      }
+
+      button {
+        background-color: var(--jaune-pale);
+        color: var(--noir);
+        padding: 0.5em;
+        border: 0.1em solid var(--bleu-ocean);
+        border-radius: 2em;
+        width: 10em;
+        margin: auto;
+        text-decoration: none;
+        outline: none;
+        font-size: 1.1em;
+        margin-bottom: 1em;
+
+        &:focus-visible,
+        &:hover {
+          text-decoration: underline;
+          background-color: var(--orange);
+        }
+      }
+
+      .body {
+        display: none;
+        text-align: left;
+
+        &.open {
+          display: block;
         }
       }
     }
@@ -60,7 +90,7 @@
     &-description {
       background-color: var(--blanc);
       border-radius: 2em;
-      max-width: 20em;
+      max-width: 22em;
       margin: auto;
       margin-top: -1.25em;
       padding: 0 1em;
