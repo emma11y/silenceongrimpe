@@ -1,0 +1,55 @@
+@use "variables" as vars;
+
+.actualites {
+  max-width: 900px;
+  margin: 2em auto;
+
+  @media screen and (max-width: vars.$md) {
+    padding: 0 2em;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 3em;
+  }
+
+  .card {
+    display: flex;
+    margin-bottom: 3em;
+
+    @media screen and (max-width: vars.$md) {
+      display: block;
+    }
+  }
+
+  a {
+    color: var(--bleu-ocean);
+    text-decoration: underline;
+    border-bottom: 0.25em solid transparent;
+    &:focus-visible,
+    &:hover {
+      text-decoration: none;
+      border-bottom-color: var(--bleu-ocean);
+    }
+  }
+}
+
+::ng-deep {
+  .actualites {
+    .display-image {
+      @media screen and (max-width: vars.$md) {
+        margin: 0 !important;
+      }
+    }
+
+    img {
+      width: 100% !important;
+      height: auto !important;
+      // object-fit: cover !important;
+
+      @media screen and (max-width: vars.$md) {
+        height: 200px !important;
+      }
+    }
+  }
+}

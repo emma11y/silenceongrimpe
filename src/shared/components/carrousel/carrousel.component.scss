@@ -20,16 +20,16 @@
         height: 30px;
         text-align: center;
         position: absolute;
-        bottom: 1em;
+        //bottom: 1em;
         width: 98%;
         margin: 0;
         padding: 0;
         z-index: 30;
 
-        @media screen and (max-width: vars.$lg) {
-          bottom: auto;
-          top: 2em;
-        }
+        // @media screen and (max-width: vars.$lg) {
+        bottom: auto;
+        top: 2em;
+        //}
 
         [role="tablist"] {
           width: 10em;
@@ -134,7 +134,7 @@
       color: var(--noir);
       text-align: center;
       background-color: rgb(255, 255, 255, 0.8);
-      max-width: 30em;
+      max-width: 50em;
       z-index: 20;
 
       &-title {

@@ -1,1 +1,23 @@
-<p>actualites works!</p>
+<div class="actualites">
+  <h1>Liste des actualités</h1>
+
+  <div role="list">
+    @for(actualite of actualites; track $index){
+    <div role="listitem" class="card auto">
+      <div class="picture">
+        @if(actualite.vignetteId){
+        <app-display-image [id]="actualite.vignetteId"></app-display-image>
+        }
+      </div>
+      <div class="body">
+        <p class="title">
+          <a [routerLink]="['/', 'actualites', actualite.slug]">{{
+            actualite.titre
+          }}</a>
+        </p>
+        <p class="description">{{ actualite.description }}</p>
+      </div>
+    </div>
+    }
+  </div>
+</div>

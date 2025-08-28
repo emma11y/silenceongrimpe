@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { DisplayImageComponent } from '@shared/components/display-image/display-image.component';
 import { Actualite } from '@shared/models/actualite';
 
 @Component({
   selector: 'app-actualites',
-  imports: [],
+  imports: [DisplayImageComponent, RouterLink],
   templateUrl: './actualites.component.html',
   styleUrl: './actualites.component.scss',
 })
