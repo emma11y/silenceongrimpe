@@ -32,15 +32,32 @@
 }
 
 ::ng-deep {
-  p:has(img) {
-    text-align: center !important;
-  }
+  .actualite {
+    p:has(img) {
+      text-align: center !important;
+    }
 
-  img {
-    width: 45%;
+    img {
+      width: 45%;
 
-    @media screen and (max-width: vars.$md) {
-      width: 100% !important;
+      @media screen and (max-width: vars.$md) {
+        width: 100% !important;
+      }
+    }
+
+    li {
+      margin-bottom: 1em;
+    }
+
+    a {
+      color: var(--bleu-ocean);
+      border-bottom: 0.25em solid transparent;
+      text-decoration: underline;
+      &:hover,
+      &:focus-visible {
+        text-decoration: none;
+        border-bottom-color: var(--bleu-ocean);
+      }
     }
   }
 }

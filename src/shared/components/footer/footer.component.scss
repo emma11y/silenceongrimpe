@@ -43,18 +43,19 @@
 
   .small {
     font-size: 1em;
-    a {
-      color: var(--blanc);
-      font-weight: 300;
-      text-decoration: underline;
-      border-bottom: 0.25em solid transparent;
-      margin-right: 0.5em;
+  }
 
-      &:focus-visible,
-      &:hover {
-        text-decoration: none;
-        border-bottom-color: var(--blanc);
-      }
+  .link {
+    color: var(--blanc);
+    font-weight: 300;
+    text-decoration: underline;
+    border-bottom: 0.25em solid transparent;
+    margin-right: 0.5em;
+
+    &:focus-visible,
+    &:hover {
+      text-decoration: none;
+      border-bottom-color: var(--blanc);
     }
   }
 }

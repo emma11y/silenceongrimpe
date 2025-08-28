@@ -145,13 +145,13 @@
             font-size: 130%;
           }
 
-          cursor: pointer;
+          // cursor: pointer;
           text-decoration: underline;
           color: var(--noir);
           font-weight: 600;
           margin: 0;
           display: inline-block;
-          border-radius: 5px;
+          //border-radius: 5px;
           border-bottom: 0.25em solid transparent;
 
           &:hover,
