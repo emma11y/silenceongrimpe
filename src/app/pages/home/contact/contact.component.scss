@@ -64,9 +64,10 @@
         background-color: var(--blanc);
         font-family: var(--main-family);
         padding: 0.5em 2em;
-        border: 0.1em solid var(--noir);
+        border: 0.1em solid var(--bleu-ocean);
         border-radius: 0.25em;
         font-size: 1em;
+        color: var(--bleu-ocean);
 
         &:focus-visible,
         &:hover {
