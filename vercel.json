@@ -1,7 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "npm run vercel-build",
+  "framework": "angular",
   "outputDirectory": "dist/silenceongrimpe",
+  "buildCommand": "npm run vercel-build",
   "rewrites": [
     {
       "source": "/assets/:path*",
@@ -28,8 +29,14 @@
       "destination": "/browser/:path*.webp"
     },
     {
-      "source": "/(.*)",
-      "destination": "/api/server"
+      "source": "/((?!api/.*).*)",
+      "destination": "/api"
     }
-  ]
+  ],
+  "functions": {
+    "api/*.mjs": {
+      "runtime": "nodejs18.x",
+      "excludeFiles": "{**/.next/**,**/*.d.ts}"
+    }
+  }
 }
