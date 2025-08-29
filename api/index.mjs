@@ -1,4 +1,5 @@
-import { createServerHandler } from "@angular/ssr";
+import { APP_BASE_HREF } from "@angular/common";
+import { CommonEngine } from "@angular/ssr";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -9,12 +10,16 @@ const distPath = path.join(__dirname, "..", "dist", "silenceongrimpe");
 export default async function handler(request, response) {
   try {
     const { app } = await import(path.join(distPath, "server", "server.mjs"));
-    const serverHandler = await createServerHandler(app, {
-      distPath: path.join(distPath, "browser"),
-      indexHtml: path.join(distPath, "browser", "index.html"),
-    });
+    const engine = new CommonEngine();
 
-    return await serverHandler(request, response);
+    const documentResponse = await engine.render({
+      bootstrap: app,
+      documentFilePath: path.join(distPath, "browser", "index.html"),
+      url: request.url,
+      providers: [
+        { provide: APP_BASE_HREF, useValue: process.env.APP_BASE_HREF || "/" },
+      ],
+    });
   } catch (error) {
     console.error("Error handling request:", error);
     console.error("Stack trace:", error.stack);
