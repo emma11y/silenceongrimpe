@@ -17,14 +17,6 @@
 
   left: calc((100% / 2) - (30rem / 2));
 
-  @media screen and (min-width: vars.$md) {
-    width: 900px;
-
-    left: calc((100% / 2) - (900px / 2));
-  }
-
-  //position: fixed;
-
   margin: 0;
   padding: 1em;
 
@@ -35,6 +27,13 @@
   //  border: 0.2em solid var(--bleu-ocean);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+  @media screen and (min-width: vars.$md) {
+    width: 900px;
+
+    left: calc((100% / 2) - (900px / 2));
+  }
+
   &.opened {
     display: block;
   }
