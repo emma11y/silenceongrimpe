@@ -6,11 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "//serve:ssr:silenceongrimpe": "node dist/silenceongrimpe/server/server.mjs",
-    "routes:generate": "node prerender-routes.mjs",
-    "prerender": "npm run routes:generate && ng run silenceongrimpe:prerender",
-    "vercel-build": "npm run prerender && ng run silenceongrimpe:server:build"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
