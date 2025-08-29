@@ -3,7 +3,6 @@
   "framework": "angular",
   "outputDirectory": "dist/silenceongrimpe",
   "buildCommand": "npm run vercel-build",
-  "nodeVersion": "18.x",
   "rewrites": [
     {
       "source": "/assets/:path*",
