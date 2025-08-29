@@ -1,3 +1,4 @@
+import "@angular/compiler";
 import { APP_BASE_HREF } from "@angular/common";
 import { renderApplication } from "@angular/platform-server";
 import { provideClientHydration } from "@angular/platform-browser";
