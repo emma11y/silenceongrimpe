@@ -96,6 +96,7 @@
             "outputPath": "dist/silenceongrimpe/server",
             "main": "src/main.server.ts",
             "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
               "includePaths": ["src/assets/styles"]
             }
