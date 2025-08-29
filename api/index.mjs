@@ -5,10 +5,8 @@ import { provideClientHydration } from "@angular/platform-browser";
 import path from "path";
 import fs from "fs/promises";
 
-// Chemins vers les dossiers de build dans Vercel
-const PROJECT_ROOT = process.cwd();
-const DIST_PATH = path.join(PROJECT_ROOT, "dist/silenceongrimpe/browser");
-const SERVER_PATH = path.join(PROJECT_ROOT, "dist/silenceongrimpe/server");
+// Chemin vers le dossier de build dans Vercel
+const DIST_PATH = "/var/task/dist/silenceongrimpe/browser";
 
 // Fonction de débogage pour l'environnement
 const debugEnvironment = async () => {
@@ -31,20 +29,10 @@ export default async function handler(request, response) {
     // Log de débogage au début du handler
     await debugEnvironment();
 
-    // Vérifier si les fichiers existent
-    const indexPath = path.join(DIST_PATH, "index.html");
-    const serverPath = path.join(SERVER_PATH, "server.mjs");
-
-    try {
-      await fs.access(indexPath);
-      await fs.access(serverPath);
-    } catch (error) {
-      console.error("Files not found:", { indexPath, serverPath });
-      console.error("Error:", error);
-      return response.status(500).send("Server files not found");
-    }
-
-    const indexHtml = await fs.readFile(indexPath, "utf-8");
+    const indexHtml = await fs.readFile(
+      path.join(DIST_PATH, "index.html"),
+      "utf-8"
+    );
     const { app } = await import(path.join(DIST_PATH, "server.mjs"));
 
     const html = await renderApplication(app, {
