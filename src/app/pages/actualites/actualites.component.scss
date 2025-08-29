@@ -13,11 +13,22 @@
     margin-bottom: 3em;
   }
 
+  .title {
+    font-size: 1.25em;
+  }
+
+  .picture {
+    margin: auto 1em;
+    @media screen and (max-width: vars.$sm) {
+      margin: 0;
+    }
+  }
+
   .card {
     display: flex;
     margin-bottom: 3em;
 
-    @media screen and (max-width: vars.$md) {
+    @media screen and (max-width: vars.$sm) {
       display: block;
     }
   }
@@ -37,9 +48,9 @@
 ::ng-deep {
   .actualites {
     .display-image {
-      @media screen and (max-width: vars.$md) {
-        margin: 0 !important;
-      }
+      // @media screen and (max-width: vars.$md) {
+      margin: 0 !important;
+      //}
     }
 
     img {
@@ -47,8 +58,9 @@
       height: auto !important;
       // object-fit: cover !important;
 
-      @media screen and (max-width: vars.$md) {
+      @media screen and (max-width: vars.$sm) {
         height: 200px !important;
+        object-fit: cover !important;
       }
     }
   }

@@ -25,6 +25,12 @@ export const routes: Routes = [
           {
             path: '',
             pathMatch: 'full',
+            data: {
+              metadata: {
+                title: 'Accueil',
+                description: `"Silence, on grimpe !", c’est un collectif de bénévoles qui s’engagent pour la justice sociale et l’accessibilité culturelle. Nous militons pour des festivals de films sous-titrés, en accompagnant les événements, en sensibilisant le public et en conseillant les équipes de réalisation.`,
+              },
+            },
             resolve: {
               actualites: ActualitesALaUneResolver,
             },
@@ -32,6 +38,12 @@ export const routes: Routes = [
           },
           {
             path: 'collectif',
+            data: {
+              metadata: {
+                title: 'Le collectif',
+                description: `Retrouvez les informations sur le collectif "Silence, on grimpe !"`,
+              },
+            },
             component: CollectifComponent,
           },
           {
@@ -40,6 +52,12 @@ export const routes: Routes = [
               {
                 path: '',
                 pathMatch: 'full',
+                data: {
+                  metadata: {
+                    title: 'Actualités',
+                    description: `Retrouvez les actualités du collectif "Silence, on grimpe !"`,
+                  },
+                },
                 resolve: {
                   actualites: ActualitesPublieesResolver,
                 },
@@ -73,6 +91,12 @@ export const routes: Routes = [
           },
           {
             path: 'agenda',
+            data: {
+              metadata: {
+                title: 'Agenda',
+                description: `Retrouvez l'agenda des festivals des films de montagne mis en ligne par le collectif "Silence, on grimpe !"`,
+              },
+            },
             resolve: {
               items: AgendaResolver,
             },
@@ -81,13 +105,34 @@ export const routes: Routes = [
                 (m) => m.AgendaComponent
               ),
           },
-          { path: 'contact', component: PageContactComponent },
+          {
+            path: 'contact',
+            data: {
+              metadata: {
+                title: 'Nous contacter',
+                description: `Contacter le collectif "Silence, on grimpe !" via un formulaire de contact.`,
+              },
+            },
+            component: PageContactComponent,
+          },
           {
             path: 'ressources',
+            data: {
+              metadata: {
+                title: 'Ressources',
+                description: `Retrouvez toutes les ressources mises à disposition par le collectif "Silence, on grimpe !"`,
+              },
+            },
             component: RessourcesComponent,
           },
           {
             path: 'mentions-legales',
+            data: {
+              metadata: {
+                title: 'Mentions légales',
+                description: `Consultez les mentions légales du site "Silence, on grimpe !"`,
+              },
+            },
             component: MentionsLegalesComponent,
           },
           {
@@ -136,6 +181,11 @@ export const routes: Routes = [
           },
           {
             path: 'login',
+            data: {
+              metadata: {
+                title: 'Se connecter',
+              },
+            },
             loadComponent: () =>
               import('./admin/login/login.component').then(
                 (m) => m.LoginComponent
@@ -143,6 +193,11 @@ export const routes: Routes = [
           },
           {
             path: 'tableau-de-bord',
+            data: {
+              metadata: {
+                title: 'Tableau de bord',
+              },
+            },
             canActivate: [AuthGuard],
             loadComponent: () =>
               import('./admin/tableau-de-bord/tableau-de-bord.component').then(
@@ -152,6 +207,11 @@ export const routes: Routes = [
           {
             path: 'import',
             canActivate: [AuthGuard],
+            data: {
+              metadata: {
+                title: 'Importer les événéments',
+              },
+            },
             loadComponent: () =>
               import('./admin/import/import.component').then(
                 (m) => m.ImportComponent
@@ -163,6 +223,11 @@ export const routes: Routes = [
             children: [
               {
                 path: '',
+                data: {
+                  metadata: {
+                    title: 'Créer un nouvel événément',
+                  },
+                },
                 loadComponent: () =>
                   import(
                     './admin/evenement-form/evenement-form.component'
@@ -170,6 +235,11 @@ export const routes: Routes = [
               },
               {
                 path: ':id',
+                data: {
+                  metadata: {
+                    title: 'Modifier un événément',
+                  },
+                },
                 loadComponent: () =>
                   import(
                     './admin/evenement-form/evenement-form.component'
@@ -180,6 +250,11 @@ export const routes: Routes = [
           {
             path: 'evenements',
             canActivate: [AuthGuard],
+            data: {
+              metadata: {
+                title: 'Liste des événéments',
+              },
+            },
             loadComponent: () =>
               import('./admin/evenements/evenements.component').then(
                 (m) => m.EvenementsComponent
@@ -188,6 +263,11 @@ export const routes: Routes = [
           {
             path: 'bibliotheque-images',
             canActivate: [AuthGuard],
+            data: {
+              metadata: {
+                title: 'Bibliothèque des images',
+              },
+            },
             loadComponent: () =>
               import(
                 './admin/bibliotheque-images/bibliotheque-images.component'
@@ -196,6 +276,11 @@ export const routes: Routes = [
           {
             path: 'actualites',
             canActivate: [AuthGuard],
+            data: {
+              metadata: {
+                title: 'Liste des actualités',
+              },
+            },
             loadComponent: () =>
               import('./admin/actualites/actualites.component').then(
                 (m) => m.ActualitesComponent
@@ -208,6 +293,11 @@ export const routes: Routes = [
             children: [
               {
                 path: '',
+                data: {
+                  metadata: {
+                    title: 'Créer une nouvelle actualité',
+                  },
+                },
                 loadComponent: () =>
                   import(
                     './admin/actualite-form/actualite-form.component'
@@ -215,6 +305,11 @@ export const routes: Routes = [
               },
               {
                 path: ':slug',
+                data: {
+                  metadata: {
+                    title: "Modifier l'actualité",
+                  },
+                },
                 loadComponent: () =>
                   import(
                     './admin/actualite-form/actualite-form.component'
@@ -223,10 +318,6 @@ export const routes: Routes = [
             ],
           },
         ],
-      },
-      {
-        path: 'image/:guid',
-        component: ImageComponent,
       },
       { path: '**', redirectTo: 'erreur/404' },
     ],

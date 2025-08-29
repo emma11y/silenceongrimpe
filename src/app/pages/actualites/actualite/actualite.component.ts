@@ -2,6 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { MetadataService } from '@core/services/metadata.service';
 import { Actualite } from '@shared/models/actualite';
 
 @Component({
@@ -16,6 +17,7 @@ export class ActualiteComponent {
   private sanitizer: DomSanitizer = inject(DomSanitizer);
   private route: ActivatedRoute = inject(ActivatedRoute);
   protected router: Router = inject(Router);
+  private metadataService: MetadataService = inject(MetadataService);
 
   constructor() {
     const actualite = this.route.snapshot.data['actualite'];
@@ -29,6 +31,13 @@ export class ActualiteComponent {
     }
 
     this.actualite = actualite as unknown as Actualite;
+
+    this.metadataService.setMetadataForArticle(
+      this.actualite.titre,
+      this.actualite.description,
+      this.actualite.datePublication,
+      ''
+    );
   }
 
   sanitizeHtml(html: string): SafeHtml {

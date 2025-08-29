@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
 import { Actualite } from '@shared/models/actualite';
 import { Evenement } from '@shared/models/evenement';
 import { Picture } from '@shared/models/picture';
@@ -24,15 +25,15 @@ export interface Profile {
   providedIn: 'root',
 })
 export class SupabaseService {
-  private supabase: SupabaseClient;
+  private supabase!: SupabaseClient;
   _session: AuthSession | null = null;
 
-  supabaseUrl: string = 'https://xougupyvckqdjqtkyqyr.supabase.co';
-  supabaseKey: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvdWd1cHl2Y2txZGpxdGt5cXlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2ODA5ODAsImV4cCI6MjA2ODI1Njk4MH0.PdDCh0qa-jgQr8D1fNUAszqI9ftngvnAZgucsDUREjw';
+  supabaseUrl: string | undefined = environment.supabaseUrl;
+  supabaseKey: string | undefined = environment.supabaseKey;
 
   constructor() {
-    this.supabase = createBrowserClient(this.supabaseUrl, this.supabaseKey);
+    if (this.supabaseKey && this.supabaseUrl)
+      this.supabase = createBrowserClient(this.supabaseUrl, this.supabaseKey);
   }
 
   get session() {
