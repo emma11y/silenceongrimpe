@@ -10,7 +10,11 @@
     "//serve:ssr:silenceongrimpe": "node dist/silenceongrimpe/server/server.mjs",
     "routes:generate": "node prerender-routes.mjs",
     "prerender": "npm run routes:generate && ng run silenceongrimpe:prerender",
-    "vercel-build": "npm run prerender && ng run silenceongrimpe:server:build"
+    "vercel-build": "npm run prerender && ng run silenceongrimpe:server:build || true"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.8",
+    "utf-8-validate": "^6.0.3"
   },
   "private": true,
   "dependencies": {
