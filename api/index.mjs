@@ -1,7 +1,9 @@
 import { APP_BASE_HREF } from "@angular/common";
-import { CommonEngine } from "@angular/ssr";
+import { renderApplication } from "@angular/platform-server";
+import { provideClientHydration } from "@angular/platform-browser";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs/promises";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,17 +11,23 @@ const distPath = path.join(__dirname, "..", "dist", "silenceongrimpe");
 
 export default async function handler(request, response) {
   try {
+    const indexHtml = await fs.readFile(
+      path.join(distPath, "browser", "index.html"),
+      "utf-8"
+    );
     const { app } = await import(path.join(distPath, "server", "server.mjs"));
-    const engine = new CommonEngine();
 
-    const documentResponse = await engine.render({
-      bootstrap: app,
-      documentFilePath: path.join(distPath, "browser", "index.html"),
+    const html = await renderApplication(app, {
+      document: indexHtml,
       url: request.url,
-      providers: [
+      platformProviders: [
         { provide: APP_BASE_HREF, useValue: process.env.APP_BASE_HREF || "/" },
       ],
+      providers: [provideClientHydration()],
     });
+
+    response.setHeader("Content-Type", "text/html");
+    return response.send(html);
   } catch (error) {
     console.error("Error handling request:", error);
     console.error("Stack trace:", error.stack);
