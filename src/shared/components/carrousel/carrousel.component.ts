@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { CarouselItem } from '../../models/carousel-item';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { DiaporamaService } from '@core/services/diaporama.service';
 import { DisplayImageComponent } from '../display-image/display-image.component';
 import { RouterLink } from '@angular/router';
 
@@ -21,9 +20,6 @@ import { RouterLink } from '@angular/router';
 })
 export class CarrouselComponent implements OnInit {
   @Input() carousels: CarouselItem[] = [];
-
-  private readonly diaporamaService: DiaporamaService =
-    inject(DiaporamaService);
 
   // elements
   @ViewChild('tabsEl', { static: true })

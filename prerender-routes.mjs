@@ -35,7 +35,7 @@ async function main() {
     }
 
     console.log("⏳ Récupération des slugs depuis Supabase...");
-    const routes = ["/", ...(await fetchSlugs())];
+    const routes = ["/", "/agenda", "/actualites", ...(await fetchSlugs())];
 
     fs.mkdirSync(".cache", { recursive: true });
     fs.writeFileSync(CACHE_FILE, routes.join("\n"));
