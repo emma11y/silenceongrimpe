@@ -2,7 +2,7 @@
   "name": "silenceongrimpe",
   "version": "0.0.0",
   "engines": {
-    "node": "22.x"
+    "node": "18.x"
   },
   "scripts": {
     "ng": "ng",
