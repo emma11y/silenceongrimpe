@@ -7,7 +7,6 @@ import { CollectifComponent } from './pages/collectif/collectif.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { AgendaResolver } from '@core/resolvers/agenda.resolver';
-import { ImageComponent } from '@shared/components/image/image.component';
 import { PageContactComponent } from './pages/contact/contact.component';
 import { ActualitesPublieesResolver } from '@core/resolvers/actualites-publiees.resolver';
 import { ActualiteBySlugResolver } from '@core/resolvers/actualite-by-slug.resolver';
