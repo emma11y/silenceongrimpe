@@ -40,3 +40,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+.cache/prerender-routes.txt
+prerender-routes.txt

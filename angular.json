@@ -14,6 +14,14 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "browserTarget": "silenceongrimpe:build",
+            "serverTarget": "silenceongrimpe:server",
+            "routesFile": "prerender-routes.txt"
+          }
+        },
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
@@ -78,6 +86,30 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/silenceongrimpe/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/assets/styles"]
+            }
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "sourceMap": false,
+              "optimization": true
+            },
+            "development": {
+              "outputHashing": "media",
+              "sourceMap": true,
+              "optimization": false
             }
           },
           "defaultConfiguration": "production"

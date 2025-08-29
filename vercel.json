@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "dist/silenceongrimpe/browser/**/*", "use": "@vercel/static" },
+    { "src": "dist/silenceongrimpe/server/server.mjs", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/silenceongrimpe/browser/$1",
+      "continue": true
+    },
+    { "src": "/(.*)", "dest": "dist/silenceongrimpe/server/server.mjs" }
+  ]
+}
