@@ -4,12 +4,12 @@
   "outputDirectory": ".",
   "rewrites": [
     {
-      "source": "/assets/(.*)",
-      "destination": "/assets/$1"
+      "source": "/assets/:path*",
+      "destination": "/assets/:path*"
     },
     {
-      "source": "/(.*)\\.(?:js|css|ico|png|webp)$",
-      "destination": "/$1.$2"
+      "source": "/:file(.*\\.js|.*\\.css|.*\\.ico|.*\\.png|.*\\.webp)",
+      "destination": "/:file"
     },
     {
       "source": "/((?!api/.*).*)",
