@@ -9,9 +9,10 @@ import { AuthGuard } from '@core/guards/auth.guard';
 import { AgendaResolver } from '@core/resolvers/agenda.resolver';
 import { ImageComponent } from '@shared/components/image/image.component';
 import { PageContactComponent } from './pages/contact/contact.component';
-import { ActualitesResolver } from '@core/resolvers/actualites.resolver';
+import { ActualitesPublieesResolver } from '@core/resolvers/actualites-publiees.resolver';
 import { ActualiteBySlugResolver } from '@core/resolvers/actualite-by-slug.resolver';
 import { ErrorComponent } from './pages/error/error.component';
+import { ActualitesALaUneResolver } from '@core/resolvers/actualites-a-la-une.resolver';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,9 @@ export const routes: Routes = [
           {
             path: '',
             pathMatch: 'full',
+            resolve: {
+              actualites: ActualitesALaUneResolver,
+            },
             component: HomeComponent,
           },
           {
@@ -32,13 +36,12 @@ export const routes: Routes = [
           },
           {
             path: 'actualites',
-            //component: ActualitesComponent,
             children: [
               {
                 path: '',
                 pathMatch: 'full',
                 resolve: {
-                  actualites: ActualitesResolver,
+                  actualites: ActualitesPublieesResolver,
                 },
                 loadComponent: () =>
                   import('./pages/actualites/actualites.component').then(

@@ -9,6 +9,7 @@ import { ContactComponent } from './contact/contact.component';
 import { AProposComponent } from './a-propos/a-propos.component';
 import { SupabaseService } from '@core/services/supabase.service';
 import { Actualite } from '@shared/models/actualite';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,29 +24,25 @@ import { Actualite } from '@shared/models/actualite';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
-  private readonly supabase: SupabaseService = inject(SupabaseService);
+export class HomeComponent {
+  private route: ActivatedRoute = inject(ActivatedRoute);
 
   public carousels: CarouselItem[] = [];
 
-  constructor() {}
+  constructor() {
+    const actualites = this.route.snapshot.data[
+      'actualites'
+    ] as unknown as Actualite[];
 
-  ngOnInit(): void {
-    this.supabase.getActualitesALaUne().then((result) => {
-      if (result.data) {
-        const actualites = result.data as unknown as Actualite[];
-
-        this.carousels = actualites.map((actu, index) => {
-          return {
-            id: actu.id,
-            slug: actu.slug,
-            guid: actu.vignetteId,
-            title: actu.titre,
-            subtitle: actu.courtDescription,
-            selected: index === 0,
-          } as CarouselItem;
-        });
-      }
+    this.carousels = actualites.map((actu, index) => {
+      return {
+        id: actu.id,
+        slug: actu.slug,
+        guid: actu.vignetteId,
+        title: actu.titre,
+        subtitle: actu.courtDescription,
+        selected: index === 0,
+      } as CarouselItem;
     });
   }
 }

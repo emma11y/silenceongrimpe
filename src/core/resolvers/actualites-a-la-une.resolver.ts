@@ -3,11 +3,11 @@ import { Resolve } from '@angular/router';
 import { SupabaseService } from '@core/services/supabase.service';
 
 @Injectable({ providedIn: 'root' })
-export class ActualitesResolver implements Resolve<any> {
+export class ActualitesALaUneResolver implements Resolve<any> {
   constructor(private supabase: SupabaseService) {}
 
   async resolve() {
-    const actualites = await this.supabase.getActualitesPublies();
+    const actualites = await this.supabase.getActualitesALaUne();
     return actualites.data ?? [];
   }
 }

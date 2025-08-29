@@ -37,6 +37,7 @@
           padding: 0.5em;
           margin: auto;
           border-radius: 1em;
+          border: 0.05em solid var(--bleu-ocean);
         }
 
         button {
@@ -44,22 +45,17 @@
           border: none;
 
           i {
+            border: 0.125em solid var(--bleu-ocean);
+            border-radius: 2em;
             color: rgb(0, 0, 0, 0.7);
-            /* -webkit-text-fill-color: rgb(255, 255, 255, 0.5);
-            -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: var(--noir);*/
+
             &.active {
               color: var(--jaune-pale);
-              /* -webkit-text-fill-color: var(--jaune-pale);
-              -webkit-text-stroke-width: 1px;
-              -webkit-text-stroke-color: var(--noir); */
             }
           }
 
           &:hover,
           &:focus-visible {
-            cursor: pointer;
-            //background-color: var(--jaune-pale);
             i {
               color: var(--orange);
             }
@@ -73,12 +69,12 @@
         position: absolute;
         top: calc(50% - 2.5em);
         height: 5em;
-        border: none;
+        border: 0.1em solid var(--bleu-ocean);
         background-color: rgb(255, 255, 255, 0.8);
 
-        /*@media screen and (max-width: vars.$sm) {
-          top: 1.25em;
-        }*/
+        @media screen and (max-width: vars.$sm) {
+          top: 1.15em;
+        }
 
         i {
           color: var(--orange);
@@ -97,10 +93,12 @@
 
       .previous {
         left: 0;
+        border-left: none;
       }
 
       .next {
         right: 0;
+        border-right: none;
       }
     }
   }

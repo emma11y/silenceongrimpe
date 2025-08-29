@@ -152,7 +152,7 @@ export class SupabaseService {
     return this.supabase.from('actualites').select('*');
   }
 
-  getActualitesPublies() {
+  getActualitesPubliees() {
     return this.supabase.from('actualites').select('*').eq('publie', true);
   }
 
