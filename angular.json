@@ -99,7 +99,7 @@
           "builder": "@angular-devkit/build-angular:server",
           "options": {
             "outputPath": "dist/silenceongrimpe/server",
-            "main": "src/main.server.ts",
+            "main": "src/server.ts",
             "tsConfig": "tsconfig.server.json",
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
@@ -108,14 +108,12 @@
           },
           "configurations": {
             "production": {
-              "outputHashing": "media",
-              "sourceMap": false,
-              "optimization": true
+              "outputHashing": "media"
             },
             "development": {
-              "outputHashing": "media",
+              "optimization": false,
               "sourceMap": true,
-              "optimization": false
+              "extractLicenses": false
             }
           },
           "defaultConfiguration": "production"

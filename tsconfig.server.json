@@ -8,7 +8,7 @@
     "moduleResolution": "node",
     "types": ["node"]
   },
-  "files": ["src/main.server.ts"],
+  "files": ["src/main.server.ts", "src/server.ts"],
   "include": [
     "src/app/**/*.ts",
     "src/environments/**/*.ts",

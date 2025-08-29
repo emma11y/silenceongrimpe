@@ -12,8 +12,10 @@
     "test": "ng test",
     "//serve:ssr:silenceongrimpe": "node dist/silenceongrimpe/server/server.mjs",
     "routes:generate": "node prerender-routes.mjs",
+    "build:client": "ng build",
+    "build:server": "ng run silenceongrimpe:server:production",
     "prerender": "npm run routes:generate && ng run silenceongrimpe:prerender",
-    "vercel-build": "npm run prerender && ng run silenceongrimpe:server:build || true"
+    "vercel-build": "npm run build:client && npm run build:server && npm run prerender"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8",
