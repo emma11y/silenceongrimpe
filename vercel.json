@@ -34,9 +34,8 @@
     }
   ],
   "functions": {
-    "api/*.mjs": {
-      "runtime": "nodejs18.x",
-      "excludeFiles": "{**/.next/**,**/*.d.ts}"
+    "api/**/*": {
+      "runtime": "@vercel/node@3.0.0"
     }
   }
 }
