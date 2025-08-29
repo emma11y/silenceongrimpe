@@ -1,32 +1,15 @@
 {
   "version": 2,
-  "framework": "angular",
-  "outputDirectory": "dist/silenceongrimpe",
   "buildCommand": "npm run vercel-build",
+  "outputDirectory": ".",
   "rewrites": [
     {
-      "source": "/assets/:path*",
-      "destination": "/browser/assets/:path*"
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
     },
     {
-      "source": "/:path*.js",
-      "destination": "/browser/:path*.js"
-    },
-    {
-      "source": "/:path*.css",
-      "destination": "/browser/:path*.css"
-    },
-    {
-      "source": "/:path*.ico",
-      "destination": "/browser/:path*.ico"
-    },
-    {
-      "source": "/:path*.png",
-      "destination": "/browser/:path*.png"
-    },
-    {
-      "source": "/:path*.webp",
-      "destination": "/browser/:path*.webp"
+      "source": "/(.*)\\.(?:js|css|ico|png|webp)$",
+      "destination": "/$1.$2"
     },
     {
       "source": "/((?!api/.*).*)",

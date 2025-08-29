@@ -3,20 +3,18 @@ import { APP_BASE_HREF } from "@angular/common";
 import { renderApplication } from "@angular/platform-server";
 import { provideClientHydration } from "@angular/platform-browser";
 import path from "path";
-import { fileURLToPath } from "url";
 import fs from "fs/promises";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const distPath = path.join(__dirname, "..", "dist", "silenceongrimpe");
+// Dans Vercel, les fichiers sont à la racine du projet
+const distPath = process.cwd();
 
 export default async function handler(request, response) {
   try {
     const indexHtml = await fs.readFile(
-      path.join(distPath, "browser", "index.html"),
+      path.join(distPath, "index.html"),
       "utf-8"
     );
-    const { app } = await import(path.join(distPath, "server", "server.mjs"));
+    const { app } = await import(path.join(distPath, "server.mjs"));
 
     const html = await renderApplication(app, {
       document: indexHtml,
