@@ -5,8 +5,9 @@ import { provideClientHydration } from "@angular/platform-browser";
 import path from "path";
 import fs from "fs/promises";
 
-// Chemin vers le dossier de build dans Vercel
-const DIST_PATH = "/var/task/dist/silenceongrimpe/browser";
+// Chemins vers les dossiers de build dans Vercel
+const BROWSER_PATH = "/var/task/dist/silenceongrimpe/browser";
+const SERVER_PATH = "/var/task/dist/silenceongrimpe/server";
 
 // Fonction de débogage pour l'environnement
 const debugEnvironment = async () => {
@@ -16,8 +17,11 @@ const debugEnvironment = async () => {
     if (await fs.stat("/var/task").catch(() => false)) {
       console.log("/var/task contents:", await fs.readdir("/var/task"));
     }
-    if (await fs.stat(DIST_PATH).catch(() => false)) {
-      console.log("DIST_PATH contents:", await fs.readdir(DIST_PATH));
+    if (await fs.stat(BROWSER_PATH).catch(() => false)) {
+      console.log("BROWSER_PATH contents:", await fs.readdir(BROWSER_PATH));
+    }
+    if (await fs.stat(SERVER_PATH).catch(() => false)) {
+      console.log("SERVER_PATH contents:", await fs.readdir(SERVER_PATH));
     }
   } catch (error) {
     console.error("Debug error:", error);
