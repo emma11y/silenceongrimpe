@@ -1,7 +1,7 @@
 {
   "version": 2,
   "buildCommand": "npm run vercel-build",
-  "outputDirectory": "dist/silenceongrimpe",
+  "outputDirectory": "dist/silenceongrimpe/browser",
   "rewrites": [
     {
       "source": "/assets/:path*",
