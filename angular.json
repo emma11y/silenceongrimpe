@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/silenceongrimpe",
+            "outputPath": "dist/silenceongrimpe/browser",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "server": "src/main.server.ts",
@@ -90,35 +90,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "outputPath": "dist/silenceongrimpe/server",
-            "browser": "src/main.ts",
-            "server": "src/main.server.ts",
-            "ssr": {
-              "entry": "src/server.ts"
-            },
-            "tsConfig": "tsconfig.server.json",
-            "inlineStyleLanguage": "scss",
-            "stylePreprocessorOptions": {
-              "includePaths": ["src/assets/styles"]
-            }
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media",
-              "sourceMap": false,
-              "optimization": true
-            },
-            "development": {
-              "outputHashing": "media",
-              "sourceMap": true,
-              "optimization": false
             }
           },
           "defaultConfiguration": "production"

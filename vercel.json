@@ -3,20 +3,13 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "zeroConfig": true
-      }
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/server/server.mjs"
-    }
+    { "src": "^/assets/(.*)", "dest": "/browser/assets/$1" },
+    { "handle": "filesystem" },
+    { "src": ".*", "dest": "/browser/index.html" }
   ]
 }

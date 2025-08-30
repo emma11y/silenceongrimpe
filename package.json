@@ -2,7 +2,7 @@
   "name": "silenceongrimpe",
   "version": "0.0.0",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "ng": "ng",
@@ -11,7 +11,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "//serve:ssr:silenceongrimpe": "node dist/silenceongrimpe/server/server.mjs",
-    "vercel-build": "node prerender-routes.mjs && ng build --configuration production"
+    "vercel-build": "node prerender-routes.mjs && ng build --configuration production && node scripts/move-dist.mjs"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8",
