@@ -2,6 +2,7 @@
   "version": 2,
   "buildCommand": "npm run vercel-build",
   "outputDirectory": "dist/silenceongrimpe",
+  "index": "index.mjs",
   "rewrites": [
     {
       "source": "/assets/:path*",
@@ -13,11 +14,11 @@
     },
     {
       "source": "/((?!api/.*).*)",
-      "destination": "/api"
+      "destination": "/api/index.mjs"
     }
   ],
   "functions": {
-    "api/**/*": {
+    "api/*.mjs": {
       "runtime": "@vercel/node@3.0.0"
     }
   }
