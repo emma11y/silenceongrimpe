@@ -23,10 +23,7 @@
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {
-              "entry": "src/server.ts",
-              "prerender": {
-                "routesFile": "prerender-routes.txt"
-              }
+              "entry": "src/server.ts"
             },
             "polyfills": ["zone.js"],
             "allowedCommonJsDependencies": [
