@@ -14,20 +14,19 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
-        "prerender": {
-          "builder": "@angular-devkit/build-angular:prerender",
-          "options": {
-            "browserTarget": "silenceongrimpe:build",
-            "serverTarget": "silenceongrimpe:server",
-            "routesFile": "prerender-routes.txt"
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/silenceongrimpe",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "ssr": {
+              "entry": "src/server.ts",
+              "prerender": {
+                "routesFile": "prerender-routes.txt"
+              }
+            },
             "polyfills": ["zone.js"],
             "allowedCommonJsDependencies": [
               "whatwg-url",
@@ -63,7 +62,7 @@
             ],
             "scripts": [],
             "server": "src/main.server.ts",
-            "outputMode": "server",
+
             "ssr": {
               "entry": "src/server.ts"
             },
@@ -96,10 +95,14 @@
           "defaultConfiguration": "production"
         },
         "server": {
-          "builder": "@angular-devkit/build-angular:server",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/silenceongrimpe/server",
-            "main": "src/main.server.ts",
+            "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "ssr": {
+              "entry": "src/server.ts"
+            },
             "tsConfig": "tsconfig.server.json",
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
