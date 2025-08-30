@@ -2,7 +2,7 @@
   "name": "silenceongrimpe",
   "version": "0.0.0",
   "engines": {
-    "node": "22.x"
+    "node": "18.x"
   },
   "scripts": {
     "ng": "ng",
@@ -13,7 +13,7 @@
     "//serve:ssr:silenceongrimpe": "node dist/silenceongrimpe/server/server.mjs",
     "routes:generate": "node prerender-routes.mjs",
     "prerender": "npm run routes:generate && ng run silenceongrimpe:prerender",
-    "vercel-build": "ng build && ng run silenceongrimpe:server:build && npm run prerender"
+    "vercel-build": "ng run silenceongrimpe:build:production && ng run silenceongrimpe:server:production && npm run prerender"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8",

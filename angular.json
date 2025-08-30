@@ -96,14 +96,18 @@
           "defaultConfiguration": "production"
         },
         "server": {
-          "builder": "@angular-devkit/build-angular:server",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/silenceongrimpe/server",
-            "main": "src/main.server.ts",
+            "browser": "src/main.server.ts",
             "tsConfig": "tsconfig.server.json",
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
               "includePaths": ["src/assets/styles"]
+            },
+            "outputMode": "server",
+            "ssr": {
+              "entry": "src/server.ts"
             }
           },
           "configurations": {
