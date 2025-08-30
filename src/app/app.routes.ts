@@ -183,6 +183,7 @@ export const routes: Routes = [
             data: {
               metadata: {
                 title: 'Se connecter',
+                robots: 'noindex, nofollow',
               },
             },
             loadComponent: () =>
@@ -195,6 +196,7 @@ export const routes: Routes = [
             data: {
               metadata: {
                 title: 'Tableau de bord',
+                robots: 'noindex, nofollow',
               },
             },
             canActivate: [AuthGuard],
@@ -209,6 +211,7 @@ export const routes: Routes = [
             data: {
               metadata: {
                 title: 'Importer les événéments',
+                robots: 'noindex, nofollow',
               },
             },
             loadComponent: () =>
@@ -225,6 +228,7 @@ export const routes: Routes = [
                 data: {
                   metadata: {
                     title: 'Créer un nouvel événément',
+                    robots: 'noindex, nofollow',
                   },
                 },
                 loadComponent: () =>
@@ -237,6 +241,7 @@ export const routes: Routes = [
                 data: {
                   metadata: {
                     title: 'Modifier un événément',
+                    robots: 'noindex, nofollow',
                   },
                 },
                 loadComponent: () =>
@@ -252,6 +257,7 @@ export const routes: Routes = [
             data: {
               metadata: {
                 title: 'Liste des événéments',
+                robots: 'noindex, nofollow',
               },
             },
             loadComponent: () =>
@@ -265,6 +271,7 @@ export const routes: Routes = [
             data: {
               metadata: {
                 title: 'Bibliothèque des images',
+                robots: 'noindex, nofollow',
               },
             },
             loadComponent: () =>
@@ -278,6 +285,7 @@ export const routes: Routes = [
             data: {
               metadata: {
                 title: 'Liste des actualités',
+                robots: 'noindex, nofollow',
               },
             },
             loadComponent: () =>
@@ -295,6 +303,7 @@ export const routes: Routes = [
                 data: {
                   metadata: {
                     title: 'Créer une nouvelle actualité',
+                    robots: 'noindex, nofollow',
                   },
                 },
                 loadComponent: () =>
@@ -307,6 +316,7 @@ export const routes: Routes = [
                 data: {
                   metadata: {
                     title: "Modifier l'actualité",
+                    robots: 'noindex, nofollow',
                   },
                 },
                 loadComponent: () =>

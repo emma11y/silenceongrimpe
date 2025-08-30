@@ -21,6 +21,7 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "server": "src/main.server.ts",
+            "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts",
               "prerender": {
@@ -61,11 +62,6 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "server": "src/main.server.ts",
-
-            "ssr": {
-              "entry": "src/server.ts"
-            },
             "stylePreprocessorOptions": {
               "includePaths": ["src/assets/styles"]
             }
