@@ -11,8 +11,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "//serve:ssr:silenceongrimpe": "node dist/silenceongrimpe/server/server.mjs",
-    "//vercel-build": "node prerender-routes.mjs && ng build --configuration production",
-    "vercel-build": "ng build --configuration production"
+    "vercel-build": "node prerender-routes.mjs && ng build --configuration production"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8",

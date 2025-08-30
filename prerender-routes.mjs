@@ -7,6 +7,7 @@ const SUPABASE_URL = "https://xougupyvckqdjqtkyqyr.supabase.co";
 const SUPABASE_SERVICE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvdWd1cHl2Y2txZGpxdGt5cXlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2ODA5ODAsImV4cCI6MjA2ODI1Njk4MH0.PdDCh0qa-jgQr8D1fNUAszqI9ftngvnAZgucsDUREjw";
 
+// Chemins des fichiers
 const CACHE_FILE = path.resolve(".cache/prerender-routes.txt");
 const CACHE_TTL = 60 * 60 * 1000; // 1h
 
@@ -35,7 +36,15 @@ async function main() {
     }
 
     console.log("⏳ Récupération des slugs depuis Supabase...");
-    const routes = ["/", "/agenda", "/actualites", ...(await fetchSlugs())];
+    const routes = [
+      "/",
+      "/collectif",
+      "/agenda",
+      "/contact",
+      "/mentions-legales",
+      "/actualites",
+      ...(await fetchSlugs()),
+    ];
 
     fs.mkdirSync(".cache", { recursive: true });
     fs.writeFileSync(CACHE_FILE, routes.join("\n"));
