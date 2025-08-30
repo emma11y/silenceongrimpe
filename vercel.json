@@ -1,25 +1,16 @@
 {
   "version": 2,
-  "buildCommand": "npm run vercel-build",
-  "outputDirectory": "dist/silenceongrimpe",
-  "framework": "angular",
-  "functions": {
-    "index.mjs": {
-      "runtime": "@vercel/node@3.0.0"
-    }
-  },
+  "builds": [
+    { "src": "dist/silenceongrimpe/browser/**/*", "use": "@vercel/static" },
+    { "src": "dist/silenceongrimpe/server/server.mjs", "use": "@vercel/node" }
+  ],
   "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
     {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
+      "src": "/(.*)",
+      "dest": "/dist/silenceongrimpe/browser/$1",
+      "continue": true
     },
-    {
-      "src": "/(.*\\.(js|css|ico|png|webp))",
-      "dest": "/$1"
-    },
-    {
-      "src": "/((?!api/).*)",
-      "dest": "/index.mjs"
-    }
+    { "src": "/(.*)", "dest": "dist/silenceongrimpe/server/server.mjs" }
   ]
 }
