@@ -2,7 +2,7 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { FooterComponent } from '@shared/components/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
-import { TitlePageDirective } from '@shared/directives/title-page.directive';
+import { TitlePageAccessibilityDirective } from '@shared/directives/title-page.directive';
 import { AlertComponent } from '@shared/components/alert/alert.component';
 import { AlertService } from '@core/services/alert.service';
 
@@ -12,7 +12,7 @@ import { AlertService } from '@core/services/alert.service';
     HeaderComponent,
     FooterComponent,
     RouterOutlet,
-    TitlePageDirective,
+    TitlePageAccessibilityDirective,
     AlertComponent,
   ],
   templateUrl: './public-layout.component.html',

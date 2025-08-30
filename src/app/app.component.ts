@@ -11,14 +11,14 @@ import { filter, map, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  //title = 'Silence, on grimpe !';
-
   private readonly router: Router = inject(Router);
+  private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly metadataService: MetadataService = inject(MetadataService);
 
   ngOnInit(): void {
