@@ -10,25 +10,21 @@
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "/favicon.ico"
-    },
-    {
-      "src": "/site.webmanifest",
-      "dest": "/site.webmanifest"
-    },
     {
       "handle": "filesystem"
     },
     {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "^/(?:assets|favicon\\.ico|site\\.webmanifest|.*\\.(?:js|css|json|png|jpg|jpeg|gif|svg|ico))$",
+      "dest": "/$1",
+      "continue": true
+    },
+    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/"
     }
   ]
 }
