@@ -13,70 +13,36 @@ export class MetadataService {
 
   public setMetadata(metadata: any): void {
     const title = `${metadata.title} | Silence, on grimpe !`;
-    const description =
-      metadata.description ||
-      "Silence, on grimpe ! est une association qui promeut l'escalade pour tous, en favorisant l'inclusion et l'accessibilité.";
-    const currentUrl = `${HttpConfig.websiteUrl}${this.router.url}`;
 
-    // Titre de la page
     this.title.setTitle(title);
 
-    // Balises meta de base
     this.createOrUpdateTag('title', title);
-    this.createOrUpdateTag('description', description);
-    this.createOrUpdateTag('robots', metadata.robots || 'index,follow');
 
-    // Balises Open Graph de base
     this.createOrUpdateTag('og:title', title);
-    this.createOrUpdateTag('og:description', description);
-    this.createOrUpdateTag('og:url', currentUrl);
-    this.createOrUpdateTag('og:type', metadata.type || 'website');
-    this.createOrUpdateTag('og:locale', 'fr_FR');
-    this.createOrUpdateTag('og:site_name', 'Silence, on grimpe !');
 
-    // Image par défaut si non spécifiée
-    if (!metadata.image) {
-      this.createOrUpdateTag(
-        'og:image',
-        `${HttpConfig.websiteUrl}/web-app-manifest-512x512.png`
-      );
+    this.createOrUpdateTag('description', metadata.description);
+
+    this.createOrUpdateTag('og:description', metadata.description);
+
+    if (metadata.robots) {
+      this.meta.updateTag({ name: 'robots', content: metadata.robots });
     } else {
-      this.createOrUpdateTag('og:image', metadata.image);
+      this.meta.updateTag({ name: 'robots', content: 'follow,index' });
     }
 
-    // Twitter Card
-    this.createOrUpdateTag('twitter:card', 'summary_large_image');
-    this.createOrUpdateTag('twitter:title', title);
-    this.createOrUpdateTag('twitter:description', description);
+    this.createOrUpdateTag(
+      'og:url',
+      `${HttpConfig.websiteUrl}${this.router.url}`
+    );
 
-    // Autres métadonnées importantes
-    this.createOrUpdateTag('viewport', 'width=device-width, initial-scale=1');
-    this.createOrUpdateTag('theme-color', metadata.themeColor || '#ffffff');
-    this.createOrUpdateTag('author', 'Silence, on grimpe !');
-
-    // Canonique
-    const linkElement =
-      document.querySelector('link[rel="canonical"]') ||
-      document.createElement('link');
-    linkElement.setAttribute('rel', 'canonical');
-    linkElement.setAttribute('href', currentUrl);
-    if (!document.querySelector('link[rel="canonical"]')) {
-      document.head.appendChild(linkElement);
-    }
+    this.createOrUpdateTag('og:locale', 'fr_FR');
   }
 
   private createOrUpdateTag(property: string, content: string) {
-    // Gérer à la fois les balises name et property
-    const isOpenGraph = property.startsWith('og:');
-    const attribute = isOpenGraph ? 'property' : 'name';
-
-    // Rechercher la balise existante avec name ou property
-    const existingTag = this.meta.getTag(`${attribute}='${property}'`);
-
-    if (existingTag) {
-      this.meta.updateTag({ [attribute]: property, content });
+    if (this.meta.getTag(`property='${property}'`)) {
+      this.meta.updateTag({ property, content });
     } else {
-      this.meta.addTag({ [attribute]: property, content });
+      this.meta.addTag({ property, content });
     }
   }
 
