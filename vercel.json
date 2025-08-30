@@ -2,27 +2,23 @@
   "version": 2,
   "buildCommand": "npm run vercel-build",
   "outputDirectory": "dist/silenceongrimpe",
-  "rewrites": [
-    {
-      "source": "/assets/:path*",
-      "destination": "/assets/:path*"
-    },
-    {
-      "source": "/:file(.*\\.js|.*\\.css|.*\\.ico|.*\\.png|.*\\.webp)",
-      "destination": "/:file"
-    },
-    {
-      "source": "/((?!api/.*).*)",
-      "destination": "/api/index.mjs"
-    },
-    {
-      "source": "/",
-      "destination": "/api/index.mjs"
-    }
-  ],
   "functions": {
-    "api/*.mjs": {
+    "api/index.mjs": {
       "runtime": "@vercel/node@3.0.0"
     }
-  }
+  },
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|ico|png|webp))",
+      "dest": "/$1"
+    },
+    {
+      "src": "/((?!api/).*)",
+      "dest": "/api/index.mjs"
+    }
+  ]
 }
