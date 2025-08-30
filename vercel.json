@@ -2,8 +2,9 @@
   "version": 2,
   "buildCommand": "npm run vercel-build",
   "outputDirectory": "dist/silenceongrimpe",
+  "framework": "angular",
   "functions": {
-    "api/index.mjs": {
+    "index.mjs": {
       "runtime": "@vercel/node@3.0.0"
     }
   },
@@ -18,7 +19,7 @@
     },
     {
       "src": "/((?!api/).*)",
-      "dest": "/api/index.mjs"
+      "dest": "/index.mjs"
     }
   ]
 }
