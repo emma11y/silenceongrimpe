@@ -25,8 +25,22 @@ export default async function handler(req, res) {
       new_slug,
     });
 
+    // Fonction pour déclencher un nouveau déploiement via l'API Vercel
+    async function triggerVercelDeploy() {
+      const deployHookUrl = process.env.VERCEL_DEPLOY_HOOK;
+      if (!deployHookUrl) {
+        throw new Error("VERCEL_DEPLOY_HOOK non configuré");
+      }
+
+      const response = await fetch(deployHookUrl, { method: "POST" });
+      if (!response.ok) {
+        throw new Error("Échec du déclenchement du déploiement");
+      }
+      return response.json();
+    }
+
     try {
-      // Invalidation ciblée selon l'opération
+      // Déclencher un nouveau déploiement pour chaque opération
       switch (operation) {
         case "INSERT":
           if (!slug) {
@@ -34,7 +48,7 @@ export default async function handler(req, res) {
               .status(400)
               .json({ error: "Slug required for INSERT operation" });
           }
-          await res.revalidate(`/actualites/${slug}`);
+          await triggerVercelDeploy();
           break;
 
         case "UPDATE":
@@ -43,11 +57,7 @@ export default async function handler(req, res) {
               .status(400)
               .json({ error: "new_slug required for UPDATE operation" });
           }
-          // Si l'ancien slug existe et est différent, on revalide aussi son URL
-          if (old_slug && old_slug !== new_slug) {
-            await res.revalidate(`/actualites/${old_slug}`);
-          }
-          await res.revalidate(`/actualites/${new_slug}`);
+          await triggerVercelDeploy();
           break;
 
         case "DELETE":
@@ -56,7 +66,7 @@ export default async function handler(req, res) {
               .status(400)
               .json({ error: "Slug required for DELETE operation" });
           }
-          await res.revalidate(`/actualites/${slug}`);
+          await triggerVercelDeploy();
           break;
       }
 
