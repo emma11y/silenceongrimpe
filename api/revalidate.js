@@ -3,13 +3,26 @@ export default async function handler(req, res) {
   if (req.method !== "POST")
     return res.status(405).json({ error: "Method not allowed" });
 
-  // Sécurité
-  const auth = req.headers["authorization"];
-  if (!auth || auth !== `Bearer ${process.env.DEPLOY_SECRET}`) {
-    return res
-      .status(403)
-      .json({ error: "Forbidden", auth, secret: process.env.DEPLOY_SECRET });
+  // Log complet des headers pour debug
+  console.log("=== HEADERS RECUS ===");
+  console.log(req.headers);
+
+  const authHeader = req.headers.authorization;
+  console.log("Authorization header:", authHeader);
+
+  if (!authHeader || authHeader !== `Bearer ${process.env.DEPLOY_SECRET}`) {
+    return res.status(401).json({
+      error: "Unauthorized",
+      received: authHeader,
+      expected: `Bearer ${process.env.DEPLOY_SECRET}`,
+    });
   }
+
+  // Sécurité
+  /*  const auth = req.headers["authorization"];
+  if (!auth || auth !== `Bearer ${process.env.DEPLOY_SECRET}`) {
+    return res.status(403).json({ error: "Forbidden" });
+  }*/
 
   try {
     const { operation, slug, old_slug, new_slug } = req.body;
