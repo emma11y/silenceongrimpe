@@ -1,4 +1,4 @@
-import { Component, ComponentRef, inject, ViewChild } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AlertService } from '@core/services/alert.service';
 import { SupabaseService } from '@core/services/supabase.service';
@@ -8,17 +8,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
 import { DisplayImageComponent } from '@shared/components/display-image/display-image.component';
-import { PopupComponentComponent } from '@shared/components/popup-component/popup-component.component';
 import { BibliothequeImagesComponent } from '../bibliotheque-images/bibliotheque-images.component';
 import { Picture } from '@shared/models/picture';
 import { PopupComponentService } from '@core/services/popup-component.service';
-import { UploadImageComponent } from '@shared/components/upload-image/upload-image.component';
-import { first } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
 import {
   AngularEditorConfig,
   AngularEditorModule,
 } from '@kolkov/angular-editor';
+import { RevalidateService } from '@app/core/services/revalidate.service';
 
 @Component({
   selector: 'app-actualite-form',
@@ -27,7 +24,6 @@ import {
     FormsModule,
     ValidationSummaryComponent,
     DisplayImageComponent,
-    HttpClientModule,
     AngularEditorModule,
   ],
   templateUrl: './actualite-form.component.html',
@@ -39,11 +35,14 @@ export class ActualiteFormComponent {
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
   private readonly popup: PopupComponentService = inject(PopupComponentService);
+  private readonly revalidateService: RevalidateService =
+    inject(RevalidateService);
 
   form: Actualite = new Actualite();
   picture!: Picture;
 
   isUpdate: boolean = false;
+  currentSlug: string = '';
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -105,6 +104,7 @@ export class ActualiteFormComponent {
         if (actualite) {
           this.isUpdate = true;
           this.form = actualite as unknown as Actualite;
+          this.currentSlug = { ...actualite.slug };
         }
       }
     });
@@ -150,7 +150,16 @@ export class ActualiteFormComponent {
 
     if (!this.isUpdate) {
       this.isUpdate = true;
+
+      if (this.form.publie && this.form.slug !== this.currentSlug) {
+        this.revalidateService.revalidateUpdate(
+          this.currentSlug,
+          this.form.slug
+        );
+      }
+
       this.alertService.showAlert('success', "L'actualité a bien été créée.");
+
       this.router.navigate(['admin', 'actualite', this.form.slug]);
     } else {
       this.alertService.showAlert(

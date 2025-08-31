@@ -17,13 +17,12 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ImageInterceptor } from '@core/interceptors/image.interceptor';
-//import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-/*import {
+import {
+  HTTP_INTERCEPTORS,
   provideHttpClient,
   withInterceptorsFromDi,
-} from '@angular/common/http';*/
+} from '@angular/common/http';
+import { ImageInterceptor } from '@core/interceptors/image.interceptor';
 
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -39,7 +38,8 @@ export const appConfig: ApplicationConfig = {
       }),
       ReactiveFormsModule
     ),
-    // { provide: HTTP_INTERCEPTORS, useClass: ImageInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ImageInterceptor, multi: true },
+    provideHttpClient(withInterceptorsFromDi()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
