@@ -7,7 +7,7 @@ import { SupabaseService } from '@core/services/supabase.service';
   providedIn: 'root',
 })
 export class RevalidateService {
-  private revalidateUrl = `${environment.apiUrl}/api/revalidate`;
+  private revalidateUrl = `${environment.apiUrl}/api/revalidate.js`;
   private headers!: HttpHeaders;
 
   private readonly http: HttpClient = inject(HttpClient);
