@@ -6,7 +6,9 @@ export default async function handler(req, res) {
   // Sécurité
   const auth = req.headers["authorization"];
   if (!auth || auth !== `Bearer ${process.env.DEPLOY_SECRET}`) {
-    return res.status(403).json({ error: "Forbidden" });
+    return res
+      .status(403)
+      .json({ error: "Forbidden", auth, secret: process.env.DEPLOY_SECRET });
   }
 
   try {
