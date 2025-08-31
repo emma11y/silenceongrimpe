@@ -2,6 +2,9 @@
 
 .membres-collectif {
   margin-bottom: 2em;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
   .header {
     margin: auto;
 
@@ -28,13 +31,15 @@
     justify-content: center;
     text-align: center;
     width: 100%;
+    max-width: 1200px;
+    margin: auto;
 
     &-item {
       padding: 1em;
     }
 
     &-image {
-      background-color: var(--blanc);
+      // background-color: var(--blanc);
       width: 15em;
       height: 15em;
       margin: auto;

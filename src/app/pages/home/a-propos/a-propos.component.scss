@@ -29,7 +29,7 @@
     text-align: center;
 
     &-item {
-      width: calc(30% - 1em);
+      width: calc(32% - 1em);
       padding: 1em;
       display: flex;
       flex-direction: column;
@@ -84,14 +84,14 @@
       align-content: center;
 
       img {
-        width: 100%;
+        width: 80%;
       }
     }
 
     &-description {
       background-color: var(--blanc);
       border-radius: 2em;
-      max-width: 22em;
+      max-width: 25em;
       margin: auto;
       margin-top: -1.25em;
       padding: 0 1em;

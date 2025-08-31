@@ -11,9 +11,7 @@
         <p class="title quote">
           {{ temoignage.quote }}
         </p>
-        <p>
-          {{ temoignage.subtitle }}
-        </p>
+        <div [innerHTML]="temoignage.subtitle"></div>
         <button
           type="button"
           (click)="temoignage.open = !temoignage.open"

@@ -4,54 +4,19 @@
   </div>
 
   <div class="list" role="list">
+    @for(membre of membres; track $index){
     <div class="list-item" role="listitem">
       <div class="list-image">
-        <img alt="" src="../../../assets/imgs/trombinoscope/Arnaud.jpg" />
+        <img
+          alt=""
+          [src]="'../../../assets/imgs/trombinoscope/' + membre.img"
+        />
       </div>
       <div class="list-description">
-        <p class="prenom">Arnaud</p>
-        <p class="titre">Fondateur et coordinateur</p>
+        <p class="prenom">{{ membre.prenom }}</p>
+        <p class="titre">{{ membre.titre }}</p>
       </div>
     </div>
-
-    <div class="list-item" role="listitem">
-      <div class="list-image">
-        <img alt="" src="../../../assets/imgs/trombinoscope/Arnaud.jpg" />
-      </div>
-      <div class="list-description">
-        <p class="prenom">Arnaud</p>
-        <p class="titre">Fondateur et coordinateur</p>
-      </div>
-    </div>
-
-    <div class="list-item" role="listitem">
-      <div class="list-image">
-        <img alt="" src="../../../assets/imgs/trombinoscope/Arnaud.jpg" />
-      </div>
-      <div class="list-description">
-        <p class="prenom">Arnaud</p>
-        <p class="titre">Fondateur et coordinateur</p>
-      </div>
-    </div>
-
-    <div class="list-item" role="listitem">
-      <div class="list-image">
-        <img alt="" src="../../../assets/imgs/trombinoscope/Arnaud.jpg" />
-      </div>
-      <div class="list-description">
-        <p class="prenom">Arnaud</p>
-        <p class="titre">Fondateur et coordinateur</p>
-      </div>
-    </div>
-
-    <div class="list-item" role="listitem">
-      <div class="list-image">
-        <img alt="" src="../../../assets/imgs/trombinoscope/Arnaud.jpg" />
-      </div>
-      <div class="list-description">
-        <p class="prenom">Arnaud</p>
-        <p class="titre">Fondateur et coordinateur</p>
-      </div>
-    </div>
+    }
   </div>
 </div>
