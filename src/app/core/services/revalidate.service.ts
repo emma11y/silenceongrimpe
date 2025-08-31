@@ -1,20 +1,26 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { SupabaseService } from '@core/services/supabase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RevalidateService {
   private revalidateUrl = `${environment.apiUrl}/api/revalidate`;
-  private headers: HttpHeaders;
+  private headers!: HttpHeaders;
 
   private readonly http: HttpClient = inject(HttpClient);
+  private readonly supabase: SupabaseService = inject(SupabaseService);
 
   constructor() {
-    this.headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', `Bearer ${environment.deploySecret}`);
+    this.supabase.getVercelSecret().then((result) => {
+      if (result.data) {
+        this.headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${result.data.value}`);
+      }
+    });
   }
 
   revalidateInsert(slug: string) {

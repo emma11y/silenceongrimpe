@@ -6,7 +6,7 @@
   *ngIf="carousels.length > 0"
 >
   <div class="carousel-inner">
-    <div class="controls">
+    <div class="controls" *ngIf="carousels.length > 1">
       <div class="tab-wrapper">
         <div
           role="tablist"
