@@ -46,12 +46,14 @@ export function filtrerPeriodes(
   hasFilter = true
 ): Evenement[] | AgendaItem[] {
   const now = new Date();
+  now.setDate(1);
+  now.setHours(0, 0, 0, 0);
 
   const parsed = liste.map((p) => {
     let dates = parsePeriode(`${p.date} ${p.annee}`);
 
     if (hasFilter) {
-      dates = dates.filter((d) => d > now);
+      dates = dates.filter((d) => d >= now);
     }
 
     const nextDate =
