@@ -17,7 +17,7 @@ const mapping: Record<string, number> = {
   // saisons
   printemps: 2, // mars
   été: 5, // juin
-  automne: 8, // septembre
+  automne: 9, // septembre
   hiver: 11, // décembre (on le place en fin d’année)
 };
 
