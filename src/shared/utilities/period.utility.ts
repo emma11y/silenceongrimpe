@@ -21,7 +21,7 @@ const mapping: Record<string, number> = {
   hiver: 11, // décembre (on le place en fin d’année)
 };
 
-function parsePeriode(periode: string): Date[] {
+function parsePeriode(periode: string, day: number | undefined): Date[] {
   const parts = periode.toLowerCase().trim().split(' ');
   const year = parseInt(parts[parts.length - 1], 10);
 
@@ -35,7 +35,7 @@ function parsePeriode(periode: string): Date[] {
   for (const mot of mots) {
     const month = mapping[mot];
     if (month !== undefined) {
-      dates.push(new Date(year, month, 1));
+      dates.push(new Date(year, month, day ?? 1));
     }
   }
   return dates;
@@ -50,7 +50,28 @@ export function filtrerPeriodes(
   now.setHours(0, 0, 0, 0);
 
   const parsed = liste.map((p) => {
-    let dates = parsePeriode(`${p.date} ${p.annee}`);
+    let date = p.date;
+    let day: number | undefined;
+
+    // Si la date contient un chiffre (ex: "16 et 17 septembre", "16 septembre", "16 - 17 septembre")
+    if (/\d/.test(p.date)) {
+      // On extrait le premier nombre trouvé (le jour)
+      const match = p.date.match(/\d{1,2}/);
+      if (match) {
+        // On remplace la date par "jour mois" (ex: "16 septembre")
+        const mois = p.date
+          .replace(/[^\p{L}]+/gu, ' ')
+          .trim()
+          .split(' ')
+          .find((m) => mapping[m.toLowerCase()]);
+        if (mois) {
+          date = `${mois}`;
+          day = Number.parseInt(match[0]);
+        }
+      }
+    }
+
+    let dates = parsePeriode(`${date} ${p.annee}`, day);
 
     if (hasFilter) {
       dates = dates.filter((d) => d >= now);
