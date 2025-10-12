@@ -115,6 +115,21 @@
           <div class="group">
             <input
               type="checkbox"
+              id="stt"
+              name="stt"
+              [(ngModel)]="form.stt"
+              #stt="ngModel"
+              (keyup.Enter)="form.stt = !form.stt"
+            />
+            <label for="stt_sme">Sous-titres</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <input
+              type="checkbox"
               id="ad"
               name="ad"
               [(ngModel)]="form.ad"
@@ -185,21 +200,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <div class="group">
-            <input
-              type="checkbox"
-              id="stt"
-              name="stt"
-              [(ngModel)]="form.stt"
-              #stt="ngModel"
-              (keyup.Enter)="form.stt = !form.stt"
-            />
-            <label for="stt_sme">Sous-titres</label>
-          </div>
-        </div>
-      </div>
+
       <button class="action" type="submit" (click)="onClick(eventForm)">
         <span>
           {{ isUpdate ? "Modifier l'événément" : "Créer l'événément" }}</span

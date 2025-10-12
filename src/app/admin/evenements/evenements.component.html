@@ -28,12 +28,12 @@
         <th class="lieu">Lieu</th>
         <th class="siteWeb">Site Web</th>
         <th class="icon">STT SME</th>
+        <th class="icon">STT</th>
         <th class="icon">AD</th>
         <th class="icon">LSF</th>
         <th class="icon">Trans-cription</th>
         <th class="icon">BIM</th>
         <th class="icon">Accès PMR</th>
-        <th class="icon">STT</th>
         <th class="actions">Actions</th>
       </tr>
     </thead>
@@ -65,6 +65,17 @@
             aria-hidden="true"
           ></i>
           <span class="sr-only">{{ evenement.stt_sme ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': evenement.stt,
+              'fa-xmark': !evenement.stt
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ evenement.stt ? "Oui" : "Non" }}</span>
         </td>
         <td class="icon">
           <i
@@ -122,17 +133,6 @@
             aria-hidden="true"
           ></i>
           <span class="sr-only">{{ evenement.pmr ? "Oui" : "Non" }}</span>
-        </td>
-        <td class="icon">
-          <i
-            class="fa fa-solid"
-            [ngClass]="{
-              'fa-square-check': evenement.stt,
-              'fa-xmark': !evenement.stt
-            }"
-            aria-hidden="true"
-          ></i>
-          <span class="sr-only">{{ evenement.stt ? "Oui" : "Non" }}</span>
         </td>
         <td class="actions">
           <a
