@@ -5,10 +5,11 @@ export class Evenement {
   public annee: string = '';
   public lieu: string = '';
   public siteWeb: string = '';
-  public stt: boolean = false;
+  public stt_sme: boolean = false;
   public ad: boolean = false;
   public lsf: boolean = false;
   public transcription: boolean = false;
   public bim: boolean = false;
   public pmr: boolean = false;
+  public stt: boolean = false;
 }

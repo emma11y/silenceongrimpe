@@ -100,13 +100,13 @@
           <div class="group">
             <input
               type="checkbox"
-              id="stt"
-              name="stt"
-              [(ngModel)]="form.stt"
-              #stt="ngModel"
-              (keyup.Enter)="form.stt = !form.stt"
+              id="stt_sme"
+              name="stt_sme"
+              [(ngModel)]="form.stt_sme"
+              #stt_sme="ngModel"
+              (keyup.Enter)="form.stt_sme = !form.stt_sme"
             />
-            <label for="stt">Sous-titres SME</label>
+            <label for="stt_sme">Sous-titres SME</label>
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@
               #ad="ngModel"
               (keyup.Enter)="form.ad = !form.ad"
             />
-            <label for="stt">Audiodescription</label>
+            <label for="ad">Audiodescription</label>
           </div>
         </div>
       </div>
@@ -182,6 +182,21 @@
               (keyup.Enter)="form.pmr = !form.pmr"
             />
             <label for="pmr">Accès PMR</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <input
+              type="checkbox"
+              id="stt"
+              name="stt"
+              [(ngModel)]="form.stt"
+              #stt="ngModel"
+              (keyup.Enter)="form.stt = !form.stt"
+            />
+            <label for="stt_sme">Sous-titres</label>
           </div>
         </div>
       </div>

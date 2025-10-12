@@ -33,6 +33,7 @@
         <th class="icon">Trans-cription</th>
         <th class="icon">BIM</th>
         <th class="icon">Accès PMR</th>
+        <th class="icon">STT</th>
         <th class="actions">Actions</th>
       </tr>
     </thead>
@@ -58,12 +59,12 @@
           <i
             class="fa fa-solid"
             [ngClass]="{
-              'fa-square-check': evenement.stt,
-              'fa-xmark': !evenement.stt
+              'fa-square-check': evenement.stt_sme,
+              'fa-xmark': !evenement.stt_sme
             }"
             aria-hidden="true"
           ></i>
-          <span class="sr-only">{{ evenement.stt ? "Oui" : "Non" }}</span>
+          <span class="sr-only">{{ evenement.stt_sme ? "Oui" : "Non" }}</span>
         </td>
         <td class="icon">
           <i
@@ -121,6 +122,17 @@
             aria-hidden="true"
           ></i>
           <span class="sr-only">{{ evenement.pmr ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': evenement.stt,
+              'fa-xmark': !evenement.stt
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ evenement.stt ? "Oui" : "Non" }}</span>
         </td>
         <td class="actions">
           <a

@@ -39,7 +39,7 @@ export class ImportComponent {
           annee: item['Année'],
           lieu: item['Lieu'],
           siteWeb: item['Site web'],
-          stt: this.convertStringToBoolean(item['Obs. STT ?']),
+          stt_sme: this.convertStringToBoolean(item['Obs. STT ?']),
           ad: this.convertStringToBoolean(item['Obs. Audio ?']),
           lsf: this.convertStringToBoolean(item['Obs. LSF ?']),
           transcription: this.convertStringToBoolean(item['Obs. STT DIRECT ?']),

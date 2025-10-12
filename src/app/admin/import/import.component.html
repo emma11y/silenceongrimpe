@@ -46,12 +46,12 @@
             <i
               class="fa fa-solid"
               [ngClass]="{
-                'fa-square-check': evenement.stt,
-                'fa-xmark': !evenement.stt
+                'fa-square-check': evenement.stt_sme,
+                'fa-xmark': !evenement.stt_sme
               }"
               aria-hidden="true"
             ></i>
-            <span class="sr-only">{{ evenement.stt ? "Oui" : "Non" }}</span>
+            <span class="sr-only">{{ evenement.stt_sme ? "Oui" : "Non" }}</span>
           </td>
           <td class="icon">
             <i
