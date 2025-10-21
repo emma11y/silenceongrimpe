@@ -29,6 +29,11 @@ export class CollectifComponent {
       titre: 'Web et spécialiste numérique',
     },
     {
+      img: 'Helene.jpg',
+      prenom: 'Hélène',
+      titre: 'Spécialiste data',
+    },
+    {
       img: 'Julie.jpg',
       prenom: 'Julie',
       titre: 'Spécialiste LSF',
