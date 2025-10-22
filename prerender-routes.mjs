@@ -43,6 +43,7 @@ async function main() {
       "/contact",
       "/mentions-legales",
       "/actualites",
+      "/videos",
       ...(await fetchSlugs()),
     ];
 
