@@ -105,6 +105,19 @@ export const routes: Routes = [
               ),
           },
           {
+            path: 'videos',
+            data: {
+              metadata: {
+                title: 'Vidéos',
+                description: `Retrouvez toutes les vidéos mis en ligne par le collectif "Silence, on grimpe !"`,
+              },
+            },
+            loadComponent: () =>
+              import('./pages/videos/videos.component').then(
+                (m) => m.VideosComponent
+              ),
+          },
+          {
             path: 'contact',
             data: {
               metadata: {

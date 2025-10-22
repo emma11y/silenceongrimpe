@@ -1,0 +1,14 @@
+@use "variables" as vars;
+
+.videos {
+  max-width: 900px;
+  margin: 2em auto;
+
+  @media screen and (max-width: vars.$md) {
+    margin: 2em;
+  }
+
+  h1 {
+    text-align: center;
+  }
+}

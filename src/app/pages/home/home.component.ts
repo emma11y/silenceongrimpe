@@ -8,6 +8,7 @@ import { ContactComponent } from './contact/contact.component';
 import { AProposComponent } from './a-propos/a-propos.component';
 import { Actualite } from '@shared/models/actualite';
 import { ActivatedRoute } from '@angular/router';
+import { ListeVideosComponent } from './liste-videos/liste-videos.component';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
     MembresCollectifComponent,
     AgendaCarrouselComponent,
     ContactComponent,
+    ListeVideosComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

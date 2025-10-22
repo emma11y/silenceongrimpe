@@ -1,4 +1,5 @@
 @use "variables" as vars;
+@use "toc";
 
 .collectif {
   max-width: 900px;
@@ -73,6 +74,20 @@
 
       .titre {
         margin: 0;
+      }
+    }
+  }
+
+  .toc {
+    margin: 2em auto;
+    width: 15em;
+
+    a {
+      background-color: var(--jaune-pale);
+      border: 0.1em solid var(--bleu-ocean);
+      &:hover,
+      &:focus-visible {
+        background-color: var(--orange);
       }
     }
   }

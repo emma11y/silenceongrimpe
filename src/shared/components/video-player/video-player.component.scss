@@ -1,0 +1,487 @@
+@use "variables" as vars;
+
+.video-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+  background-color: transparent;
+  overflow: hidden;
+
+  h3 {
+    @media screen and (min-width: vars.$md) {
+      height: 4em;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+  }
+
+  // Styles pour le mode plein écran
+  &.fullscreen {
+    background-color: #000;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+    .video-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: unset;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    video,
+    .thumbnail {
+      max-width: 100vw;
+      max-height: 100vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+    }
+  }
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // Format portrait par défaut
+  aspect-ratio: 9/16;
+
+  @media (max-width: vars.$sm) {
+    aspect-ratio: 9/16;
+  }
+}
+
+video {
+  position: relative;
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #222;
+  display: none;
+  object-fit: contain;
+  max-height: 100%;
+  cursor: pointer;
+
+  &.display {
+    display: block;
+  }
+
+  // Dans le contexte de la galerie, utiliser object-fit cover pour un meilleur rendu
+  :host-context(.gallery) & {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.thumbnail {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+  max-height: 100%;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  // Dans le contexte de la galerie, utiliser object-fit cover pour un meilleur rendu
+  :host-context(.gallery) & {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+}
+.play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 3rem;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  //transition: all 0.3s ease;
+  z-index: 10;
+  pointer-events: auto;
+
+  &:focus-visible,
+  &:hover {
+    background: var(--orange);
+    //transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: vars.$sm) {
+    font-size: 2.5rem;
+    width: 70px;
+    height: 70px;
+  }
+
+  @media (max-width: vars.$xs) {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: rgba(15, 15, 15, 0.9);
+  color: white;
+  font-family: var(--main-family);
+  gap: 10px;
+  flex-wrap: wrap;
+
+  @media (max-width: vars.$sm) {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  @media (max-width: vars.$xs) {
+    padding: 6px;
+    gap: 6px;
+  }
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+  min-width: 32px;
+  min-height: 32px;
+
+  &:hover,
+  &:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: vars.$sm) {
+    font-size: 1rem;
+    min-width: 28px;
+    min-height: 28px;
+  }
+
+  @media (max-width: vars.$xs) {
+    font-size: 0.9rem;
+    min-width: 24px;
+    min-height: 24px;
+  }
+}
+
+// Améliorer les zones de clic sur mobile
+@media (max-width: vars.$sm) {
+  .control-btn {
+    padding: 4px;
+    border-radius: 4px;
+  }
+}
+
+.progress-container {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  margin: 0.5em 0;
+
+  @media (max-width: vars.$sm) {
+    height: 6px;
+  }
+
+  @media (max-width: vars.$xs) {
+    flex: none;
+    width: 100%;
+    height: 8px;
+
+    //  order: -1;
+  }
+}
+
+.progress-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #444;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--orange);
+  border-radius: 2px;
+  z-index: 2;
+  transition: width 0.1s ease;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  z-index: 3;
+  appearance: none;
+  margin: 0;
+
+  &:hover,
+  &:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+  }
+
+  // Styles pour WebKit (Chrome, Safari, Edge)
+  &::-webkit-slider-track {
+    background: transparent;
+    border-radius: 2px;
+    height: 100%;
+  }
+
+  &::-webkit-slider-runnable-track {
+    background: transparent;
+    border-radius: 2px;
+    height: 100%;
+  }
+
+  // Styles pour Firefox
+  &::-moz-range-track {
+    background: transparent;
+    border-radius: 2px;
+    height: 100%;
+    border: none;
+  }
+
+  &::-moz-range-progress {
+    background: transparent;
+  }
+}
+
+.progress-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+// Supprimer aussi le thumb pour Firefox
+.progress-bar::-moz-range-thumb {
+  appearance: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.volume-slider {
+  width: 80px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: vars.$sm) {
+    width: 60px;
+  }
+
+  @media (max-width: vars.$xs) {
+    width: 40px;
+  }
+}
+
+.speed-select {
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+
+  &:hover,
+  &:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: vars.$sm) {
+    padding: 3px 5px;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: vars.$xs) {
+    padding: 2px 4px;
+    font-size: 0.75rem;
+  }
+}
+
+.duration {
+  margin: auto 0;
+
+  .time {
+    font-size: 0.9rem;
+    min-width: 90px;
+    text-align: center;
+
+    @media (max-width: vars.$sm) {
+      font-size: 0.8rem;
+      min-width: 80px;
+    }
+
+    @media (max-width: vars.$xs) {
+      font-size: 0.75rem;
+      min-width: 70px;
+    }
+  }
+}
+
+.transcription {
+  background: rgba(15, 15, 15, 0.9);
+  color: var(--blanc);
+  // border-top: 1px solid #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-family: var(--main-family);
+  max-height: 200px;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+
+  border: 0.25em solid transparent;
+
+  &:focus {
+    border-color: var(--orange);
+  }
+
+  // Styles personnalisés pour la scrollbar
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(15, 15, 15, 0.9);
+    //border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--blanc);
+    border-radius: 4px;
+
+    &:hover {
+      background: var(--orange);
+    }
+  }
+
+  // Support pour Firefox
+  scrollbar-width: thin;
+  scrollbar-color: var(--blanc) rgba(15, 15, 15, 0.5);
+}
+
+.transcription p {
+  padding: 16px;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+// Améliorations supplémentaires pour la responsivité
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  @media (max-width: vars.$sm) {
+    gap: 8px;
+  }
+
+  @media (max-width: vars.$xs) {
+    gap: 6px;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: vars.$xs) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .control-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .volume-slider {
+    display: none; // Masquer le slider de volume sur très petits écrans
+  }
+
+  .speed-select {
+    max-width: 60px;
+  }
+}
+
+.loading {
+  padding: 16px;
+  text-align: center;
+  font-style: italic;
+  color: #ccc;
+}

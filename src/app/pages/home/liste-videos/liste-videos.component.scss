@@ -1,0 +1,34 @@
+@use "toc";
+@use "variables" as vars;
+
+.videos {
+  background-color: var(--bleu-pastel);
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+  h2 {
+    font-size: 2em;
+    text-align: center;
+    color: var(--bleu-ocean);
+  }
+
+  .gallery {
+    max-width: 900px;
+    margin: auto;
+    @media screen and (max-width: vars.$lg) {
+      margin: 0 1em;
+    }
+  }
+
+  .toc {
+    a {
+      border: 0.1em solid var(--bleu-ocean);
+      background-color: var(--jaune-pale);
+
+      &:hover,
+      &:focus {
+        background-color: var(--orange);
+      }
+    }
+  }
+}

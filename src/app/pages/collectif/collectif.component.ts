@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { VideoGalleryComponent } from '@shared/components/video-gallery/video-gallery.component';
 
 @Component({
   selector: 'app-collectif',
-  imports: [],
+  imports: [VideoGalleryComponent, RouterLink],
   templateUrl: './collectif.component.html',
   styleUrl: './collectif.component.scss',
 })
