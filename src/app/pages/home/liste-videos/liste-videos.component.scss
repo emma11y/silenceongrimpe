@@ -21,6 +21,11 @@
   }
 
   .toc {
+    @media screen and (max-width: vars.$sm) {
+      margin: 2em auto;
+      width: 15em;
+    }
+
     a {
       border: 0.1em solid var(--bleu-ocean);
       background-color: var(--jaune-pale);
