@@ -58,7 +58,7 @@ export class BibliothequeImagesComponent implements OnInit {
     }
 
     const promise = this.popupComponentService.open(DisplayImageComponent, {
-      picture,
+      id: picture.id,
     });
 
     this.popupComponentService.componentRef?.instance.outputClose.subscribe(

@@ -10,6 +10,7 @@
 
 .popup-component {
   display: none;
+  position: fixed;
 
   flex-direction: column;
   overflow: auto;

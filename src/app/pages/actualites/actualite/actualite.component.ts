@@ -22,7 +22,7 @@ export class ActualiteComponent {
 
   constructor() {
     const actualite = this.route.snapshot.data['actualite'];
-    const thumbnail = this.route.snapshot.data['thumbnail'] ?? '';
+    // const thumbnail = this.route.snapshot.data['thumbnail'] ?? '';
 
     const isApercu = this.route.snapshot.url.some((segment) =>
       segment.path.includes('apercu')
@@ -38,7 +38,7 @@ export class ActualiteComponent {
       this.actualite.titre,
       this.actualite.description,
       this.actualite.datePublication,
-      thumbnail
+      ''
     );
   }
 

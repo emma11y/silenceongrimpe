@@ -70,7 +70,7 @@ export const routes: Routes = [
                 path: ':slug',
                 resolve: {
                   actualite: ActualiteBySlugResolver,
-                  thumbnail: ThumbnailBySlugResolver,
+                  //thumbnail: ThumbnailBySlugResolver,
                 },
                 loadComponent: () =>
                   import(
