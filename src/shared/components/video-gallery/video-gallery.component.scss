@@ -8,12 +8,14 @@
   @media (max-width: vars.$sm) {
     grid-template-columns: 1fr;
     gap: 8px;
-    padding: 0;
+    padding: 1em;
   }
 
   @media (min-width: vars.$sm) and (max-width: vars.$md) {
-    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    max-width: 600px;
+    margin: 0 auto;
   }
 }
 
