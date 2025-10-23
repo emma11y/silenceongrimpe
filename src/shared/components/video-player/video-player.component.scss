@@ -10,6 +10,8 @@
   overflow: hidden;
 
   h3 {
+    align-content: center;
+
     @media screen and (min-width: vars.$md) {
       height: 4em;
       margin-bottom: 0.5em;
@@ -352,11 +354,28 @@ video {
   padding: 4px 6px;
   cursor: pointer;
   font-size: 0.9rem;
+  font-family: var(--main-family);
 
   &:hover,
   &:focus-visible {
     outline: 2px solid var(--orange);
     outline-offset: 2px;
+  }
+
+  option {
+    background: #222;
+    color: white;
+
+    &:checked {
+      background: var(--jaune-pale);
+      color: var(--bleu-ocean);
+    }
+
+    &:focus-visible,
+    &:hover {
+      background: var(--orange);
+      color: var(--bleu-ocean);
+    }
   }
 
   @media (max-width: vars.$sm) {

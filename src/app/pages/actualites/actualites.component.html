@@ -15,6 +15,9 @@
             actualite.titre
           }}</a>
         </p>
+        <p class="date">
+          Publié le {{ actualite.datePublication | date : "dd MMMM YYYY" }}
+        </p>
         <p class="description">{{ actualite.description }}</p>
       </div>
     </div>

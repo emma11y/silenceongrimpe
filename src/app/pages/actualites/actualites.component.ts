@@ -1,11 +1,13 @@
+import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DisplayImageComponent } from '@shared/components/display-image/display-image.component';
 import { Actualite } from '@shared/models/actualite';
+import { orderBy } from 'lodash-es';
 
 @Component({
   selector: 'app-actualites',
-  imports: [DisplayImageComponent, RouterLink],
+  imports: [DisplayImageComponent, RouterLink, DatePipe],
   templateUrl: './actualites.component.html',
   styleUrl: './actualites.component.scss',
 })
@@ -15,6 +17,8 @@ export class ActualitesComponent {
   actualites: Actualite[] = [];
 
   constructor() {
-    this.actualites = this.route.snapshot.data['actualites'];
+    const actualites = this.route.snapshot.data['actualites'];
+
+    this.actualites = orderBy(actualites, (x) => x.datePublication, 'desc');
   }
 }
