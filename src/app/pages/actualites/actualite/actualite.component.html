@@ -4,6 +4,17 @@
     <span>Revenir aux actualités</span></a
   >
 
+  <div class="picture">
+    @if(actualite.vignetteId){
+    <app-display-image [id]="actualite.vignetteId"></app-display-image>
+    }
+  </div>
+
   <h1>{{ actualite.titre }}</h1>
+
+  <p class="date">
+    Publié le {{ actualite.datePublication | date : "dd MMMM YYYY" }}
+  </p>
+
   <div [innerHTML]="sanitizeHtml(actualite.html)"></div>
 </div>

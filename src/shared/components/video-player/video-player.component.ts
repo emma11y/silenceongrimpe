@@ -1,5 +1,13 @@
-import { NgFor, NgIf, NgClass } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild, OnInit } from '@angular/core';
+import { NgFor, NgIf, NgClass, isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+  OnInit,
+  Inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VideoItem } from '@shared/models/video-item';
 
@@ -29,15 +37,20 @@ export class VideoPlayerComponent implements OnInit {
   isLoadingTranscription = false;
   isFullscreen = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit() {
     this.loadTranscription();
 
-    // Écouter les changements d'état du plein écran
-    document.addEventListener('fullscreenchange', () => {
-      this.isFullscreen = !!document.fullscreenElement;
-    });
+    // Écouter les changements d'état du plein écran seulement côté client
+    if (isPlatformBrowser(this.platformId)) {
+      document.addEventListener('fullscreenchange', () => {
+        this.isFullscreen = !!document.fullscreenElement;
+      });
+    }
   }
 
   private loadTranscription() {
@@ -111,6 +124,8 @@ export class VideoPlayerComponent implements OnInit {
   }
 
   toggleFullscreen() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const container = this.containerRef.nativeElement;
     if (!document.fullscreenElement) {
       container.requestFullscreen();

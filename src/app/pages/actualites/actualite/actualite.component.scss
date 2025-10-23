@@ -9,9 +9,19 @@
     margin: 2em 2em 5em 2em;
   }
 
+  .picture {
+    margin-top: 2em;
+  }
+
+  .date {
+    font-size: 0.9em;
+    text-align: center;
+    margin-bottom: 2em;
+  }
+
   h1 {
     text-align: center;
-    margin: 2em 0;
+    margin: 1em 0;
   }
 
   a {
@@ -43,6 +53,10 @@
       @media screen and (max-width: vars.$md) {
         width: 100% !important;
       }
+    }
+
+    .picture img {
+      object-position: top !important;
     }
 
     li {

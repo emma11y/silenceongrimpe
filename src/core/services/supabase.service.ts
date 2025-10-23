@@ -165,6 +165,20 @@ export class SupabaseService {
     return this.supabase.from('actualites').delete().eq('id', id);
   }
 
+  async getUrlBySlug(slug: string) {
+    const result = await this.supabase
+      .from('actualites')
+      .select('vignetteId')
+      .eq('slug', slug)
+      .single();
+
+    if (result.data) {
+      return `${this.supabaseUrl}/functions/v1/get-image?guid=${result.data.vignetteId}`;
+    }
+
+    return null;
+  }
+
   getUrl(guid: string) {
     return `${this.supabaseUrl}/functions/v1/get-image?guid=${guid}`;
   }

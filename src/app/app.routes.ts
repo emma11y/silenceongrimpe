@@ -12,6 +12,7 @@ import { ActualitesPublieesResolver } from '@core/resolvers/actualites-publiees.
 import { ActualiteBySlugResolver } from '@core/resolvers/actualite-by-slug.resolver';
 import { ErrorComponent } from './pages/error/error.component';
 import { ActualitesALaUneResolver } from '@core/resolvers/actualites-a-la-une.resolver';
+import { ThumbnailBySlugResolver } from '@core/resolvers/thumbnail-by-slug.resolver';
 
 export const routes: Routes = [
   {
@@ -69,6 +70,7 @@ export const routes: Routes = [
                 path: ':slug',
                 resolve: {
                   actualite: ActualiteBySlugResolver,
+                  thumbnail: ThumbnailBySlugResolver,
                 },
                 loadComponent: () =>
                   import(
