@@ -36,6 +36,8 @@
       (timeupdate)="onTimeUpdate()"
       (loadedmetadata)="onLoadedMetadata()"
       (click)="togglePlay()"
+      playsinline
+      preload
     ></video>
   </div>
 
@@ -50,10 +52,12 @@
         [value]="progress"
         (input)="seek($event)"
         class="progress-bar"
-        aria-label="Potentiomètre de la vidéo"
+        aria-label="Barre de défilement de la durée de la vidéo"
         #progressBar
       />
     </div>
+
+    <!-- temps écoulé, durée de la vidéo -->
 
     <div class="control-group">
       <button (click)="togglePlay()" class="control-btn">

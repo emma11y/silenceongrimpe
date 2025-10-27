@@ -37,6 +37,13 @@ export class VideoGalleryComponent implements OnInit {
       thumbnail: '../../../assets/videos/REEL HELENE.jpeg',
       transcription: '../../../assets/videos/REEL HELENE.txt',
     },
+    {
+      id: 4,
+      titre: `Le portrait de Maude, spécialiste montage Ciné`,
+      src: '../../../assets/videos/REEL MAUDE ST.mp4',
+      thumbnail: '../../../assets/videos/REEL MAUDE.jpeg',
+      transcription: '../../../assets/videos/REEL MAUDE.txt',
+    },
   ];
 
   ngOnInit(): void {
