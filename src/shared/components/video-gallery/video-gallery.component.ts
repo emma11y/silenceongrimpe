@@ -44,6 +44,20 @@ export class VideoGalleryComponent implements OnInit {
       thumbnail: '../../../assets/videos/REEL MAUDE.jpeg',
       transcription: '../../../assets/videos/REEL MAUDE.txt',
     },
+    {
+      id: 5,
+      titre: `Atelier sur le sous-titrage de films au festival Femmes en montagne`,
+      src: '../../../assets/videos/REEL ARNAUD CELINE ST.mp4',
+      thumbnail: '../../../assets/videos/REEL ARNAUD CELINE.jpg',
+      transcription: '../../../assets/videos/REEL ARNAUD CELINE TEXTE.txt',
+    },
+    {
+      id: 6,
+      titre: `Portrait de Julie, spécialiste LSF`,
+      src: '../../../assets/videos/REEL JULIE ST.mp4',
+      thumbnail: '../../../assets/videos/REEL JULIE.jpg',
+      transcription: '../../../assets/videos/REEL JULIE TEXTE.txt',
+    },
   ];
 
   ngOnInit(): void {
