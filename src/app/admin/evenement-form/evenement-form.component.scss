@@ -1,4 +1,5 @@
 @use "form";
+@use "variables" as vars;
 
 .formulaire {
   max-width: 900px;
@@ -26,6 +27,10 @@
       &:has(:focus-visible),
       &:has(:hover) {
         border-color: var(--orange);
+      }
+
+      @media screen and (max-width: vars.$md) {
+        width: calc(100% - 2em);
       }
     }
   }
