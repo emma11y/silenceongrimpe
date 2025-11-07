@@ -13,7 +13,7 @@ export class AProposComponent {
       id: 1,
       name: 'Femmes en montagne',
       open: false,
-      img: '../../../assets/imgs/Logo-FEM.png',
+      img: '../../../assets/imgs/logos/Logo-FEM.png',
       alt: 'Logo Femmes en montagne - festival de films',
       quote: 'Merci infiniment pour votre accompagnement !',
       subtitle:
@@ -24,10 +24,20 @@ export class AProposComponent {
       id: 2,
       name: 'Festival du Cinéma Nature & Environnement',
       open: false,
-      img: '../../../assets/imgs/festival-logo-papillon.png',
+      img: '../../../assets/imgs/logos/festival-logo-papillon.png',
       alt: 'Logo Festival du Cinéma Nature & Environnement',
       quote: 'Merci pour vos conseils.',
       subtitle: `<p class="italic">"Grâce aux conseils, nous avons vraiment franchi un cap en matière d'accessibilité ! En deux éditions, nous avons proposé 2 puis 3 séances entièrement sous-titrées. Merci pour cet accompagnement précieux !"</p><p>Marion Herbin-Sanz, chargée de communication France Nature Environnement Isère.</p>`,
+    },
+    {
+      id: 3,
+      name: `Festival International d'Autrans - Montagne, cinéma & culture`,
+      open: false,
+      img: '../../../assets/imgs/logos/festival-international-autrans-logo.png',
+      alt: `Logo Festival International d'Autrans`,
+      quote: 'Des conseils précieux !',
+      subtitle: `<p class="italic">Le collectif Silence, on grimpe ! a permis à notre organisation de mettre un coup de projecteur sur la non-accessibilité des films et festivals aux personnes en situation de handicap.</p>`,
+      html: `<p class="italic">Le collectif Silence, on grimpe ! a permis à notre organisation de mettre un coup de projecteur sur la non-accessibilité des films et festivals aux personnes en situation de handicap. L'énergie et la détermination du collectif nous ont poussé dans une réflexion positive afin de proposer des films à tous les publics, sans exception. J’apprécie particulièrement le procédé du collectif qui est de mettre les personnes non concernées en situation, comme celle d’écouter un film sans le son. C’est percutant et révoltant de voir que le cinéma est une telle frustration pour les personnes en situation de handicap. Nous ne pouvions rester inactifs sur ce sujet. C'est pourquoi le Festival d’Autrans a fait des démarches en ce sens et propose depuis 2023 des films pour tous les publics. Ce programme est perfectible. Mais une chose est sûre, l'accompagnement de Silence, on grimpe ! nous est précieux par ses conseils et ses piqûres de rappel. Merci à eux.</p><p>Anne Farrer, Directrice du Festival International d’Autrans - Montagne, cinéma & culture</p>`,
     },
   ];
 }
