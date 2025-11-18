@@ -65,6 +65,13 @@ export class VideoGalleryComponent implements OnInit {
       thumbnail: '../../../assets/videos/REEL CELINE.jpeg',
       transcription: '../../../assets/videos/REEL CELINE.txt',
     },
+    {
+      id: 8,
+      titre: `Portrait d'Emmanuelle, spécialiste Web et numérique`,
+      src: '../../../assets/videos/REEL EMMANUELLE ST.mp4',
+      thumbnail: '../../../assets/videos/REEL EMMANUELLE.jpeg',
+      transcription: '../../../assets/videos/REEL EMMANUELLE.txt',
+    },
   ];
 
   ngOnInit(): void {
