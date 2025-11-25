@@ -2,6 +2,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {
   ApplicationConfig,
   importProvidersFrom,
+  isDevMode,
   LOCALE_ID,
   provideZoneChangeDetection,
 } from '@angular/core';
@@ -26,8 +27,11 @@ import { ImageInterceptor } from '@core/interceptors/image.interceptor';
 
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { inject } from '@vercel/analytics';
 
 registerLocaleData(localeFr);
+
+inject();
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -18,8 +18,6 @@ export class ImageInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('interception', req);
-
     if (req.url.startsWith('http://localhost:4200/image/')) {
       const guid = req.url.split('/').pop()!;
 
