@@ -56,11 +56,13 @@
     }
 
     .picture img {
+      height: 300px !important;
       object-position: top !important;
     }
 
     li {
       margin-bottom: 1em;
+      line-height: 1.5;
     }
 
     a {

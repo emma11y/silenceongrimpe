@@ -1,3 +1,6 @@
 <div class="display-image" *ngIf="picture">
   <img [src]="this.url" [alt]="picture.alt" loading="lazy" />
+  @if(showCredit && picture.credit){
+  <p class="credit">© Crédit Photo : {{ picture.credit }}</p>
+  }
 </div>

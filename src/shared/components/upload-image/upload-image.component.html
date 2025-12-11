@@ -51,6 +51,18 @@
               />
             </div>
           </div>
+          <div class="row">
+            <div class="group">
+              <label for="credit">Crédit Photo</label>
+              <input
+                id="credit"
+                name="credit"
+                type="text"
+                [(ngModel)]="form.credit"
+                #credit="ngModel"
+              />
+            </div>
+          </div>
         </div>
         <div class="col">
           <div class="row image" *ngIf="form.image">

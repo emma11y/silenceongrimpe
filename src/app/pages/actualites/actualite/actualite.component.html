@@ -6,7 +6,10 @@
 
   <div class="picture">
     @if(actualite.vignetteId){
-    <app-display-image [id]="actualite.vignetteId"></app-display-image>
+    <app-display-image
+      [id]="actualite.vignetteId"
+      [showCredit]="true"
+    ></app-display-image>
     }
   </div>
 
