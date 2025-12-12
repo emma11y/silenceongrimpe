@@ -1,3 +1,4 @@
+import { orderBy } from 'lodash-es';
 import { AgendaCarrouselComponent } from './agenda-carrousel/agenda-carrousel.component';
 import { Component, inject } from '@angular/core';
 import { CarrouselComponent } from '@shared/components/carrousel/carrousel.component';
@@ -34,15 +35,17 @@ export class HomeComponent {
       'actualites'
     ] as unknown as Actualite[];
 
-    this.carousels = actualites.map((actu, index) => {
-      return {
-        id: actu.id,
-        slug: actu.slug,
-        guid: actu.vignetteId,
-        title: actu.titre,
-        subtitle: actu.courtDescription,
-        selected: index === 0,
-      } as CarouselItem;
-    });
+    this.carousels = orderBy(actualites, (x) => x.datePublication, 'desc').map(
+      (actu, index) => {
+        return {
+          id: actu.id,
+          slug: actu.slug,
+          guid: actu.vignetteId,
+          title: actu.titre,
+          subtitle: actu.courtDescription,
+          selected: index === 0,
+        } as CarouselItem;
+      }
+    );
   }
 }
