@@ -79,6 +79,20 @@ export class VideoGalleryComponent implements OnInit {
       thumbnail: '../../../assets/videos/REEL MARION.jpeg',
       transcription: '../../../assets/videos/REEL MARION.txt',
     },
+    {
+      id: 10,
+      titre: `Le sous-titrage en direct vu par Arnaud`,
+      src: '../../../assets/videos/REEL SOUS-TITRAGE EN DIRECT 1 ST.mp4',
+      thumbnail: '../../../assets/videos/REEL SOUS-TITRAGE EN DIRECT 1.jpeg',
+      transcription: '../../../assets/videos/REEL SOUS-TITRAGE EN DIRECT 1.txt',
+    },
+    {
+      id: 11,
+      titre: `Le sous-titrage en direct vu par Emmanuelle`,
+      src: '../../../assets/videos/REEL SOUS-TITRAGE EN DIRECT 2 ST.mp4',
+      thumbnail: '../../../assets/videos/REEL SOUS-TITRAGE EN DIRECT 2.jpeg',
+      transcription: '../../../assets/videos/REEL SOUS-TITRAGE EN DIRECT 2.txt',
+    },
   ];
 
   ngOnInit(): void {
