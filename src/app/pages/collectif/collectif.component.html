@@ -67,19 +67,19 @@
     <h2>Membres du collectif</h2>
 
     <div class="list" role="list">
-      @for(membre of membres; track $index){
-      <div class="list-item" role="listitem">
-        <div class="list-image">
-          <img
-            alt=""
-            [src]="'../../../assets/imgs/trombinoscope/' + membre.img"
-          />
+      @for (membre of membres; track $index) {
+        <div class="list-item" role="listitem">
+          <div class="list-image">
+            <img
+              alt=""
+              [src]="'../../../assets/imgs/trombinoscope/' + membre.img"
+            />
+          </div>
+          <div class="list-description">
+            <p class="prenom">{{ membre.prenom }}</p>
+            <p class="titre">{{ membre.titre }}</p>
+          </div>
         </div>
-        <div class="list-description">
-          <p class="prenom">{{ membre.prenom }}</p>
-          <p class="titre">{{ membre.titre }}</p>
-        </div>
-      </div>
       }
     </div>
   </div>
@@ -91,6 +91,7 @@
         <a
           href="https://www.vertigemedia.fr/silence-on-grimpe-les-festivals-de-montagne-face-au-defi-de-laccessibilite"
           target="_blank"
+          rel="noreferrer noopener"
           >Silence, on grimpe ! Les festivals de films de montagne face au défi
           de l’accessibilité <span class="sr-only">(Nouvelle fenêtre)</span
           ><i
@@ -104,6 +105,7 @@
         <a
           href="https://informations.handicap.fr/a-sourds-les-films-de-montagne-et-d-aventure-peu-accessibles-37711.php"
           target="_blank"
+          rel="noreferrer noopener"
           >Sourds : les films de montagne et d’aventure peu accessibles
           <span class="sr-only">(Nouvelle fenêtre)</span
           ><i
@@ -117,6 +119,7 @@
         <a
           href="https://planetgrimpe.com/silence-on-grimpe-le-collectif-qui-eveille-notre-vigilance-sur-laccessibilite-des-films-outdoor/"
           target="_blank"
+          rel="noreferrer noopener"
           >« Silence, on grimpe ! », le collectif qui éveille notre vigilance
           sur l’accessibilité des films outdoor
           <span class="sr-only">(Nouvelle fenêtre)</span
@@ -128,7 +131,10 @@
         - 11/02/2025 - Planet Grimpe - SOG
       </li>
       <li>
-        <a href="https://youtu.be/nv9InJs7yrE?feature=shared" target="_blank"
+        <a
+          href="https://youtu.be/nv9InJs7yrE?feature=shared"
+          target="_blank"
+          rel="noreferrer noopener"
           >Vidéo : Pas assez de films sous-titrés (SME)
           <span class="sr-only">(Nouvelle fenêtre)</span
           ><i
@@ -142,6 +148,7 @@
         <a
           href="https://www.montagnes-magazine.com/actus-un-appel-dons-soutenir-film-montagne-hors-commun"
           target="_blank"
+          rel="noreferrer noopener"
           >Un appel aux dons pour soutenir un film de montagne hors du commun
           <span class="sr-only">(Nouvelle fenêtre)</span
           ><i
@@ -155,6 +162,7 @@
         <a
           href="https://planetgrimpe.com/silence-devenir-guide-en-etant-sourd-un-court-metrage-unique-en-france/"
           target="_blank"
+          rel="noreferrer noopener"
           >“Silence”, devenir guide en étant sourd ? Un court-métrage unique en
           France <span class="sr-only">(Nouvelle fenêtre)</span
           ><i
@@ -168,6 +176,7 @@
         <a
           href="https://www.vertigemedia.fr/silence-documentaire-montagne-accessible"
           target="_blank"
+          rel="noreferrer noopener"
           >"Silence", le documentaire montagne 100 % accessible
           <span class="sr-only">(Nouvelle fenêtre)</span
           ><i
@@ -176,6 +185,93 @@
           ></i
         ></a>
         - 06/05/2025 - Vertige Média
+      </li>
+      <li>
+        <a
+          href="https://www.montagnes-magazine.com/actus-quels-les-festivals-films-montagne-les-plus-inclusifs"
+          target="_blank"
+          rel="noreferrer noopener"
+          >Quels sont les festivals de films de montagne les plus inclusifs ?
+          <span class="sr-only">(Nouvelle fenêtre)</span>
+          <i
+            class="fa-solid fa-arrow-up-right-from-square"
+            aria-hidden="true"
+          ></i
+        ></a>
+        - 13/06/2025 - Montagnes Magazine
+      </li>
+      <li>
+        <a
+          href="https://planetgrimpe.com/une-aide-majeure-dans-laccessibilite-des-films-descalade-en-france/"
+          target="_blank"
+          rel="noreferrer noopener"
+          >Une aide majeure dans l’accessibilité des films d’escalade en France
+          <span class="sr-only">(Nouvelle fenêtre)</span>
+          <i
+            class="fa-solid fa-arrow-up-right-from-square"
+            aria-hidden="true"
+          ></i>
+        </a>
+        - 05/10/2025 - PlanetGrimpe
+      </li>
+      <li>
+        <a
+          target="_blank"
+          rel="noreferrer noopener"
+          href="https://planetgrimpe.com/bonne-nouvelle-en-2025-les-festivals-de-films-de-montagne-et-daventure-ont-ete-plus-accessibles-que-jamais-en-france/"
+          >Bonne nouvelle ! En 2025, les festivals de films de Montagne et
+          d’Aventure ont été plus accessibles que jamais en France
+          <span class="sr-only">(Nouvelle fenêtre)</span
+          ><i
+            class="fa-solid fa-arrow-up-right-from-square"
+            aria-hidden="true"
+          ></i
+        ></a>
+        - 10/12/2025 - PlanetGrimpe
+      </li>
+      <li>
+        <a
+          href="https://www.ledauphine.com/culture-loisirs/2025/12/27/la-montagne-l-autre-monde-du-silence"
+          target="_blank"
+          rel="noreferrer noopener"
+          >Films sous-titrés pour les sourds et malentendants : « La montagne,
+          l’autre monde du silence »
+          <span class="sr-only">(Nouvelle fenêtre)</span
+          ><i
+            class="fa-solid fa-arrow-up-right-from-square"
+            aria-hidden="true"
+          ></i
+        ></a>
+        - 28/12/2025 - Dauphiné Libéré
+      </li>
+      <li>
+        <a
+          href="https://www.montagnes-magazine.com/actus-festivals-cinema-montagne-long-chemin-accessibilite"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Festivals de cinéma de montagne : le long chemin de l’accessibilité
+          <span class="sr-only">(Nouvelle fenêtre)</span
+          ><i
+            class="fa-solid fa-arrow-up-right-from-square"
+            aria-hidden="true"
+          ></i>
+        </a>
+        - 09/01/2026 - Montagnes Magazine
+      </li>
+      <li>
+        <a
+          href="https://www.vertigemedia.fr/accessibilite-fantome-monde-montagne"
+          target="_blank"
+          rel="noreferrer noopener"
+          >Arnaud Guillemot et l’accessibilité fantôme du monde de la montagne
+          <span class="sr-only">(Nouvelle fenêtre)</span
+          ><i
+            class="fa-solid fa-arrow-up-right-from-square"
+            aria-hidden="true"
+          ></i
+        ></a>
+        - 21/01/2026 - Vertige Média
       </li>
     </ul>
   </div>
