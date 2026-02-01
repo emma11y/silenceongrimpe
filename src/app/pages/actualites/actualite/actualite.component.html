@@ -4,7 +4,7 @@
     <span>Revenir aux actualités</span></a
   >
 
-  <div class="picture" [className]="'img-' + actualite.vignettePosition">
+  <div [className]="'picture img-' + actualite.vignettePosition">
     @if (actualite.vignetteId) {
       <app-display-image
         [id]="actualite.vignetteId"
