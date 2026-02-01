@@ -7,12 +7,17 @@
     </legend>
 
     @if (isUpdate) {
-    <div class="apercu">
-      <a [routerLink]="['/', 'actualites', form.slug, 'apercu']" target="_blank"
-        >Aperçu de la fiche
-        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i
-      ></a>
-    </div>
+      <div class="apercu">
+        <a
+          [routerLink]="['/', 'actualites', form.slug, 'apercu']"
+          target="_blank"
+          >Aperçu de la fiche
+          <i
+            class="fa-solid fa-arrow-up-right-from-square"
+            aria-hidden="true"
+          ></i
+        ></a>
+      </div>
     }
 
     <form role="form" #actualiteForm="ngForm">
@@ -171,7 +176,9 @@
             </div>
 
             @if (form.vignetteId) {
-            <app-display-image [id]="form.vignetteId"></app-display-image>
+              <div [className]="'img-' + form.vignettePosition">
+                <app-display-image [id]="form.vignetteId"></app-display-image>
+              </div>
             }
 
             <input
@@ -184,6 +191,24 @@
             />
 
             <validation-summary [controlModel]="vignette" fieldName="image" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="vignettePosition">Position de la vignette</label>
+            <select
+              id="vignettePosition"
+              name="vignettePosition"
+              [(ngModel)]="form.vignettePosition"
+              #vignettePosition="ngModel"
+            >
+              <option value="top">Haut</option>
+              <option value="bottom">Bas</option>
+              <option value="center">Centre</option>
+              <option value="none">Aucune</option>
+            </select>
           </div>
         </div>
       </div>

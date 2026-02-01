@@ -70,3 +70,17 @@
     margin-right: 1em;
   }
 }
+
+::ng-deep {
+  .img-top img {
+    object-position: top !important;
+  }
+
+  .img-bottom img {
+    object-position: bottom !important;
+  }
+
+  .img-center img {
+    object-position: center !important;
+  }
+}

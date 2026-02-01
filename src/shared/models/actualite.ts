@@ -1,3 +1,5 @@
+import { Position } from './position';
+
 export class Actualite {
   public id: number | undefined;
   public slug: string = '';
@@ -9,4 +11,5 @@ export class Actualite {
   public publie: boolean = false;
   public aLaUne: boolean = false;
   public vignetteId: string | undefined;
+  public vignettePosition: Position = Position.top;
 }
