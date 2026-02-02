@@ -185,7 +185,7 @@
       width: 100% !important;
       height: 600px !important;
       object-fit: cover !important;
-      object-position: top !important;
+      object-position: center !important;
 
       @media screen and (max-width: vars.$md) {
         height: 400px !important;
