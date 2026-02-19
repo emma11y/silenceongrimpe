@@ -57,14 +57,15 @@ export class CarrouselComponent implements OnInit {
   }
 
   public onCarouselTabKeyDown(event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'ArrowLeft':
-        this.setSelectedToPreviousTab();
-        break;
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      event.preventDefault();
+      event.stopPropagation();
 
-      case 'ArrowRight':
+      if (event.key === 'ArrowLeft') {
+        this.setSelectedToPreviousTab();
+      } else {
         this.setSelectedToNextTab();
-        break;
+      }
     }
   }
 
