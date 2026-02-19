@@ -17,6 +17,10 @@ export const serverRoutes: ServerRoute[] = [
     path: 'mentions-legales',
     renderMode: RenderMode.Prerender,
   },
+  {
+    path: 'plan-du-site',
+    renderMode: RenderMode.Prerender,
+  },
 
   { path: 'actualites', renderMode: RenderMode.Server },
   { path: 'actualites/:slug', renderMode: RenderMode.Server },

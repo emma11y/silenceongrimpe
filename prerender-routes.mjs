@@ -40,10 +40,12 @@ async function main() {
       "/",
       "/collectif",
       "/agenda",
-      "/contact",
-      "/mentions-legales",
       "/actualites",
       "/videos",
+      "/contact",
+      "/mentions-legales",
+      "/plan-du-site",
+      // "/posts-pedagogiques",
       ...(await fetchSlugs()),
     ];
 

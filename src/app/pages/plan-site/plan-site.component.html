@@ -1,0 +1,16 @@
+<div class="plan-site">
+  <h1>Plan du site</h1>
+
+  <div class="sitemap">
+    <ul>
+      <li *ngFor="let item of menuItems">
+        <a [routerLink]="item.path">{{ item.label }}</a>
+        <ul *ngIf="item.children && item.children.length > 0">
+          <li *ngFor="let child of item.children">
+            <a [routerLink]="child.path">{{ child.label }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

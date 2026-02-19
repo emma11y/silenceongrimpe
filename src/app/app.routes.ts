@@ -13,6 +13,7 @@ import { ActualiteBySlugResolver } from '@core/resolvers/actualite-by-slug.resol
 import { ErrorComponent } from './pages/error/error.component';
 import { ActualitesALaUneResolver } from '@core/resolvers/actualites-a-la-une.resolver';
 import { ThumbnailBySlugResolver } from '@core/resolvers/thumbnail-by-slug.resolver';
+import { PlanSiteComponent } from './pages/plan-site/plan-site.component';
 
 export const routes: Routes = [
   {
@@ -63,7 +64,7 @@ export const routes: Routes = [
                 },
                 loadComponent: () =>
                   import('./pages/actualites/actualites.component').then(
-                    (m) => m.ActualitesComponent
+                    (m) => m.ActualitesComponent,
                   ),
               },
               {
@@ -73,9 +74,9 @@ export const routes: Routes = [
                   //thumbnail: ThumbnailBySlugResolver,
                 },
                 loadComponent: () =>
-                  import(
-                    './pages/actualites/actualite/actualite.component'
-                  ).then((m) => m.ActualiteComponent),
+                  import('./pages/actualites/actualite/actualite.component').then(
+                    (m) => m.ActualiteComponent,
+                  ),
               },
               {
                 path: ':slug/apercu',
@@ -84,9 +85,9 @@ export const routes: Routes = [
                   actualite: ActualiteBySlugResolver,
                 },
                 loadComponent: () =>
-                  import(
-                    './pages/actualites/actualite/actualite.component'
-                  ).then((m) => m.ActualiteComponent),
+                  import('./pages/actualites/actualite/actualite.component').then(
+                    (m) => m.ActualiteComponent,
+                  ),
               },
             ],
           },
@@ -103,20 +104,20 @@ export const routes: Routes = [
             },
             loadComponent: () =>
               import('./pages/agenda/agenda.component').then(
-                (m) => m.AgendaComponent
+                (m) => m.AgendaComponent,
               ),
           },
           {
             path: 'videos',
             data: {
               metadata: {
-                title: 'Vidéos',
+                title: 'Nos vidéos',
                 description: `Retrouvez toutes les vidéos mis en ligne par le collectif "Silence, on grimpe !"`,
               },
             },
             loadComponent: () =>
               import('./pages/videos/videos.component').then(
-                (m) => m.VideosComponent
+                (m) => m.VideosComponent,
               ),
           },
           {
@@ -148,6 +149,16 @@ export const routes: Routes = [
               },
             },
             component: MentionsLegalesComponent,
+          },
+          {
+            path: 'plan-du-site',
+            data: {
+              metadata: {
+                title: 'Plan du site',
+                description: `Consultez le plan du site "Silence, on grimpe !"`,
+              },
+            },
+            component: PlanSiteComponent,
           },
           {
             path: 'erreur',
@@ -203,7 +214,7 @@ export const routes: Routes = [
             },
             loadComponent: () =>
               import('./admin/login/login.component').then(
-                (m) => m.LoginComponent
+                (m) => m.LoginComponent,
               ),
           },
           {
@@ -217,7 +228,7 @@ export const routes: Routes = [
             canActivate: [AuthGuard],
             loadComponent: () =>
               import('./admin/tableau-de-bord/tableau-de-bord.component').then(
-                (m) => m.TableauDeBordComponent
+                (m) => m.TableauDeBordComponent,
               ),
           },
           {
@@ -231,7 +242,7 @@ export const routes: Routes = [
             },
             loadComponent: () =>
               import('./admin/import/import.component').then(
-                (m) => m.ImportComponent
+                (m) => m.ImportComponent,
               ),
           },
           {
@@ -247,9 +258,9 @@ export const routes: Routes = [
                   },
                 },
                 loadComponent: () =>
-                  import(
-                    './admin/evenement-form/evenement-form.component'
-                  ).then((m) => m.EvenementFormComponent),
+                  import('./admin/evenement-form/evenement-form.component').then(
+                    (m) => m.EvenementFormComponent,
+                  ),
               },
               {
                 path: ':id',
@@ -260,9 +271,9 @@ export const routes: Routes = [
                   },
                 },
                 loadComponent: () =>
-                  import(
-                    './admin/evenement-form/evenement-form.component'
-                  ).then((m) => m.EvenementFormComponent),
+                  import('./admin/evenement-form/evenement-form.component').then(
+                    (m) => m.EvenementFormComponent,
+                  ),
               },
             ],
           },
@@ -277,7 +288,7 @@ export const routes: Routes = [
             },
             loadComponent: () =>
               import('./admin/evenements/evenements.component').then(
-                (m) => m.EvenementsComponent
+                (m) => m.EvenementsComponent,
               ),
           },
           {
@@ -290,9 +301,9 @@ export const routes: Routes = [
               },
             },
             loadComponent: () =>
-              import(
-                './admin/bibliotheque-images/bibliotheque-images.component'
-              ).then((m) => m.BibliothequeImagesComponent),
+              import('./admin/bibliotheque-images/bibliotheque-images.component').then(
+                (m) => m.BibliothequeImagesComponent,
+              ),
           },
           {
             path: 'actualites',
@@ -305,7 +316,7 @@ export const routes: Routes = [
             },
             loadComponent: () =>
               import('./admin/actualites/actualites.component').then(
-                (m) => m.ActualitesComponent
+                (m) => m.ActualitesComponent,
               ),
           },
           {
@@ -322,9 +333,9 @@ export const routes: Routes = [
                   },
                 },
                 loadComponent: () =>
-                  import(
-                    './admin/actualite-form/actualite-form.component'
-                  ).then((m) => m.ActualiteFormComponent),
+                  import('./admin/actualite-form/actualite-form.component').then(
+                    (m) => m.ActualiteFormComponent,
+                  ),
               },
               {
                 path: ':slug',
@@ -335,9 +346,9 @@ export const routes: Routes = [
                   },
                 },
                 loadComponent: () =>
-                  import(
-                    './admin/actualite-form/actualite-form.component'
-                  ).then((m) => m.ActualiteFormComponent),
+                  import('./admin/actualite-form/actualite-form.component').then(
+                    (m) => m.ActualiteFormComponent,
+                  ),
               },
             ],
           },
