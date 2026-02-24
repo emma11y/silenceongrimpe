@@ -38,7 +38,12 @@ export class PlanSiteComponent implements OnInit {
       {
         path: '/collectif',
         label: 'Le collectif',
-        children: [],
+        children: [
+          {
+            path: '/collectif/nos-videos',
+            label: 'Nos vidéos',
+          },
+        ],
       },
       {
         path: '/agenda',
@@ -50,11 +55,7 @@ export class PlanSiteComponent implements OnInit {
         label: 'Actualités',
         children: await this.getActualites(),
       },
-      {
-        path: '/videos',
-        label: 'Nos vidéos',
-        children: [],
-      },
+
       {
         path: '/contact',
         label: 'Nous contacter',
