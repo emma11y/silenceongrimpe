@@ -5,7 +5,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'collectif', renderMode: RenderMode.Prerender },
   { path: 'contact', renderMode: RenderMode.Prerender },
   {
-    path: 'videos',
+    path: 'collectif/nos-videos',
     renderMode: RenderMode.Prerender,
   },
 

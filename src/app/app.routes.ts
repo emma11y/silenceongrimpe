@@ -3,7 +3,6 @@ import { PublicLayoutComponent } from './layouts/public-layout/public-layout.com
 import { HomeComponent } from './pages/home/home.component';
 import { RessourcesComponent } from './pages/ressources/ressources.component';
 import { MentionsLegalesComponent } from './pages/mentions-legales/mentions-legales.component';
-import { CollectifComponent } from './pages/collectif/collectif.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { AgendaResolver } from '@core/resolvers/agenda.resolver';
@@ -12,7 +11,6 @@ import { ActualitesPublieesResolver } from '@core/resolvers/actualites-publiees.
 import { ActualiteBySlugResolver } from '@core/resolvers/actualite-by-slug.resolver';
 import { ErrorComponent } from './pages/error/error.component';
 import { ActualitesALaUneResolver } from '@core/resolvers/actualites-a-la-une.resolver';
-import { ThumbnailBySlugResolver } from '@core/resolvers/thumbnail-by-slug.resolver';
 import { PlanSiteComponent } from './pages/plan-site/plan-site.component';
 
 export const routes: Routes = [
@@ -39,13 +37,34 @@ export const routes: Routes = [
           },
           {
             path: 'collectif',
-            data: {
-              metadata: {
-                title: 'Le collectif',
-                description: `Retrouvez les informations sur le collectif "Silence, on grimpe !"`,
+            children: [
+              {
+                path: '',
+                data: {
+                  metadata: {
+                    title: 'Le collectif',
+                    description: `Retrouvez les informations sur le collectif "Silence, on grimpe !"`,
+                  },
+                },
+                loadComponent: () =>
+                  import('./pages/collectif/collectif.component').then(
+                    (m) => m.CollectifComponent,
+                  ),
               },
-            },
-            component: CollectifComponent,
+              {
+                path: 'nos-videos',
+                data: {
+                  metadata: {
+                    title: 'Nos vidéos',
+                    description: `Retrouvez toutes les vidéos mis en ligne par le collectif "Silence, on grimpe !"`,
+                  },
+                },
+                loadComponent: () =>
+                  import('./pages/videos/videos.component').then(
+                    (m) => m.VideosComponent,
+                  ),
+              },
+            ],
           },
           {
             path: 'actualites',
@@ -107,19 +126,7 @@ export const routes: Routes = [
                 (m) => m.AgendaComponent,
               ),
           },
-          {
-            path: 'videos',
-            data: {
-              metadata: {
-                title: 'Nos vidéos',
-                description: `Retrouvez toutes les vidéos mis en ligne par le collectif "Silence, on grimpe !"`,
-              },
-            },
-            loadComponent: () =>
-              import('./pages/videos/videos.component').then(
-                (m) => m.VideosComponent,
-              ),
-          },
+
           {
             path: 'contact',
             data: {

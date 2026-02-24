@@ -1,3 +1,5 @@
+@use "variables" as vars;
+
 .footer {
   background-color: var(--bleu-ocean);
   color: var(--blanc);
@@ -41,21 +43,30 @@
     font-weight: 600;
   }
 
-  .small {
+  .links {
+    display: flex;
     font-size: 1em;
-  }
 
-  .link {
-    color: var(--blanc);
-    font-weight: 300;
-    text-decoration: underline;
-    border-bottom: 0.25em solid transparent;
-    margin-right: 0.5em;
+    @media screen and (max-width: vars.$md) {
+      flex-direction: column;
 
-    &:focus-visible,
-    &:hover {
-      text-decoration: none;
-      border-bottom-color: var(--blanc);
+      li {
+        margin-bottom: 1em;
+      }
+    }
+
+    .link {
+      color: var(--blanc);
+      font-weight: 300;
+      text-decoration: underline;
+      border-bottom: 0.25em solid transparent;
+      margin-right: 0.5em;
+
+      &:focus-visible,
+      &:hover {
+        text-decoration: none;
+        border-bottom-color: var(--blanc);
+      }
     }
   }
 }

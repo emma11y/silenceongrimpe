@@ -39,13 +39,14 @@ async function main() {
     const routes = [
       "/",
       "/collectif",
+      "/collectif/nos-videos",
       "/agenda",
       "/actualites",
-      "/videos",
       "/contact",
       "/mentions-legales",
       "/plan-du-site",
-      // "/posts-pedagogiques",
+      "/ressources",
+      // "/ressources/nos-posts-pedagogiques",
       ...(await fetchSlugs()),
     ];
 
