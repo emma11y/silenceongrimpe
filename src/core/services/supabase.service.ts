@@ -43,7 +43,7 @@ export class SupabaseService {
   }
 
   authChanges(
-    callback: (event: AuthChangeEvent, session: Session | null) => void
+    callback: (event: AuthChangeEvent, session: Session | null) => void,
   ) {
     return this.supabase.auth.onAuthStateChange(callback);
   }
@@ -82,7 +82,7 @@ export class SupabaseService {
   async getEvenementExists(
     titre: string,
     date: string,
-    annee: string
+    annee: string,
   ): Promise<number | null> {
     const { data } = await this.supabase
       .from('evenements')
@@ -104,7 +104,7 @@ export class SupabaseService {
 
   async updateEvenements(evenements: Evenement[]) {
     const updates = evenements.map((evenement) =>
-      this.supabase.from('evenements').update(evenement).eq('id', evenement.id)
+      this.supabase.from('evenements').update(evenement).eq('id', evenement.id),
     );
     return Promise.all(updates);
   }
@@ -128,6 +128,10 @@ export class SupabaseService {
     }
 
     return null;
+  }
+
+  deletePicture(id: string | undefined) {
+    return this.supabase.from('images').delete().eq('id', id);
   }
 
   createOrUpdateActualite(actualite: Actualite) {

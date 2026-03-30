@@ -4,23 +4,42 @@
   gap: 10px;
 
   .picture {
-    cursor: pointer;
-    border: 0.1em solid transparent;
+    .item {
+      cursor: pointer;
+      border: 0.1em solid transparent;
 
-    &:hover,
-    &:focus-visible {
-      border-color: var(--bleu-ocean);
+      &:hover,
+      &:focus-visible {
+        border-color: var(--bleu-ocean);
+      }
+
+      img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover; /* ou contain selon ton choix */
+        object-position: top;
+      }
+
+      p {
+        text-align: center;
+      }
     }
 
-    img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover; /* ou contain selon ton choix */
-      object-position: top;
-    }
+    .delete {
+      position: absolute;
+      background-color: var(--bleu-ocean);
+      border: 0.1em solid var(--bleu-ocean);
 
-    p {
-      text-align: center;
+      i {
+        font-size: 1.2em;
+        color: var(--bleu-ocean);
+        padding: 0.15em;
+      }
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--jaune-pale);
+      }
     }
   }
 }

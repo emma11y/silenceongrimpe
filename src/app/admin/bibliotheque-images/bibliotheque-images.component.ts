@@ -29,7 +29,7 @@ export class BibliothequeImagesComponent implements OnInit {
   private readonly supabase: SupabaseService = inject(SupabaseService);
 
   private readonly popupComponentService: PopupComponentService = inject(
-    PopupComponentService
+    PopupComponentService,
   );
 
   public ngOnInit(): void {
@@ -44,7 +44,7 @@ export class BibliothequeImagesComponent implements OnInit {
       () => {
         this.popupComponentService.close();
         this.getImages();
-      }
+      },
     );
 
     await promise;
@@ -64,7 +64,7 @@ export class BibliothequeImagesComponent implements OnInit {
     this.popupComponentService.componentRef?.instance.outputClose.subscribe(
       () => {
         this.popupComponentService.close();
-      }
+      },
     );
 
     await promise;
@@ -77,5 +77,8 @@ export class BibliothequeImagesComponent implements OnInit {
         this.images = result.data as unknown as Picture[];
       }
     });
+  }
+  public onRefreshClick(): void {
+    this.getImages();
   }
 }

@@ -2,8 +2,17 @@
   @for(img of images; track $index){
 
   <div class="picture" role="listitem">
+    <button
+      type="button"
+      [title]="'Supprimer l\'image ' + img.name"
+      (click)="onDeleteImageClick(img)"
+      class="delete"
+    >
+      <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
     <div
       role="button"
+      class="item"
       tabindex="0"
       (click)="onDisplayImageClick(img)"
       [title]="'Afficher l\'image ' + img.name"
