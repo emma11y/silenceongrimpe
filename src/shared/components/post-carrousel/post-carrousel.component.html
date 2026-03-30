@@ -1,0 +1,55 @@
+<div
+  *ngIf="post"
+  #container
+  class="carousel-container"
+  aria-roledescription="carrousel"
+  [attr.aria-label]="'Galerie d\'images du post ' + post.titre"
+>
+  <!-- Bouton précédent -->
+  <button class="nav-button left" (click)="goToLeft($event)">
+    <span class="sr-only">Image précédente</span>
+    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+  </button>
+
+  <!-- Liste des images -->
+  <div id="post" class="carousel" #carousel>
+    <img
+      aria-hidden="true"
+      *ngFor="let image of post.images; let i = index"
+      [src]="image.src"
+      [alt]=""
+      loading="lazy"
+    />
+
+    <p class="sr-only" aria-live="polite" aria-relevant="additions text">
+      <span>{{ "Image " + (currentIndex + 1) }} &nbsp;</span>
+      <span>{{ post.images[currentIndex].alt }}</span>
+    </p>
+  </div>
+
+  <!-- Bouton suivant -->
+  <button class="nav-button right" (click)="goToRight($event)">
+    <span class="sr-only">Image suivante</span>
+    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+  </button>
+</div>
+
+<!-- Pagination -->
+<div
+  class="pagination"
+  role="tablist"
+  [attr.aria-label]="'Navigation des images du post ' + post.titre"
+>
+  <button
+    *ngFor="let _ of post.images; let i = index"
+    role="tab"
+    [attr.aria-label]="'Aller à l’image ' + (i + 1)"
+    [attr.aria-selected]="i === currentIndex"
+    [class.active]="i === currentIndex"
+    (click)="goToImage(i)"
+  >
+    <span class="sr-only">
+      Image {{ i + 1 }} sur {{ post.images.length }}
+    </span>
+  </button>
+</div>

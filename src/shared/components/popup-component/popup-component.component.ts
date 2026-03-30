@@ -62,7 +62,7 @@ export class PopupComponentComponent {
         this.popup.nativeElement,
         focusedElement,
         'button, input[type="text"], textarea',
-        event.shiftKey
+        event.shiftKey,
       );
       return;
     }

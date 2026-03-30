@@ -1,0 +1,41 @@
+<div class="posts" role="list">
+  <div
+    class="post-item"
+    role="listitem"
+    *ngFor="let post of posts; let i = index"
+  >
+    <p class="post-item-title">{{ post.titre }}</p>
+    <div class="post-item-image">
+      <img
+        [src]="post.images[0].src"
+        [alt]="post.images[0].alt || 'Image ' + (i + 1)"
+        loading="lazy"
+      />
+    </div>
+    <div class="post-item-button">
+      <button type="button" (click)="openModal(i)">
+        Afficher la publication
+        <span class="sr-only">&nbsp; {{ post.titre }}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal"
+  (click)="closeModal()"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Carrousel en plein écran"
+  [ngClass]="{ active: isModalOpen }"
+  tabindex="0"
+>
+  <div class="modal-content">
+    <button class="close-button" (click)="closeModal()">
+      <i class="fa-solid fa-times" aria-hidden="true"></i>
+      <span class="sr-only">Fermer la fenêtre</span>
+    </button>
+
+    <app-post-carrousel [post]="posts[selectedIndex]"></app-post-carrousel>
+  </div>
+</div>

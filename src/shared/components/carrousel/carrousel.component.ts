@@ -25,9 +25,6 @@ export class CarrouselComponent implements OnInit {
   @ViewChild('tabsEl', { static: true })
   public tabsEl!: TemplateRef<HTMLDivElement>;
 
-  @ViewChild('carouselEl', { static: true })
-  public carouselEl!: TemplateRef<HTMLDivElement>;
-
   // states
   public hasFocusTabs: boolean = false;
   public hasFocusCarousel: boolean = false;

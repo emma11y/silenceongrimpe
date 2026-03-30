@@ -1,0 +1,135 @@
+.posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1em;
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.post-item {
+  p {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  &-image {
+    img {
+      border-radius: 0.5em;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  &-button {
+    text-align: center;
+    margin-top: 1em;
+
+    button {
+      font-family: var(--main-family);
+      background-color: var(--bleu-pastel);
+      border: 0.15em solid transparent;
+      padding: 0.5em 1em;
+      border-radius: 2em;
+      font-size: 1em;
+
+      &:hover,
+      &:focus-visible {
+        border-color: var(--bleu-ocean);
+        background-color: var(--jaune-pale);
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
+}
+
+.modal-content {
+  position: relative;
+  background: #000;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.modal app-image-carousel {
+  width: 100%;
+  height: 100%;
+  max-width: 700px;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  i {
+    padding: 0.25em;
+    font-size: 2em;
+  }
+
+  border: none;
+
+  // font-size: 22px;
+  cursor: pointer;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--bleu-pastel);
+  z-index: 99;
+
+  i {
+    color: var(--bleu-ocean);
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--orange);
+  }
+}
+
+.close-button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .carousel-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .close-button {
+    top: 1em;
+    right: 1em;
+  }
+
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    max-width: none;
+    max-height: none;
+    padding: 0 16px;
+  }
+}
