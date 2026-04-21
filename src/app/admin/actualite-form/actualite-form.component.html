@@ -130,31 +130,86 @@
         <div class="col">
           <div class="group">
             <label for="editor">Contenu</label>
-            <angular-editor
-              id="editor"
-              name="editor"
-              [placeholder]="'Ecrivez votre contenu...'"
-              [(ngModel)]="form.html"
-              required
-              #editor="ngModel"
-              [config]="editorConfig"
-            >
-              <ng-template
-                #customButtons
-                let-executeCommandFn="executeCommandFn"
+            <div class="NgxEditor__Wrapper">
+              <ngx-editor-menu
+                [editor]="editor"
+                [toolbar]="toolbar"
+                [customMenuRef]="footnoteMenu"
               >
-                <ae-toolbar-set>
-                  <button
-                    aeButton
-                    title="Insert image"
-                    (click)="onAddImage(executeCommandFn)"
-                  >
-                    <i class="fa-solid fa-image" aria-hidden="true"></i>
-                  </button>
-                </ae-toolbar-set>
+              </ngx-editor-menu>
+              <ng-template #footnoteMenu>
+                <button
+                  type="button"
+                  class="footnote-menu-button"
+                  title="Insérer une note de bas de page"
+                  (click)="onAddFootnote()"
+                >
+                  Note
+                </button>
               </ng-template>
-            </angular-editor>
-            <validation-summary [controlModel]="editor" fieldName="contenu" />
+              <ngx-editor
+                id="editor"
+                name="editor"
+                [editor]="editor"
+                [(ngModel)]="form.html"
+                #html="ngModel"
+                [disabled]="false"
+                placeholder="Commencer à écrire..."
+                height="500px"
+              ></ngx-editor>
+            </div>
+            <p class="small">
+              Utilisez le bouton Note pour insérer une note de bas de page. Elle
+              sera numérotée automatiquement et affichée en bas de l’article.
+            </p>
+            <div class="footnote-preview" aria-live="polite">
+              <div class="footnote-preview-header">
+                <h2>Notes détectées</h2>
+                <span
+                  >{{ footnotes.length }} note{{
+                    footnotes.length > 1 ? "s" : ""
+                  }}</span
+                >
+              </div>
+
+              @if (footnotes.length) {
+                <div class="footnote-preview-list">
+                  @for (footnote of footnotes; track footnote.index) {
+                    <article class="footnote-card">
+                      <div class="footnote-card-header">
+                        <span class="footnote-badge"
+                          >Note {{ footnote.index + 1 }}</span
+                        >
+
+                        <div class="footnote-card-actions">
+                          <button
+                            type="button"
+                            class="link-button"
+                            (click)="onEditFootnote(footnote.index)"
+                          >
+                            Modifier
+                          </button>
+                          <button
+                            type="button"
+                            class="link-button danger"
+                            (click)="onRemoveFootnote(footnote.index)"
+                          >
+                            Supprimer
+                          </button>
+                        </div>
+                      </div>
+
+                      <p>{{ footnote.content }}</p>
+                    </article>
+                  }
+                </div>
+              } @else {
+                <p class="small empty-footnotes">
+                  Aucune note de bas de page dans le contenu pour le moment.
+                </p>
+              }
+            </div>
+            <validation-summary [controlModel]="html" fieldName="contenu" />
           </div>
         </div>
       </div>

@@ -76,3 +76,58 @@ input[type="text"] {
     background-color: var(--jaune-pale);
   }
 }
+
+::ng-deep {
+  .NgxEditor__MenuBar {
+    button {
+      cursor: pointer !important;
+
+      &.NgxEditor__Dropdown--Active,
+      &:hover,
+      &:focus {
+        background-color: var(--bleu-pastel) !important;
+        color: var(--bleu-ocean) !important;
+      }
+    }
+  }
+
+  .NgxEditor__Wrapper {
+    border: 0.2em solid var(--bleu-ocean) !important;
+
+    &:focus,
+    &:hover,
+    &:focus-visible,
+    &:active {
+      border-color: var(--orange) !important;
+    }
+  }
+
+  .NgxEditor__Dropdown--DropdownMenu,
+  .NgxEditor__Popup {
+    background-color: var(--color-bg) !important;
+    color: var(--color-primary) !important;
+  }
+
+  .NgxEditor {
+    height: 500px;
+    overflow: auto;
+    background-color: var(--color-bg) !important;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h5 {
+      color: var(--color-text-primary);
+    }
+  }
+
+  .NgxEditor__Description {
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+    .NgxEditor {
+      height: 100px;
+    }
+  }
+}

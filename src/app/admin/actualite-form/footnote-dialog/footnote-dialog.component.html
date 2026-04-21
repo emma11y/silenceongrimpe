@@ -1,0 +1,28 @@
+<div class="footnote-dialog">
+  <h2>{{ title }}</h2>
+
+  <div class="group">
+    <label for="footnote-content">Texte de la note</label>
+    <textarea
+      id="footnote-content"
+      name="footnote-content"
+      rows="8"
+      [(ngModel)]="content"
+      placeholder="Saisissez le contenu de la note..."
+    ></textarea>
+  </div>
+
+  <div class="actions">
+    <button type="button" class="secondary" (click)="onCancel()">
+      Annuler
+    </button>
+    <button
+      type="button"
+      class="primary"
+      (click)="onSubmit()"
+      [disabled]="!content.trim()"
+    >
+      Valider
+    </button>
+  </div>
+</div>

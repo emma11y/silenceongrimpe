@@ -329,7 +329,6 @@ export const routes: Routes = [
           {
             path: 'actualite',
             canActivate: [AuthGuard],
-
             children: [
               {
                 path: '',
@@ -357,7 +356,67 @@ export const routes: Routes = [
                     (m) => m.ActualiteFormComponent,
                   ),
               },
+              {
+                path: 'films',
+                canActivate: [AuthGuard],
+                data: {
+                  metadata: {
+                    title: 'Liste des films',
+                    robots: 'noindex, nofollow',
+                  },
+                },
+                loadComponent: () =>
+                  import('./admin/films/films.component').then(
+                    (m) => m.FilmsComponent,
+                  ),
+              },
             ],
+          },
+          {
+            path: 'film',
+            canActivate: [AuthGuard],
+            children: [
+              {
+                path: '',
+                data: {
+                  metadata: {
+                    title: 'Créer une nouvelle fiche de film',
+                    robots: 'noindex, nofollow',
+                  },
+                },
+                loadComponent: () =>
+                  import('./admin/film-form/film-form.component').then(
+                    (m) => m.FilmFormComponent,
+                  ),
+              },
+              {
+                path: ':slug',
+                data: {
+                  metadata: {
+                    title: 'Modifier la fiche du film',
+                    robots: 'noindex, nofollow',
+                  },
+                },
+                loadComponent: () =>
+                  import('./admin/film-form/film-form.component').then(
+                    (m) => m.FilmFormComponent,
+                  ),
+              },
+            ],
+          },
+          {
+            path: 'films',
+            canActivate: [AuthGuard],
+            data: {
+              metadata: {
+                title: 'Liste des films',
+                robots: 'noindex, nofollow',
+              },
+            },
+            loadComponent: () =>
+              import('./admin/films/films.component').then(
+                (m) => m.FilmsComponent,
+              ),
           },
         ],
       },

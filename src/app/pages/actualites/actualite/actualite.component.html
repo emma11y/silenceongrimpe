@@ -19,5 +19,5 @@
     Publié le {{ actualite.datePublication | date: "dd MMMM YYYY" }}
   </p>
 
-  <div [innerHTML]="sanitizeHtml(actualite.html)"></div>
+  <div #content [innerHTML]="contentHtml"></div>
 </div>

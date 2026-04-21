@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AlertService } from '@core/services/alert.service';
 import { SupabaseService } from '@core/services/supabase.service';
@@ -11,11 +11,19 @@ import { DisplayImageComponent } from '@shared/components/display-image/display-
 import { BibliothequeImagesComponent } from '../bibliotheque-images/bibliotheque-images.component';
 import { Picture } from '@shared/models/picture';
 import { PopupComponentService } from '@core/services/popup-component.service';
-import {
-  AngularEditorConfig,
-  AngularEditorModule,
-} from '@kolkov/angular-editor';
 import { RevalidateService } from '@app/core/services/revalidate.service';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
+import {
+  createFootnoteToken,
+  extractFootnotes,
+  FootnoteItem,
+  removeFootnoteAt,
+  replaceFootnoteAt,
+} from '@shared/utilities/footnote.utility';
+import {
+  FootnoteDialogComponent,
+  FootnoteDialogResult,
+} from './footnote-dialog/footnote-dialog.component';
 
 @Component({
   selector: 'app-actualite-form',
@@ -24,12 +32,12 @@ import { RevalidateService } from '@app/core/services/revalidate.service';
     FormsModule,
     ValidationSummaryComponent,
     DisplayImageComponent,
-    AngularEditorModule,
+    NgxEditorModule,
   ],
   templateUrl: './actualite-form.component.html',
   styleUrl: './actualite-form.component.scss',
 })
-export class ActualiteFormComponent {
+export class ActualiteFormComponent implements OnDestroy {
   private superbase: SupabaseService = inject(SupabaseService);
   private alertService: AlertService = inject(AlertService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
@@ -44,57 +52,37 @@ export class ActualiteFormComponent {
   isUpdate: boolean = false;
   currentSlug: string = '';
 
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '20rem',
-    //  minHeight: '5rem',
-    // maxHeight: 'auto',
-    width: 'auto',
-    minWidth: '0',
+  editor: Editor = new Editor({
+    history: true,
+    keyboardShortcuts: true,
+    plugins: [],
+  });
 
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: true,
-    placeholder: 'Enter text here...',
-    defaultParagraphSeparator: '',
-    //defaultFontName: 'Luciole',
-    /* defaultFontName: '',
-    defaultFontSize: '',
-    fonts: [
-      { class: 'arial', name: 'Arial' },
-      { class: 'times-new-roman', name: 'Times New Roman' },
-      { class: 'calibri', name: 'Calibri' },
-      { class: 'comic-sans-ms', name: 'Comic Sans MS' },
-    ],*/
-    /*customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],*/
-    //uploadUrl: 'v1/image',
-    //upload: (file: File) => {  },
-    //uploadWithCredentials: false,
-    sanitize: true,
-    toolbarPosition: 'top',
-    toolbarHiddenButtons: [
-      ['fontSize'],
-      ['fontName'],
-      ['insertImage', 'insertVideo'],
-      ['subscript', 'strikeThrough', 'superscript'],
-      ['justifyFull'],
-    ],
-  };
+  descriptionEditor: Editor = new Editor({
+    history: true,
+    keyboardShortcuts: true,
+  });
+
+  toolbar: Toolbar = [
+    // default value
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    // or, set options for link:
+    //[{ link: { showOpenInNewTab: false } }, 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+    ['horizontal_rule', 'format_clear', 'indent', 'outdent'],
+
+    ['undo', 'redo'],
+  ];
+
+  get footnotes(): FootnoteItem[] {
+    return extractFootnotes(this.form.html ?? '');
+  }
 
   constructor() {
     this.route.params.subscribe(async (value) => {
@@ -122,6 +110,11 @@ export class ActualiteFormComponent {
     });*/
   }
 
+  ngOnDestroy(): void {
+    this.editor.destroy();
+    this.descriptionEditor.destroy();
+  }
+
   public onGenerateSlug() {
     if (!this.form.titre) {
       return;
@@ -141,7 +134,7 @@ export class ActualiteFormComponent {
     }*/
 
     const { data, error } = await this.superbase.createOrUpdateActualite(
-      this.form
+      this.form,
     );
 
     if (error) {
@@ -154,7 +147,7 @@ export class ActualiteFormComponent {
       if (this.form.publie && this.form.slug !== this.currentSlug) {
         this.revalidateService.revalidateUpdate(
           this.currentSlug,
-          this.form.slug
+          this.form.slug,
         );
       }
 
@@ -164,7 +157,7 @@ export class ActualiteFormComponent {
     } else {
       this.alertService.showAlert(
         'success',
-        "L'actualité a bien été modifiée."
+        "L'actualité a bien été modifiée.",
       );
     }
   }
@@ -182,10 +175,75 @@ export class ActualiteFormComponent {
           //this.picture = picture;
           this.form.vignetteId = picture.id;
         }
-      }
+      },
     );
 
     await promise;
+  }
+
+  public async onAddFootnote(): Promise<void> {
+    const result = await this.openFootnoteDialog();
+
+    if (!result?.content || !this.editor.view) {
+      return;
+    }
+
+    const token = createFootnoteToken(result.content);
+    const { state, dispatch } = this.editor.view;
+    const insertPosition = state.selection.to;
+    const transaction = state.tr.insertText(
+      token,
+      insertPosition,
+      insertPosition,
+    );
+
+    dispatch(transaction);
+    this.editor.view.focus();
+  }
+
+  public async onEditFootnote(footnoteIndex: number): Promise<void> {
+    const footnote = this.footnotes[footnoteIndex];
+
+    if (!footnote) {
+      return;
+    }
+
+    const result = await this.openFootnoteDialog(
+      footnote.content,
+      'Modifier la note de bas de page',
+    );
+
+    if (!result?.content) {
+      return;
+    }
+
+    this.form.html = replaceFootnoteAt(
+      this.form.html ?? '',
+      footnoteIndex,
+      result.content,
+    );
+  }
+
+  public onRemoveFootnote(footnoteIndex: number): void {
+    this.form.html = removeFootnoteAt(this.form.html ?? '', footnoteIndex);
+  }
+
+  private async openFootnoteDialog(
+    initialValue: string = '',
+    title: string = 'Ajouter une note de bas de page',
+  ): Promise<FootnoteDialogResult | undefined> {
+    const promise = this.popup.open(FootnoteDialogComponent, {
+      initialValue,
+      title,
+    });
+
+    this.popup.componentRef?.instance.outputClose.subscribe(
+      (result: FootnoteDialogResult | undefined) => {
+        this.popup.close(result);
+      },
+    );
+
+    return promise;
   }
 
   async onAddImage(executeCommandFn: (command: string, value: string) => void) {
@@ -214,7 +272,7 @@ export class ActualiteFormComponent {
         // 2) Ajoute l’attribut ALT au dernier <img>
         setTimeout(() => {
           const editorElement = document.querySelector(
-            '#editor .angular-editor-textarea'
+            '#editor .angular-editor-textarea',
           ) as HTMLElement;
           if (editorElement) {
             const imgs = editorElement.getElementsByTagName('img');
@@ -225,7 +283,7 @@ export class ActualiteFormComponent {
             }
           }
         });
-      }
+      },
     );
 
     await promise;

@@ -85,10 +85,55 @@
       color: var(--bleu-ocean);
       border-bottom: 0.25em solid transparent;
       text-decoration: underline;
+
       &:hover,
       &:focus-visible {
         text-decoration: none;
         border-bottom-color: var(--bleu-ocean);
+      }
+    }
+
+    .footnote-ref {
+      font-size: 0.85em;
+      line-height: 1;
+
+      a {
+        font-weight: 700;
+        text-decoration: none;
+      }
+    }
+
+    .footnotes {
+      border-top: 0.1em solid var(--bleu-ocean);
+      margin-top: 3em;
+      padding-top: 1.5em;
+
+      hr {
+        display: none;
+      }
+
+      ol {
+        padding-left: 1.5em;
+      }
+
+      .note {
+        margin-bottom: 1em;
+      }
+
+      .note-content {
+        display: inline;
+      }
+
+      .footnote-backlink {
+        font-weight: 700;
+        margin-left: 0.35em;
+        text-decoration: none;
+        border-bottom: 0.25em solid transparent;
+
+        &:focus-visible,
+        &:hover {
+          border-bottom-color: var(--bleu-ocean);
+        }
       }
     }
   }

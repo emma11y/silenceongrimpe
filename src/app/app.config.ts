@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
       RouterModule.forRoot(routes, {
         scrollPositionRestoration: 'top',
       }),
-      ReactiveFormsModule
+      ReactiveFormsModule,
     ),
     { provide: HTTP_INTERCEPTORS, useClass: ImageInterceptor, multi: true },
     provideHttpClient(withInterceptorsFromDi()),

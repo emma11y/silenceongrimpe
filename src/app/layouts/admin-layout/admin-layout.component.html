@@ -2,15 +2,13 @@
   <header class="header" role="banner">
     <div class="header-banner">
       <div class="header-logo">
-        <a
-          routerLink="/admin/tableau-de-bord"
-          aria-label="Retourner au tableau de bord"
-        >
+        <a routerLink="/admin/tableau-de-bord">
           <img
             src="../../../assets/imgs/logo-horizontal-blanc.png"
             alt=""
             loading="lazy"
           />
+          <span class="sr-only">Retourner au tableau de bord</span>
         </a>
       </div>
       <div *ngIf="user" class="header-title">

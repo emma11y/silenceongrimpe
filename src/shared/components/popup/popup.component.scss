@@ -7,6 +7,7 @@
 
   margin: 0;
   padding: 1em;
+  height: calc(100% - 2em);
 
   left: calc((100% / 2) - (30rem / 2));
   top: 35%;
@@ -57,7 +58,9 @@
     display: block;
     height: 100%;
     opacity: 1;
-    transition: opacity 0.3s, visibility 0.3s;
+    transition:
+      opacity 0.3s,
+      visibility 0.3s;
   }
 
   &-container {

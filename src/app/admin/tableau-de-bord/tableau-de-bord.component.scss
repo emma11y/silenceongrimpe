@@ -1,6 +1,5 @@
 .dashboard {
   text-align: center;
-  padding-top: 10em;
 
   .row {
     display: flex;
@@ -18,7 +17,9 @@
     margin: 2em;
     min-height: 6em;
     border: 0.15em solid var(--bleu-ocean);
-    box-shadow: var(--bleu-ocean) 0px 1px 3px, var(--bleu-ocean) 0px 1px 2px;
+    box-shadow:
+      var(--bleu-ocean) 0px 1px 3px,
+      var(--bleu-ocean) 0px 1px 2px;
     padding: 1em;
     border-radius: 0.5em;
 

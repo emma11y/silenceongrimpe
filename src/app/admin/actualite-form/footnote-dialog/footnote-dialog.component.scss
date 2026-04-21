@@ -1,0 +1,57 @@
+.footnote-dialog {
+  padding: 1rem;
+  height: 100%;
+  align-content: center;
+
+  h2 {
+    margin: 0 0 1rem;
+    color: var(--bleu-ocean);
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .group {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  label {
+    font-weight: 700;
+  }
+
+  textarea {
+    min-height: 12rem;
+    resize: vertical;
+    padding: 1em;
+    font-family: var(--main-family);
+  }
+
+  .actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+
+  button {
+    border: 0.1em solid var(--bleu-ocean);
+    cursor: pointer;
+    font-family: var(--main-family);
+    padding: 0.6rem 1rem;
+  }
+
+  .primary {
+    background-color: var(--bleu-ocean);
+    color: var(--blanc);
+  }
+
+  .secondary {
+    background-color: var(--blanc);
+    color: var(--bleu-ocean);
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
