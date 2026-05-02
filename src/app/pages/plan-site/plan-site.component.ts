@@ -1,7 +1,7 @@
 import { orderBy } from 'lodash-es';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, Route } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { SupabaseService } from '@core/services/supabase.service';
 
@@ -13,7 +13,7 @@ interface MenuItem {
 
 @Component({
   selector: 'app-plan-site',
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './plan-site.component.html',
   styleUrl: './plan-site.component.scss',
 })

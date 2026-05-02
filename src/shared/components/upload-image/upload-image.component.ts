@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from '@core/services/alert.service';
@@ -9,7 +9,7 @@ import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
 
 @Component({
   selector: 'app-upload-image',
-  imports: [NgIf, ReactiveFormsModule, FormsModule, ValidationSummaryComponent],
+  imports: [ReactiveFormsModule, FormsModule, ValidationSummaryComponent],
   templateUrl: './upload-image.component.html',
   styleUrl: './upload-image.component.scss',
 })

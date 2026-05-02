@@ -3,14 +3,20 @@
 
   <div class="sitemap">
     <ul>
-      <li *ngFor="let item of menuItems">
-        <a [routerLink]="item.path">{{ item.label }}</a>
-        <ul *ngIf="item.children && item.children.length > 0">
-          <li *ngFor="let child of item.children">
-            <a [routerLink]="child.path">{{ child.label }}</a>
-          </li>
-        </ul>
-      </li>
+      @for (item of menuItems; track item) {
+        <li>
+          <a [routerLink]="item.path">{{ item.label }}</a>
+          @if (item.children && item.children.length > 0) {
+            <ul>
+              @for (child of item.children; track child) {
+                <li>
+                  <a [routerLink]="child.path">{{ child.label }}</a>
+                </li>
+              }
+            </ul>
+          }
+        </li>
+      }
     </ul>
   </div>
 </div>

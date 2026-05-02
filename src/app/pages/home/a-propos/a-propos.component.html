@@ -3,34 +3,35 @@
 
   <div class="list" role="list">
     @for(temoignage of temoignages; track $index){
-    <div class="list-item" role="listitem">
-      <div class="list-image">
-        <img [alt]="temoignage.alt" [src]="temoignage.img" />
-      </div>
-      <div class="list-description">
-        <p class="title quote">
-          {{ temoignage.quote }}
-        </p>
-        <div [innerHTML]="temoignage.subtitle"></div>
-        <button
-          type="button"
-          (click)="temoignage.open = !temoignage.open"
-          [attr.aria-expanded]="temoignage.open"
-          [attr.aria-controls]="'accordion-' + temoignage.id"
-          *ngIf="temoignage.html"
-        >
-          {{ temoignage.open ? "Voir moins" : "Voir plus" }}
-          <span class="sr-only"> le témoignage de {{ temoignage.name }}</span>
-        </button>
+      <div class="list-item" role="listitem">
+        <div class="list-image">
+          <img [alt]="temoignage.alt" [src]="temoignage.img" />
+        </div>
+        <div class="list-description">
+          <p class="title quote">
+            {{ temoignage.quote }}
+          </p>
+          <div [innerHTML]="temoignage.subtitle"></div>
+          @if (temoignage.html) {
+            <button
+              type="button"
+              (click)="temoignage.open = !temoignage.open"
+              [attr.aria-expanded]="temoignage.open"
+              [attr.aria-controls]="'accordion-' + temoignage.id"
+              >
+              {{ temoignage.open ? "Voir moins" : "Voir plus" }}
+              <span class="sr-only"> le témoignage de {{ temoignage.name }}</span>
+            </button>
+          }
 
-        <div
-          class="body"
-          [innerHTML]="temoignage.html"
-          [id]="'accordion-' + temoignage.id"
-          [ngClass]="{ open: temoignage.open }"
-        ></div>
+          <div
+            class="body"
+            [innerHTML]="temoignage.html"
+            [id]="'accordion-' + temoignage.id"
+            [ngClass]="{ open: temoignage.open }"
+          ></div>
+        </div>
       </div>
-    </div>
     }
   </div>
 </div>

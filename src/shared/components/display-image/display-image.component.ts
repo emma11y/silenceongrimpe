@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   inject,
@@ -12,7 +12,7 @@ import { Picture } from '@shared/models/picture';
 
 @Component({
   selector: 'app-display-image',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './display-image.component.html',
   styleUrl: './display-image.component.scss',
 })

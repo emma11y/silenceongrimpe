@@ -1,9 +1,9 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-a-propos',
-  imports: [NgClass, NgIf],
+  imports: [NgClass],
   templateUrl: './a-propos.component.html',
   styleUrl: './a-propos.component.scss',
 })

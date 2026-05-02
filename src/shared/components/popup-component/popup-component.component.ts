@@ -7,7 +7,7 @@ import {
   HostListener,
   ElementRef,
 } from '@angular/core';
-import { CommonModule, NgClass, NgIf } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { trapFocusElements } from '@shared/utilities/accessibility.utility';
 
 @Component({

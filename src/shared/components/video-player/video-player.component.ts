@@ -1,4 +1,4 @@
-import { NgFor, NgIf, NgClass, isPlatformBrowser } from '@angular/common';
+import { NgClass, isPlatformBrowser } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -13,7 +13,7 @@ import { VideoItem } from '@shared/models/video-item';
 
 @Component({
   selector: 'app-video-player',
-  imports: [NgIf, NgFor, NgClass],
+  imports: [NgClass],
   standalone: true,
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.scss',

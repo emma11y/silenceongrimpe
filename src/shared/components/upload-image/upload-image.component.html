@@ -17,63 +17,69 @@
                 #image="ngModel"
                 required
                 [attr.aria-invalid]="image.invalid"
-              />
-              <div class="form-file">
-                <button type="button" (click)="onFileClick()">
-                  Choisir une image
-                </button>
-                <span *ngIf="!form.image">Aucun fichier sélectionné</span>
-                <span *ngIf="form.image">{{ form.name }}</span>
+                />
+                <div class="form-file">
+                  <button type="button" (click)="onFileClick()">
+                    Choisir une image
+                  </button>
+                  @if (!form.image) {
+                    <span>Aucun fichier sélectionné</span>
+                  }
+                  @if (form.image) {
+                    <span>{{ form.name }}</span>
+                  }
+                </div>
+                <validation-summary [controlModel]="image" fieldName="image" />
               </div>
-              <validation-summary [controlModel]="image" fieldName="image" />
             </div>
-          </div>
-          <div class="row">
-            <div class="group">
-              <label for="alt">Décrire l'image</label>
-              <textarea
-                id="alt"
-                name="alt"
-                rows="10"
-                required
-                [(ngModel)]="form.alt"
-                #alt="ngModel"
-                required
-                [attr.aria-invalid]="alt.invalid"
-                aria-describedby="accessibilite"
-              ></textarea>
-              <p class="small" id="accessibilite">
-                Pour des raisons d'accessibilité, vous devez décrire l'image.
-              </p>
-              <validation-summary
-                [controlModel]="alt"
-                fieldName="décrire l'image"
-              />
+            <div class="row">
+              <div class="group">
+                <label for="alt">Décrire l'image</label>
+                <textarea
+                  id="alt"
+                  name="alt"
+                  rows="10"
+                  required
+                  [(ngModel)]="form.alt"
+                  #alt="ngModel"
+                  required
+                  [attr.aria-invalid]="alt.invalid"
+                  aria-describedby="accessibilite"
+                ></textarea>
+                <p class="small" id="accessibilite">
+                  Pour des raisons d'accessibilité, vous devez décrire l'image.
+                </p>
+                <validation-summary
+                  [controlModel]="alt"
+                  fieldName="décrire l'image"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="group">
+                  <label for="credit">Crédit Photo</label>
+                  <input
+                    id="credit"
+                    name="credit"
+                    type="text"
+                    [(ngModel)]="form.credit"
+                    #credit="ngModel"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                @if (form.image) {
+                  <div class="row image">
+                    <img id="preview" />
+                  </div>
+                }
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="group">
-              <label for="credit">Crédit Photo</label>
-              <input
-                id="credit"
-                name="credit"
-                type="text"
-                [(ngModel)]="form.credit"
-                #credit="ngModel"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="row image" *ngIf="form.image">
-            <img id="preview" />
-          </div>
-        </div>
-      </div>
 
-      <button class="action" type="submit" (click)="onClick(pictureForm)">
-        Créer l'image
-      </button>
-    </form>
-  </fieldset>
-</div>
+            <button class="action" type="submit" (click)="onClick(pictureForm)">
+              Créer l'image
+            </button>
+          </form>
+        </fieldset>
+      </div>

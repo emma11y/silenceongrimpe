@@ -7,41 +7,45 @@
             src="../../../assets/imgs/logo-horizontal-blanc.png"
             alt=""
             loading="lazy"
-          />
-          <span class="sr-only">Retourner au tableau de bord</span>
-        </a>
+            />
+            <span class="sr-only">Retourner au tableau de bord</span>
+          </a>
+        </div>
+        @if (user) {
+          <div class="header-title">
+            <h1>
+              <a routerLink="/admin/tableau-de-bord">Tableau de bord</a>
+            </h1>
+          </div>
+        }
       </div>
-      <div *ngIf="user" class="header-title">
-        <h1>
-          <a routerLink="/admin/tableau-de-bord">Tableau de bord</a>
-        </h1>
+      <div class="header-buttons">
+        @if (user) {
+          <div class="actions">
+            <a routerLink="/" target="_blank"
+              >Aller sur le site
+              <i
+                class="fa-solid fa-arrow-up-right-from-square"
+                aria-hidden="true"
+              ></i>
+            </a>
+            <button type="button" class="link" (click)="onLogOut()">
+              Se déconnecter
+            </button>
+          </div>
+        }
       </div>
-    </div>
-    <div class="header-buttons">
-      <div class="actions" *ngIf="user">
-        <a routerLink="/" target="_blank"
-          >Aller sur le site
-          <i
-            class="fa-solid fa-arrow-up-right-from-square"
-            aria-hidden="true"
-          ></i>
-        </a>
-        <button type="button" class="link" (click)="onLogOut()">
-          Se déconnecter
-        </button>
+    </header>
+    <main role="main" id="content">
+      <div class="content">
+        <router-outlet></router-outlet>
       </div>
-    </div>
-  </header>
-  <main role="main" id="content">
-    <div class="content">
-      <router-outlet></router-outlet>
-    </div>
-  </main>
-  <footer role="contentinfo" class="clearfix"></footer>
-</div>
+    </main>
+    <footer role="contentinfo" class="clearfix"></footer>
+  </div>
 
-<app-alert #alert></app-alert>
+  <app-alert #alert></app-alert>
 
-<app-popup #popup></app-popup>
+  <app-popup #popup></app-popup>
 
-<app-popup-component #popupComponent></app-popup-component>
+  <app-popup-component #popupComponent></app-popup-component>

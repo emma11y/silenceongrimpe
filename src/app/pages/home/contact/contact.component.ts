@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
-import { NgIf } from '@angular/common';
+
 import { ContactForm } from './contact-form';
 import { AlertService } from '@core/services/alert.service';
 import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
@@ -9,7 +9,7 @@ import emailjs from 'emailjs-com';
 
 @Component({
   selector: 'app-contact',
-  imports: [FormsModule, ValidationSummaryComponent, NgIf],
+  imports: [FormsModule, ValidationSummaryComponent],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })

@@ -1,12 +1,12 @@
 import { PostCarrouselComponent } from '@shared/components/post-carrousel/post-carrousel.component';
-import { NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { PostGrid } from '@shared/models/post-grid';
 import { trapFocusElements } from '@shared/utilities/accessibility.utility';
 
 @Component({
   selector: 'app-post-grid',
-  imports: [NgFor, PostCarrouselComponent, NgClass],
+  imports: [PostCarrouselComponent, NgClass],
   standalone: true,
   templateUrl: './post-grid.component.html',
   styleUrl: './post-grid.component.scss',

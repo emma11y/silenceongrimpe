@@ -1,4 +1,4 @@
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -16,7 +16,7 @@ import { buildHtmlWithFootnotes } from '@utilities/footnote.utility';
 
 @Component({
   selector: 'app-actualite',
-  imports: [NgIf, RouterLink, DisplayImageComponent, DatePipe],
+  imports: [RouterLink, DisplayImageComponent, DatePipe],
   templateUrl: './actualite.component.html',
   styleUrl: './actualite.component.scss',
 })

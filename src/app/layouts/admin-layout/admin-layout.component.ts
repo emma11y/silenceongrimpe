@@ -5,7 +5,7 @@ import { User } from '@supabase/supabase-js';
 import { AlertComponent } from '@shared/components/alert/alert.component';
 import { AlertService } from '@core/services/alert.service';
 import { PopupComponent } from '@shared/components/popup/popup.component';
-import { NgIf } from '@angular/common';
+
 import { PopupService } from '@core/services/popup.service';
 import { PopupComponentComponent } from '@shared/components/popup-component/popup-component.component';
 import { PopupComponentService } from '@core/services/popup-component.service';
@@ -17,9 +17,8 @@ import { PopupComponentService } from '@core/services/popup-component.service';
     RouterOutlet,
     AlertComponent,
     PopupComponent,
-    NgIf,
-    PopupComponentComponent,
-  ],
+    PopupComponentComponent
+],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.scss',
 })

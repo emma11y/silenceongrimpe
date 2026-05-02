@@ -1,4 +1,4 @@
-import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-agenda-carrousel',
-  imports: [NgIf, RouterLink],
+  imports: [RouterLink],
   templateUrl: './agenda-carrousel.component.html',
   styleUrl: './agenda-carrousel.component.scss',
 })

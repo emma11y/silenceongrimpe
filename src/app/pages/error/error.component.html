@@ -1,11 +1,15 @@
-<div class="error-component container" *ngIf="error">
-  <div class="error-component-content">
-    <p class="error-component-content-description">{{ error.description }}</p>
-    <p class="error-component-content-code" *ngIf="error.code">
-      ERREUR {{ error.code }}
-    </p>
-    <a class="error-component-content-link" routerLink="/">
-      Retour à l'accueil
-    </a>
+@if (error) {
+  <div class="error-component container">
+    <div class="error-component-content">
+      <p class="error-component-content-description">{{ error.description }}</p>
+      @if (error.code) {
+        <p class="error-component-content-code">
+          ERREUR {{ error.code }}
+        </p>
+      }
+      <a class="error-component-content-link" routerLink="/">
+        Retour à l'accueil
+      </a>
+    </div>
   </div>
-</div>
+}

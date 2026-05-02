@@ -1,93 +1,97 @@
-<div
-  id="myCarousel"
-  class="carousel-tablist"
-  aria-roledescription="carousel"
-  aria-label="Des nouvelles du Collectif Silence, on grimpe !"
-  *ngIf="carousels.length > 0"
->
-  <div class="carousel-inner">
-    <div class="controls" *ngIf="carousels.length > 1">
-      <div class="tab-wrapper">
-        <div
-          role="tablist"
-          aria-label="Carrousel"
-          [ngClass]="{ focus: hasFocusTabs }"
-          (focusin)="hasFocusTabs = true"
-          (focusout)="hasFocusTabs = false"
-          #tabEl
-        >
+@if (carousels.length > 0) {
+  <div
+    id="myCarousel"
+    class="carousel-tablist"
+    aria-roledescription="carousel"
+    aria-label="Des nouvelles du Collectif Silence, on grimpe !"
+    >
+    <div class="carousel-inner">
+      @if (carousels.length > 1) {
+        <div class="controls">
+          <div class="tab-wrapper">
+            <div
+              role="tablist"
+              aria-label="Carrousel"
+              [ngClass]="{ focus: hasFocusTabs }"
+              (focusin)="hasFocusTabs = true"
+              (focusout)="hasFocusTabs = false"
+              #tabEl
+              >
+              @for (carousel of carousels; track carousel; let index = $index) {
+                <button
+                  [id]="'carousel-tab-' + carousel.id"
+                  type="button"
+                  role="tab"
+                  [attr.aria-label]="'Slide ' + carousel.id"
+                  [attr.aria-selected]="carousel.selected"
+                  [attr.aria-controls]="'carousel-item-' + carousel.id"
+                  (click)="onCarouselTabClick(carousel)"
+                  (keydown)="onCarouselTabKeyDown($event)"
+                  [tabindex]="carousel.selected ? '' : -1"
+                  >
+                  <i
+                    class="fa-solid fa-circle"
+                    aria-hidden="true"
+                    [ngClass]="{ active: carousel.selected }"
+                  ></i>
+                </button>
+              }
+            </div>
+          </div>
           <button
-            *ngFor="let carousel of carousels; let index = index"
-            [id]="'carousel-tab-' + carousel.id"
             type="button"
-            role="tab"
-            [attr.aria-label]="'Slide ' + carousel.id"
-            [attr.aria-selected]="carousel.selected"
-            [attr.aria-controls]="'carousel-item-' + carousel.id"
-            (click)="onCarouselTabClick(carousel)"
-            (keydown)="onCarouselTabKeyDown($event)"
-            [tabindex]="carousel.selected ? '' : -1"
-          >
-            <i
-              class="fa-solid fa-circle"
-              aria-hidden="true"
-              [ngClass]="{ active: carousel.selected }"
-            ></i>
+            class="previous"
+            aria-controls="myCarousel-items"
+            aria-label="Diaporama précédent"
+            (click)="onPreviousClick()"
+            >
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          </button>
+          <button
+            type="button"
+            class="next"
+            aria-controls="myCarousel-items"
+            aria-label="Diaporama suivant"
+            (click)="onNextClick()"
+            >
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
           </button>
         </div>
-      </div>
-      <button
-        type="button"
-        class="previous"
-        aria-controls="myCarousel-items"
-        aria-label="Diaporama précédent"
-        (click)="onPreviousClick()"
-      >
-        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-      </button>
-
-      <button
-        type="button"
-        class="next"
-        aria-controls="myCarousel-items"
-        aria-label="Diaporama suivant"
-        (click)="onNextClick()"
-      >
-        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-      </button>
-    </div>
-    <div
-      id="myCarousel-items"
-      class="carousel-items"
-      [ngClass]="{ focus: hasFocusCarousel }"
-      aria-live="polite"
-      (focusin)="hasFocusCarousel = !hasFocusCarousel"
-    >
-      @for (carousel of carousels; track $index) {
-        <div
-          class="carousel-item"
-          [ngClass]="{ active: carousel.selected }"
-          [id]="'carousel-item-' + carousel.id"
-          role="tabpanel"
-          aria-roledescription="slide"
-          [attr.aria-label]="$index + 1 + ' sur ' + carousels.length"
-        >
-          <div class="carousel-image">
-            <app-display-image [id]="carousel.guid" />
-          </div>
-          <div class="carousel-caption">
-            <div class="carousel-caption-title">
-              <a [routerLink]="'/actualites/' + carousel.slug">{{
-                carousel.title
-              }}</a>
-            </div>
-
-            <div class="carousel-caption-body" *ngIf="carousel.subtitle">
-              <p [innerText]="carousel.subtitle"></p>
-            </div>
-          </div>
-        </div>
       }
+      <div
+        id="myCarousel-items"
+        class="carousel-items"
+        [ngClass]="{ focus: hasFocusCarousel }"
+        aria-live="polite"
+        (focusin)="hasFocusCarousel = !hasFocusCarousel"
+        >
+        @for (carousel of carousels; track $index) {
+          <div
+            class="carousel-item"
+            [ngClass]="{ active: carousel.selected }"
+            [id]="'carousel-item-' + carousel.id"
+            role="tabpanel"
+            aria-roledescription="slide"
+            [attr.aria-label]="$index + 1 + ' sur ' + carousels.length"
+            >
+            <div class="carousel-image">
+              <app-display-image [id]="carousel.guid" />
+            </div>
+            <div class="carousel-caption">
+              <div class="carousel-caption-title">
+                <a [routerLink]="'/actualites/' + carousel.slug">{{
+                  carousel.title
+                }}</a>
+              </div>
+              @if (carousel.subtitle) {
+                <div class="carousel-caption-body">
+                  <p [innerText]="carousel.subtitle"></p>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
     </div>
   </div>
-</div>
+}

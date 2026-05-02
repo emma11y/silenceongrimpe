@@ -1,5 +1,5 @@
 import * as XLSX from 'xlsx';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Evenement } from '@shared/models/evenement';
 import { SupabaseService } from '@core/services/supabase.service';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-import',
-  imports: [NgIf, NgClass],
+  imports: [NgClass],
   templateUrl: './import.component.html',
   styleUrl: './import.component.scss',
 })

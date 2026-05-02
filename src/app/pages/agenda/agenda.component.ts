@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AgendaItem } from '../home/agenda-carrousel/agenda-item';
-import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-agenda',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './agenda.component.html',
   styleUrl: './agenda.component.scss',
 })

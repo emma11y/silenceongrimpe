@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformBrowser, ViewportScroller } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, ViewportScroller } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID, DOCUMENT } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',

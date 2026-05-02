@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 import {
   ActivatedRoute,
   Router,
@@ -46,7 +46,7 @@ const errors: Error[] = [
   selector: 'app-error',
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss'],
-  imports: [NgIf, RouterLink, RouterModule],
+  imports: [RouterLink, RouterModule],
 })
 export class ErrorComponent {
   @Input() public code!: number;

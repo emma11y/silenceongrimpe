@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 import { FormGroup, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'validation-summary',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './validation-summary.component.html',
   styleUrl: './validation-summary.component.scss',
 })

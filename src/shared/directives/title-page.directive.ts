@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Directive, Inject } from '@angular/core';
+
+import { Directive, Inject, DOCUMENT } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Directive({

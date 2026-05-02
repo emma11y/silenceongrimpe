@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { VideoPlayerComponent } from '../video-player/video-player.component';
-import { NgFor } from '@angular/common';
+
 import { VideoItem } from '@shared/models/video-item';
 
 @Component({
   selector: 'app-video-gallery',
-  imports: [VideoPlayerComponent, NgFor],
+  imports: [VideoPlayerComponent],
   standalone: true,
   templateUrl: './video-gallery.component.html',
   styleUrl: './video-gallery.component.scss',
