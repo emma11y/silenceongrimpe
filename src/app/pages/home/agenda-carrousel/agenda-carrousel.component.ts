@@ -1,11 +1,11 @@
-import { NgClass } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
   inject,
   OnInit,
+  PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
 import { SupabaseService } from '@core/services/supabase.service';
@@ -21,6 +21,7 @@ import { RouterLink } from '@angular/router';
 })
 export class AgendaCarrouselComponent implements OnInit {
   private readonly supabaseService: SupabaseService = inject(SupabaseService);
+  private readonly platformId = inject(PLATFORM_ID);
 
   @ViewChild('viewport', { static: true })
   viewportRef!: ElementRef<HTMLDivElement>;
@@ -118,7 +119,7 @@ export class AgendaCarrouselComponent implements OnInit {
   public isVisible(i: number): boolean {
     // Affiche l'élément courant et les deux suivants (pour desktop)
     // Pour mobile, tu peux ajuster à ±0 ou ±1
-    if (window.innerWidth >= 900) {
+    if (isPlatformBrowser(this.platformId) && window.innerWidth >= 900) {
       return i >= this.index && i < this.index + 3;
     }
     // Pour mobile, seulement l'élément courant
@@ -156,7 +157,7 @@ export class AgendaCarrouselComponent implements OnInit {
     this.supabaseService.getEvenements().then((result: any) => {
       if (result.data) {
         this.items = filtrerPeriodes(
-          result.data as AgendaItem[]
+          result.data as AgendaItem[],
         ) as AgendaItem[];
 
         this.items.forEach((item, index) => (item.index = index));

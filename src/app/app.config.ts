@@ -21,6 +21,7 @@ import {
 import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
+  withFetch,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { ImageInterceptor } from '@core/interceptors/image.interceptor';
@@ -43,7 +44,7 @@ export const appConfig: ApplicationConfig = {
       ReactiveFormsModule,
     ),
     { provide: HTTP_INTERCEPTORS, useClass: ImageInterceptor, multi: true },
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),

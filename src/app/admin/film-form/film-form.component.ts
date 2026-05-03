@@ -25,4 +25,8 @@ export class FilmFormComponent {
       }
     });
   }
+
+  public onGenerateSlug() {
+    //this.form.slug = convertToSlug(this.form.titre);
+  }
 }
