@@ -130,34 +130,22 @@
         <div class="col">
           <div class="group">
             <label for="editor">Contenu</label>
-            <div class="NgxEditor__Wrapper">
-              <ngx-editor-menu
-                [editor]="editor"
-                [toolbar]="toolbar"
-                [customMenuRef]="footnoteMenu"
-              >
-              </ngx-editor-menu>
-              <ng-template #footnoteMenu>
-                <button
-                  type="button"
-                  class="footnote-menu-button"
-                  title="Insérer une note de bas de page"
-                  (click)="onAddFootnote()"
-                >
-                  Note
-                </button>
-              </ng-template>
-              <ngx-editor
-                id="editor"
-                name="editor"
-                [editor]="editor"
-                [(ngModel)]="form.html"
-                #html="ngModel"
-                [disabled]="false"
-                placeholder="Commencer à écrire..."
-                height="500px"
-              ></ngx-editor>
-            </div>
+            <input
+              type="hidden"
+              name="html"
+              [(ngModel)]="form.html"
+              #html="ngModel"
+            />
+            @defer (on idle) {
+              <app-actualite-editor
+                [content]="form.html"
+                (contentChange)="onContentChange($any($event))"
+              ></app-actualite-editor>
+            } @placeholder {
+              <div class="editor-placeholder" aria-live="polite">
+                Chargement de l’éditeur…
+              </div>
+            }
             <p class="small">
               Utilisez le bouton Note pour insérer une note de bas de page. Elle
               sera numérotée automatiquement et affichée en bas de l’article.

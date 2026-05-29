@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AlertService } from '@core/services/alert.service';
 import { SupabaseService } from '@core/services/supabase.service';
@@ -12,9 +12,7 @@ import { BibliothequeImagesComponent } from '../bibliotheque-images/bibliotheque
 import { Picture } from '@shared/models/picture';
 import { PopupComponentService } from '@core/services/popup-component.service';
 import { RevalidateService } from '@app/core/services/revalidate.service';
-import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 import {
-  createFootnoteToken,
   extractFootnotes,
   FootnoteItem,
   removeFootnoteAt,
@@ -22,22 +20,24 @@ import {
 } from '@shared/utilities/footnote.utility';
 import {
   FootnoteDialogComponent,
-  FootnoteDialogResult,
+  DialogResult,
 } from './footnote-dialog/footnote-dialog.component';
+import { ActualiteEditorComponent } from './actualite-editor/actualite-editor.component';
 
 @Component({
   selector: 'app-actualite-form',
+  standalone: true,
   imports: [
     RouterLink,
     FormsModule,
     ValidationSummaryComponent,
     DisplayImageComponent,
-    NgxEditorModule,
+    ActualiteEditorComponent,
   ],
   templateUrl: './actualite-form.component.html',
   styleUrl: './actualite-form.component.scss',
 })
-export class ActualiteFormComponent implements OnDestroy {
+export class ActualiteFormComponent {
   private superbase: SupabaseService = inject(SupabaseService);
   private alertService: AlertService = inject(AlertService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
@@ -48,41 +48,10 @@ export class ActualiteFormComponent implements OnDestroy {
 
   form: Actualite = new Actualite();
   picture!: Picture;
+  footnotes: FootnoteItem[] = [];
 
   isUpdate: boolean = false;
   currentSlug: string = '';
-
-  editor: Editor = new Editor({
-    history: true,
-    keyboardShortcuts: true,
-    plugins: [],
-  });
-
-  descriptionEditor: Editor = new Editor({
-    history: true,
-    keyboardShortcuts: true,
-  });
-
-  toolbar: Toolbar = [
-    // default value
-    ['bold', 'italic'],
-    ['underline', 'strike'],
-    ['code', 'blockquote'],
-    ['ordered_list', 'bullet_list'],
-    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
-    ['link', 'image'],
-    // or, set options for link:
-    //[{ link: { showOpenInNewTab: false } }, 'image'],
-    ['text_color', 'background_color'],
-    ['align_left', 'align_center', 'align_right', 'align_justify'],
-    ['horizontal_rule', 'format_clear', 'indent', 'outdent'],
-
-    ['undo', 'redo'],
-  ];
-
-  get footnotes(): FootnoteItem[] {
-    return extractFootnotes(this.form.html ?? '');
-  }
 
   constructor() {
     this.route.params.subscribe(async (value) => {
@@ -93,6 +62,7 @@ export class ActualiteFormComponent implements OnDestroy {
           this.isUpdate = true;
           this.form = actualite as unknown as Actualite;
           this.currentSlug = { ...actualite.slug };
+          this.syncContent(this.form.html ?? '');
         }
       }
     });
@@ -108,11 +78,6 @@ export class ActualiteFormComponent implements OnDestroy {
         setTimeout(() => this.onChoosePicture(), 100);
       }
     });*/
-  }
-
-  ngOnDestroy(): void {
-    this.editor.destroy();
-    this.descriptionEditor.destroy();
   }
 
   public onGenerateSlug() {
@@ -181,26 +146,6 @@ export class ActualiteFormComponent implements OnDestroy {
     await promise;
   }
 
-  public async onAddFootnote(): Promise<void> {
-    const result = await this.openFootnoteDialog();
-
-    if (!result?.content || !this.editor.view) {
-      return;
-    }
-
-    const token = createFootnoteToken(result.content);
-    const { state, dispatch } = this.editor.view;
-    const insertPosition = state.selection.to;
-    const transaction = state.tr.insertText(
-      token,
-      insertPosition,
-      insertPosition,
-    );
-
-    dispatch(transaction);
-    this.editor.view.focus();
-  }
-
   public async onEditFootnote(footnoteIndex: number): Promise<void> {
     const footnote = this.footnotes[footnoteIndex];
 
@@ -217,28 +162,30 @@ export class ActualiteFormComponent implements OnDestroy {
       return;
     }
 
-    this.form.html = replaceFootnoteAt(
-      this.form.html ?? '',
-      footnoteIndex,
-      result.content,
+    this.syncContent(
+      replaceFootnoteAt(this.form.html ?? '', footnoteIndex, result.content),
     );
   }
 
   public onRemoveFootnote(footnoteIndex: number): void {
-    this.form.html = removeFootnoteAt(this.form.html ?? '', footnoteIndex);
+    this.syncContent(removeFootnoteAt(this.form.html ?? '', footnoteIndex));
+  }
+
+  public onContentChange(content: string): void {
+    this.syncContent(content);
   }
 
   private async openFootnoteDialog(
     initialValue: string = '',
     title: string = 'Ajouter une note de bas de page',
-  ): Promise<FootnoteDialogResult | undefined> {
+  ): Promise<DialogResult | undefined> {
     const promise = this.popup.open(FootnoteDialogComponent, {
       initialValue,
       title,
     });
 
     this.popup.componentRef?.instance.outputClose.subscribe(
-      (result: FootnoteDialogResult | undefined) => {
+      (result: DialogResult | undefined) => {
         this.popup.close(result);
       },
     );
@@ -246,46 +193,8 @@ export class ActualiteFormComponent implements OnDestroy {
     return promise;
   }
 
-  async onAddImage(executeCommandFn: (command: string, value: string) => void) {
-    // Exemple : tu pourrais ouvrir un FilePicker ou un prompt
-    /*const url = prompt('Entrez l’URL de l’image :');
-    if (url) {
-      executeCommandFn('insertImage', url);
-    }*/
-
-    const promise = this.popup.open(BibliothequeImagesComponent, {
-      pick: true,
-    });
-
-    this.popup.componentRef?.instance.outputClose.subscribe(
-      (picture: Picture) => {
-        this.popup.close();
-
-        if (picture && picture.id) {
-          executeCommandFn('insertImage', this.superbase.getUrl(picture.id));
-        }
-
-        /*if (picture && picture.image) {
-          //executeCommandFn('insertImage', picture.image);
-        }*/
-
-        // 2) Ajoute l’attribut ALT au dernier <img>
-        setTimeout(() => {
-          const editorElement = document.querySelector(
-            '#editor .angular-editor-textarea',
-          ) as HTMLElement;
-          if (editorElement) {
-            const imgs = editorElement.getElementsByTagName('img');
-            const lastImg = imgs[imgs.length - 1];
-            if (lastImg) {
-              lastImg.setAttribute('alt', picture.alt);
-              lastImg.style.width = '15em';
-            }
-          }
-        });
-      },
-    );
-
-    await promise;
+  private syncContent(content: string): void {
+    this.form.html = content ?? '';
+    this.footnotes = extractFootnotes(this.form.html);
   }
 }

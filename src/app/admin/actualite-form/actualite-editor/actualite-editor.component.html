@@ -1,0 +1,28 @@
+<div class="NgxEditor__Wrapper">
+  <ngx-editor-menu
+    [editor]="editor"
+    [toolbar]="toolbar"
+    [customMenuRef]="othersActions"
+  >
+  </ngx-editor-menu>
+  <ng-template #othersActions>
+    <button
+      type="button"
+      class="footnote-menu-button"
+      title="Insérer une note de bas de page"
+      (click)="onAddFootnote()"
+    >
+      <i class="fa-solid fa-asterisk" aria-hidden="true"></i>
+    </button>
+  </ng-template>
+  <ngx-editor
+    id="editor"
+    name="editor"
+    [editor]="editor"
+    [ngModel]="editorContent"
+    (ngModelChange)="onContentChange($event)"
+    [disabled]="false"
+    placeholder="Commencer à écrire..."
+    height="500px"
+  ></ngx-editor>
+</div>

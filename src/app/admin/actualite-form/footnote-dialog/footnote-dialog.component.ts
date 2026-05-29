@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-export interface FootnoteDialogResult {
-  content: string;
+export interface DialogResult {
+  content: string | any;
 }
 
 @Component({
@@ -14,7 +14,7 @@ export interface FootnoteDialogResult {
 export class FootnoteDialogComponent implements OnInit {
   @Input() title: string = 'Ajouter une note de bas de page';
   @Input() initialValue: string = '';
-  @Output() outputClose = new EventEmitter<FootnoteDialogResult | undefined>();
+  @Output() outputClose = new EventEmitter<DialogResult | undefined>();
 
   public content: string = '';
 
