@@ -6,7 +6,6 @@ import { VideoItem } from '@shared/models/video-item';
 @Component({
   selector: 'app-video-gallery',
   imports: [VideoPlayerComponent],
-  standalone: true,
   templateUrl: './video-gallery.component.html',
   styleUrl: './video-gallery.component.scss',
 })

@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -11,7 +10,6 @@ import { filter, map, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -25,7 +23,7 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(
         filter(
-          (event): event is NavigationEnd => event instanceof NavigationEnd
+          (event): event is NavigationEnd => event instanceof NavigationEnd,
         ),
         map(() => this.router.routerState.root),
         map((route: ActivatedRoute) => {
@@ -35,7 +33,7 @@ export class AppComponent implements OnInit {
           return route;
         }),
         filter((route: ActivatedRoute) => route.outlet === 'primary'),
-        mergeMap((route: ActivatedRoute) => route.data)
+        mergeMap((route: ActivatedRoute) => route.data),
       )
       .subscribe((data: any) => {
         if (!data.metadata) return;

@@ -18,7 +18,6 @@ import {
 
 @Component({
   selector: 'app-actualite-editor',
-
   imports: [FormsModule, NgxEditorModule],
   templateUrl: './actualite-editor.component.html',
   styleUrl: './actualite-editor.component.scss',
@@ -50,9 +49,9 @@ export class ActualiteEditorComponent implements OnChanges, OnDestroy {
   ];
 
   ngOnChanges(): void {
-    if (this.content !== this.editorContent) {
+    /* if (this.content !== this.editorContent) {
       this.editorContent = this.content ?? '';
-    }
+    }*/
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,3 @@
-
 import {
   Component,
   ElementRef,
@@ -7,12 +6,10 @@ import {
   HostListener,
 } from '@angular/core';
 import { PostGrid } from '@shared/models/post-grid';
-import { trapFocusElements } from '@shared/utilities/accessibility.utility';
 
 @Component({
   selector: 'app-post-carrousel',
   imports: [],
-  standalone: true,
   templateUrl: './post-carrousel.component.html',
   styleUrl: './post-carrousel.component.scss',
 })

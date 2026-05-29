@@ -4,7 +4,6 @@ import { trapFocusElements } from '@shared/utilities/accessibility.utility';
 
 @Component({
   selector: 'app-popup',
-  standalone: true,
   templateUrl: './popup.component.html',
   styleUrl: './popup.component.scss',
 })
@@ -49,7 +48,7 @@ export class PopupComponent {
         this.popup.nativeElement,
         focusedElement,
         'button',
-        event.shiftKey
+        event.shiftKey,
       );
       return;
     }

@@ -26,7 +26,6 @@ import { ActualiteEditorComponent } from './actualite-editor/actualite-editor.co
 
 @Component({
   selector: 'app-actualite-form',
-  standalone: true,
   imports: [
     RouterLink,
     FormsModule,

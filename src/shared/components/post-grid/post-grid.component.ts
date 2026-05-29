@@ -7,7 +7,6 @@ import { trapFocusElements } from '@shared/utilities/accessibility.utility';
 @Component({
   selector: 'app-post-grid',
   imports: [PostCarrouselComponent, NgClass],
-  standalone: true,
   templateUrl: './post-grid.component.html',
   styleUrl: './post-grid.component.scss',
 })

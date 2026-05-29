@@ -14,7 +14,6 @@ import { VideoItem } from '@shared/models/video-item';
 @Component({
   selector: 'app-video-player',
   imports: [NgClass],
-  standalone: true,
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.scss',
 })
@@ -39,7 +38,7 @@ export class VideoPlayerComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
   ngOnInit() {
@@ -66,7 +65,7 @@ export class VideoPlayerComponent implements OnInit {
           error: (error) => {
             console.error(
               'Erreur lors du chargement de la transcription:',
-              error
+              error,
             );
             this.transcriptionContent =
               'Erreur lors du chargement de la transcription.';
@@ -112,7 +111,7 @@ export class VideoPlayerComponent implements OnInit {
     if (this.progressBarRef) {
       this.progressBarRef.nativeElement.style.setProperty(
         '--progress',
-        `${this.progress}%`
+        `${this.progress}%`,
       );
     }
   }
