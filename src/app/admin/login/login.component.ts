@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { SupabaseService } from '@core/services/supabase.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -20,11 +20,19 @@ export class LoginComponent {
 
   private alertService: AlertService = inject(AlertService);
   private supabase: SupabaseService = inject(SupabaseService);
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
 
   constructor() {
     this.supabase.session.then((session) => {
       if (session) {
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+
+        if (returnUrl) {
+          this.router.navigateByUrl(returnUrl);
+          return;
+        }
+
         this.router.navigate(['admin', 'tableau-de-bord']);
       }
     });

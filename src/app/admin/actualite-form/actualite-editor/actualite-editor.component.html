@@ -8,11 +8,19 @@
   <ng-template #othersActions>
     <button
       type="button"
-      class="footnote-menu-button"
+      class="menu-button"
       title="Insérer une note de bas de page"
       (click)="onAddFootnote()"
     >
       <i class="fa-solid fa-asterisk" aria-hidden="true"></i>
+    </button>
+    <button
+      type="button"
+      class="menu-button"
+      title="Insérer une vidéo"
+      (click)="onAddVideo()"
+    >
+      <i class="fa-solid fa-video" aria-hidden="true"></i>
     </button>
   </ng-template>
   <ngx-editor
@@ -20,6 +28,7 @@
     name="editor"
     [editor]="editor"
     [ngModel]="editorContent"
+    (ngModelChange)="onContentChange($event)"
     [disabled]="false"
     placeholder="Commencer à écrire..."
     height="500px"

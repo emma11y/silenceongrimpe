@@ -1,0 +1,57 @@
+<div class="video-dialog">
+  <h2>{{ isUpdate ? "Modifier" : "Ajouter" }} une vidéo</h2>
+  <form role="form" #videoForm="ngForm">
+    <div class="group">
+      <label for="src">URL de la vidéo</label>
+      <input
+        type="text"
+        id="src"
+        name="src"
+        [(ngModel)]="form.src"
+        #src="ngModel"
+        required
+      />
+      <validation-summary [controlModel]="src" fieldName="URL de la vidéo" />
+    </div>
+    <div class="group">
+      <label for="thumbnail">URL de la vignette</label>
+      <input
+        type="text"
+        id="thumbnail"
+        name="thumbnail"
+        [(ngModel)]="form.thumbnail"
+        #thumbnail="ngModel"
+        required
+      />
+      <validation-summary
+        [controlModel]="thumbnail"
+        fieldName="URL de la vignette"
+      />
+    </div>
+    <div class="group">
+      <label for="transcription">Transcription</label>
+      <textarea
+        id="transcription"
+        name="transcription"
+        [(ngModel)]="form.transcription"
+        #transcription="ngModel"
+        rows="8"
+        required
+        placeholder="Saisissez la transcription..."
+      ></textarea>
+      <validation-summary
+        [controlModel]="transcription"
+        fieldName="transcription"
+      />
+    </div>
+
+    <div class="actions">
+      <button type="button" class="secondary" (click)="onCancel()">
+        Annuler
+      </button>
+      <button type="button" class="primary" (click)="onSubmit(videoForm)">
+        Valider
+      </button>
+    </div>
+  </form>
+</div>

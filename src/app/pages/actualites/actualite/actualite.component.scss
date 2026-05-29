@@ -136,5 +136,12 @@
         }
       }
     }
+
+    .video-container {
+      margin: auto;
+      @media screen and (min-width: vars.$sm) {
+        width: 300px;
+      }
+    }
   }
 }

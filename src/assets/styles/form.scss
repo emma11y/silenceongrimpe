@@ -133,6 +133,7 @@ input[type="text"] {
 
   .NgxEditor__Wrapper {
     border: 0.2em solid var(--bleu-ocean) !important;
+    word-break: break-all;
 
     &:focus,
     &:hover,

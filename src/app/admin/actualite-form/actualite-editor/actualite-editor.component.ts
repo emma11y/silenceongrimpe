@@ -15,6 +15,9 @@ import {
   DialogResult,
   FootnoteDialogComponent,
 } from '../footnote-dialog/footnote-dialog.component';
+import { VideoItem } from '@shared/models/video-item';
+import { createVideoToken } from '@shared/utilities/video.utility';
+import { VideoDialogComponent } from '../video-dialog/video-dialog.component';
 
 @Component({
   selector: 'app-actualite-editor',
@@ -49,9 +52,9 @@ export class ActualiteEditorComponent implements OnChanges, OnDestroy {
   ];
 
   ngOnChanges(): void {
-    /* if (this.content !== this.editorContent) {
+    if (this.content !== this.editorContent) {
       this.editorContent = this.content ?? '';
-    }*/
+    }
   }
 
   ngOnDestroy(): void {
@@ -105,5 +108,39 @@ export class ActualiteEditorComponent implements OnChanges, OnDestroy {
     );
 
     return promise;
+  }
+
+  private async openVideoDialog(): Promise<DialogResult | undefined> {
+    const promise = this.popup.open(VideoDialogComponent);
+
+    this.popup.componentRef?.instance.outputClose.subscribe(
+      (result: DialogResult | undefined) => {
+        this.popup.close(result);
+      },
+    );
+
+    return promise;
+  }
+
+  async onAddVideo(): Promise<void> {
+    const result = await this.openVideoDialog();
+
+    if (!result?.content || !this.editor.view) {
+      return;
+    }
+
+    const video: VideoItem = result.content as VideoItem;
+    const token = createVideoToken(video);
+    const { state, dispatch } = this.editor.view;
+    const insertPosition = state.selection.to;
+    const transaction = state.tr.insertText(
+      token,
+      insertPosition,
+      insertPosition,
+    );
+
+    dispatch(transaction);
+    this.emitCurrentContent();
+    this.editor.view.focus();
   }
 }

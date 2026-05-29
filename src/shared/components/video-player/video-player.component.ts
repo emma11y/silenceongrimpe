@@ -54,24 +54,44 @@ export class VideoPlayerComponent implements OnInit {
 
   private loadTranscription() {
     if (this.video?.transcription) {
+      const transcription = this.video.transcription.trim();
+
       this.isLoadingTranscription = true;
-      this.http
-        .get(this.video.transcription, { responseType: 'text' })
-        .subscribe({
-          next: (content) => {
-            this.transcriptionContent = content;
-            this.isLoadingTranscription = false;
-          },
-          error: (error) => {
-            console.error(
-              'Erreur lors du chargement de la transcription:',
-              error,
-            );
-            this.transcriptionContent =
-              'Erreur lors du chargement de la transcription.';
-            this.isLoadingTranscription = false;
-          },
-        });
+
+      if (!this.isTranscriptionLink(transcription)) {
+        this.transcriptionContent = transcription;
+        this.isLoadingTranscription = false;
+        return;
+      }
+
+      this.http.get(transcription, { responseType: 'text' }).subscribe({
+        next: (content) => {
+          this.transcriptionContent = content;
+          this.isLoadingTranscription = false;
+        },
+        error: (error) => {
+          console.error(
+            'Erreur lors du chargement de la transcription:',
+            error,
+          );
+          this.transcriptionContent =
+            'Erreur lors du chargement de la transcription.';
+          this.isLoadingTranscription = false;
+        },
+      });
+    }
+  }
+
+  private isTranscriptionLink(value: string): boolean {
+    if (!value) {
+      return false;
+    }
+
+    try {
+      new URL(value);
+      return true;
+    } catch {
+      return /^(\/|\.\/|\.\.\/|assets\/)/i.test(value);
     }
   }
 
