@@ -95,6 +95,7 @@ export class ActualiteComponent implements AfterViewInit, OnDestroy {
       const thumbnail = placeholder.dataset['videoThumbnail']?.trim();
       const transcription = placeholder.dataset['videoTranscription']?.trim();
       const id = Number.parseInt(placeholder.dataset['videoId'] ?? '', 10);
+      const article = placeholder.dataset['article'] === 'true';
 
       if (!src || !thumbnail) {
         placeholder.remove();
@@ -112,6 +113,7 @@ export class ActualiteComponent implements AfterViewInit, OnDestroy {
         thumbnail,
         transcription,
       });
+      componentRef.setInput('article', article);
 
       this.applicationRef.attachView(componentRef.hostView);
       componentRef.changeDetectorRef.detectChanges();

@@ -4,10 +4,12 @@
     [class.fullscreen]="isFullscreen"
     #container
     [attr.aria-labelledby]="'titre' + video.id"
-    role="listitem"
+    [attr.role]="article ? 'document' : 'listitem'"
     tabindex="0"
-    >
-    <h3 [id]="'titre' + video.id">{{ video.titre }}</h3>
+  >
+    @if (video.titre) {
+      <h3 [id]="'titre' + video.id">{{ video.titre }}</h3>
+    }
     <div class="video-wrapper">
       @if (!isPlaying && currentTime === 0) {
         <img
@@ -15,21 +17,21 @@
           alt=""
           (click)="togglePlay()"
           class="thumbnail"
-          />
+        />
       }
       @if (!isPlaying) {
         <button
           (click)="togglePlay()"
           class="play-overlay"
           [attr.aria-label]="'Lire la vidéo ' + video.titre"
-          >
+        >
           <i class="fa-solid fa-play" aria-hidden="true"></i>
         </button>
       }
       <video
-      [ngClass]="{
-        display: isPlaying || currentTime > 0
-      }"
+        [ngClass]="{
+          display: isPlaying || currentTime > 0,
+        }"
         #videoPlayer
         [src]="video.src"
         (timeupdate)="onTimeUpdate()"
@@ -50,96 +52,90 @@
           class="progress-bar"
           aria-label="Barre de défilement de la durée de la vidéo"
           #progressBar
-          />
-        </div>
-        <!-- temps écoulé, durée de la vidéo -->
-        <div class="control-group">
-          <button (click)="togglePlay()" class="control-btn">
-            <div aria-live="polite" aria-atomic="true">
-              @if(isPlaying){
-                <i class="fa-solid fa-pause" aria-hidden="true"></i>
-                <span class="sr-only">Mettre en pause la vidéo</span>
-                }@else{
-                <i class="fa-solid fa-play" aria-hidden="true"></i>
-                <span class="sr-only">Lire la vidéo</span>
-              }
-            </div>
-          </button>
-          <div class="duration">
-            <span class="sr-only">Durée :</span>
-            <span class="time">
-              {{ formatTime(currentTime) }} / {{ formatTime(duration) }}</span
-              >
-            </div>
-            <button (click)="toggleMute()" class="control-btn">
-              <div aria-live="polite" aria-atomic="true">
-                @if(isMuted){
-                  <i class="fa-solid fa-volume-xmark" aria-hidden="true"></i>
-                  <span class="sr-only">Couper le volume</span>
-                  }@else{
-                  <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
-                  <span class="sr-only">Activer le volume</span>
-                }
-              </div>
-            </button>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.1"
-              [value]="volume"
-              (input)="setVolume($event)"
-              class="volume-slider"
-              aria-label="Régler le volume"
-              />
-              <select
-                (change)="setPlaybackRate($event)"
-                class="speed-select"
-                aria-label="Sélectionner la vitesse de la vidéo"
-                >
-                @for (rate of playbackRates; track rate) {
-                  <option [value]="rate">
-                    {{ rate }}x
-                  </option>
-                }
-              </select>
-              <button (click)="toggleFullscreen()" class="control-btn">
-                <i class="fa-solid fa-expand" aria-hidden="true"></i>
-                <span class="sr-only">Mettre la vidéo en pleine écran</span>
-              </button>
-              @if (video.transcription) {
-                <button
-                  (click)="toggleTranscription()"
-                  class="control-btn"
-                  [attr.aria-expanded]="showTranscription"
-                  [attr.aria-controls]="'transcription-' + video.id"
-                  >
-                  <i class="fa-regular fa-file-lines" aria-hidden="true"></i>
-                  <span class="sr-only">Afficher la transcription</span>
-                </button>
-              }
-            </div>
-          </div>
-          <div [id]="'transcription-' + video.id" class="transcription">
-            @if (showTranscription) {
-              <div>
-                @if (isLoadingTranscription) {
-                  <div class="loading">
-                    Chargement de la transcription...
-                  </div>
-                }
-                @if (!isLoadingTranscription && transcriptionContent) {
-                  <p>
-                    {{ transcriptionContent }}
-                  </p>
-                }
-                @if (!isLoadingTranscription && !transcriptionContent) {
-                  <p>
-                    Aucune transcription disponible.
-                  </p>
-                }
-              </div>
+        />
+      </div>
+      <!-- temps écoulé, durée de la vidéo -->
+      <div class="control-group">
+        <button (click)="togglePlay()" class="control-btn">
+          <div aria-live="polite" aria-atomic="true">
+            @if (isPlaying) {
+              <i class="fa-solid fa-pause" aria-hidden="true"></i>
+              <span class="sr-only">Mettre en pause la vidéo</span>
+            } @else {
+              <i class="fa-solid fa-play" aria-hidden="true"></i>
+              <span class="sr-only">Lire la vidéo</span>
             }
           </div>
+        </button>
+        <div class="duration">
+          <span class="sr-only">Durée :</span>
+          <span class="time">
+            {{ formatTime(currentTime) }} / {{ formatTime(duration) }}</span
+          >
+        </div>
+        <button (click)="toggleMute()" class="control-btn">
+          <div aria-live="polite" aria-atomic="true">
+            @if (isMuted) {
+              <i class="fa-solid fa-volume-xmark" aria-hidden="true"></i>
+              <span class="sr-only">Couper le volume</span>
+            } @else {
+              <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
+              <span class="sr-only">Activer le volume</span>
+            }
+          </div>
+        </button>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.1"
+          [value]="volume"
+          (input)="setVolume($event)"
+          class="volume-slider"
+          aria-label="Régler le volume"
+        />
+        <select
+          (change)="setPlaybackRate($event)"
+          class="speed-select"
+          aria-label="Sélectionner la vitesse de la vidéo"
+        >
+          @for (rate of playbackRates; track rate) {
+            <option [value]="rate">{{ rate }}x</option>
+          }
+        </select>
+        <button (click)="toggleFullscreen()" class="control-btn">
+          <i class="fa-solid fa-expand" aria-hidden="true"></i>
+          <span class="sr-only">Mettre la vidéo en pleine écran</span>
+        </button>
+        @if (video.transcription) {
+          <button
+            (click)="toggleTranscription()"
+            class="control-btn"
+            [attr.aria-expanded]="showTranscription"
+            [attr.aria-controls]="'transcription-' + video.id"
+          >
+            <i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+            <span class="sr-only">Afficher la transcription</span>
+          </button>
+        }
+      </div>
+    </div>
+    <div [id]="'transcription-' + video.id" class="transcription">
+      @if (showTranscription) {
+        <div>
+          @if (isLoadingTranscription) {
+            <div class="loading">Chargement de la transcription...</div>
+          }
+          @if (!isLoadingTranscription && transcriptionContent) {
+            <p>
+              {{ transcriptionContent }}
+            </p>
+          }
+          @if (!isLoadingTranscription && !transcriptionContent) {
+            <p>Aucune transcription disponible.</p>
+          }
         </div>
       }
+    </div>
+  </div>
+}

@@ -21,7 +21,7 @@ function buildIframeMarkup(src: string, title: string): string {
     ` title="${escapeHtmlAttribute(safeTitle)}"`,
     ' frameborder="0"',
     ' loading="lazy"',
-    ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"',
+    ' allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"',
     ' referrerpolicy="strict-origin-when-cross-origin"',
     ' allowfullscreen',
     '></iframe>',

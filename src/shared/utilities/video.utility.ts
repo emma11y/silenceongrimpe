@@ -22,6 +22,7 @@ function buildVideoPlayerTag(video: VideoItem, index: number): string {
     ` data-video-src="${escapeHtmlAttribute(video.src)}"`,
     ` data-video-thumbnail="${escapeHtmlAttribute(video.thumbnail)}"`,
     ` data-video-transcription="${escapeHtmlAttribute(video.transcription)}"`,
+    ` data-article="true"`,
     '></app-video-player>',
     '</div>',
   ].join('');

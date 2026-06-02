@@ -19,6 +19,7 @@ import { VideoItem } from '@shared/models/video-item';
 })
 export class VideoPlayerComponent implements OnInit {
   @Input() video: VideoItem | undefined;
+  @Input() article: boolean = false;
 
   @ViewChild('videoPlayer') videoRef!: ElementRef<HTMLVideoElement>;
   @ViewChild('container') containerRef!: ElementRef<HTMLDivElement>;

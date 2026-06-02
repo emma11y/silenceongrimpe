@@ -52,9 +52,11 @@ export class LoginComponent {
 
     try {
       const { data, error } = await this.supabase.signIn(mail, password);
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
 
-      window.location.reload();
+      this.router.navigate(['admin', 'tableau-de-bord']);
     } catch (error) {
       if (error instanceof Error) {
         this.alertService.showAlert('error', error.message);
