@@ -6,6 +6,7 @@ import { AlertService } from '@core/services/alert.service';
 import { PopupService } from '@core/services/popup.service';
 import { SupabaseService } from '@core/services/supabase.service';
 import { Actualite } from '@shared/models/actualite';
+import { orderBy } from 'lodash-es';
 
 @Component({
   selector: 'app-actualites',
@@ -28,7 +29,9 @@ export class ActualitesComponent implements OnInit {
   private getActualites() {
     this.supabaseService.getActualites().then((result: any) => {
       if (result.data) {
-        this.actualites = result.data as unknown as Actualite[];
+        const actualites = result.data as unknown as Actualite[];
+
+        this.actualites = orderBy(actualites, (x) => x.datePublication);
       }
     });
   }
@@ -45,7 +48,7 @@ export class ActualitesComponent implements OnInit {
       if (error) {
         this.alertService.showAlert(
           'error',
-          "Une erreur s'est produite, veuillez réessayer : " + error.message
+          "Une erreur s'est produite, veuillez réessayer : " + error.message,
         );
         return;
       }
@@ -68,7 +71,7 @@ export class ActualitesComponent implements OnInit {
         'success',
         `L'actualité a été correctement ${
           actualite.publie ? 'publié' : 'dépublié'
-        }`
+        }`,
       );
 
       this.getActualites();
@@ -84,7 +87,7 @@ export class ActualitesComponent implements OnInit {
       if (error) {
         this.alertService.showAlert(
           'error',
-          "Une erreur s'est produite, veuillez réessayer : " + error.message
+          "Une erreur s'est produite, veuillez réessayer : " + error.message,
         );
         return;
       }
@@ -93,7 +96,7 @@ export class ActualitesComponent implements OnInit {
         'success',
         `L'actualité a été correctement ${
           actualite.aLaUne ? 'mis en avant sur' : 'supprimé de'
-        } la page d'accueil`
+        } la page d'accueil`,
       );
 
       this.getActualites();
@@ -116,7 +119,7 @@ export class ActualitesComponent implements OnInit {
                 if (result.error) {
                   this.alertService.showAlert(
                     'error',
-                    "La suppression de l'actualité a échouée."
+                    "La suppression de l'actualité a échouée.",
                   );
                   return;
                 }
@@ -124,7 +127,7 @@ export class ActualitesComponent implements OnInit {
                 this.getActualites();
                 this.alertService.showAlert(
                   'success',
-                  "La suppression de l'actualité a réussie."
+                  "La suppression de l'actualité a réussie.",
                 );
               });
           },
@@ -137,7 +140,7 @@ export class ActualitesComponent implements OnInit {
           },
           class: 'button-secondary',
         },
-      ]
+      ],
     );
   }
 }

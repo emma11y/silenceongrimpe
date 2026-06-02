@@ -18,8 +18,7 @@ import { MetadataService } from '@core/services/metadata.service';
 import { DisplayImageComponent } from '@shared/components/display-image/display-image.component';
 import { VideoPlayerComponent } from '@shared/components/video-player/video-player.component';
 import { Actualite } from '@shared/models/actualite';
-import { buildHtmlWithFootnotes } from '@utilities/footnote.utility';
-import { buildHtmlWithVideos } from '@utilities/video.utility';
+import { buildHtmlForActualite } from '@utilities/html.utility';
 
 @Component({
   selector: 'app-actualite',
@@ -57,7 +56,7 @@ export class ActualiteComponent implements AfterViewInit, OnDestroy {
 
     this.actualite = actualite as unknown as Actualite;
     this.contentHtml = this.sanitizer.bypassSecurityTrustHtml(
-      buildHtmlWithVideos(buildHtmlWithFootnotes(this.actualite.html)),
+      buildHtmlForActualite(this.actualite.html),
     );
 
     this.metadataService.setMetadataForArticle(

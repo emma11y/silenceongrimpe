@@ -18,6 +18,8 @@ import {
 import { VideoItem } from '@shared/models/video-item';
 import { createVideoToken } from '@shared/utilities/video.utility';
 import { VideoDialogComponent } from '../video-dialog/video-dialog.component';
+import { HtmlDialogComponent } from '../html-dialog/html-dialog.component';
+import { prepareHtmlForEditor } from '@utilities/html.utility';
 
 @Component({
   selector: 'app-actualite-editor',
@@ -142,5 +144,30 @@ export class ActualiteEditorComponent implements OnChanges, OnDestroy {
     dispatch(transaction);
     this.emitCurrentContent();
     this.editor.view.focus();
+  }
+
+  async onAddHtml(): Promise<void> {
+    const result = await this.openHtmlDialog();
+    const sanitizedHtml = prepareHtmlForEditor(result?.content ?? '');
+
+    if (!sanitizedHtml || !this.editor.view) {
+      return;
+    }
+
+    this.editor.commands.focus().insertHTML(sanitizedHtml).exec();
+    this.emitCurrentContent();
+    this.editor.view.focus();
+  }
+
+  private async openHtmlDialog(): Promise<DialogResult | undefined> {
+    const promise = this.popup.open(HtmlDialogComponent);
+
+    this.popup.componentRef?.instance.outputClose.subscribe(
+      (result: DialogResult | undefined) => {
+        this.popup.close(result);
+      },
+    );
+
+    return promise;
   }
 }

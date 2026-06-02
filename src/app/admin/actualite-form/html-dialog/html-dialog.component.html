@@ -1,0 +1,44 @@
+<div class="html-dialog">
+  <h2>{{ title }}</h2>
+
+  <form role="form">
+    <div class="group">
+      <label for="html-content">Code HTML</label>
+      <textarea
+        id="html-content"
+        name="html-content"
+        rows="12"
+        [(ngModel)]="content"
+        placeholder="Collez votre fragment HTML..."
+      ></textarea>
+      <p class="hint">
+        Les scripts et attributs dangereux seront supprimés avant l'insertion.
+      </p>
+    </div>
+
+    @if (sanitizedPreviewHtml) {
+      <div class="preview">
+        <h3>Aperçu</h3>
+        <div class="preview-content" [innerHTML]="previewHtml"></div>
+        <p class="hint">
+          Les iframes sont conservées au rendu public, mais stockées sous forme
+          de jeton dans l'éditeur.
+        </p>
+      </div>
+    }
+
+    <div class="actions">
+      <button type="button" class="secondary" (click)="onCancel()">
+        Annuler
+      </button>
+      <button
+        type="button"
+        class="primary"
+        (click)="onSubmit()"
+        [disabled]="!sanitizedPreviewHtml"
+      >
+        Insérer
+      </button>
+    </div>
+  </form>
+</div>
