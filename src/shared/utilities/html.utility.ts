@@ -43,8 +43,14 @@ function isUnsafeUrl(value: string): boolean {
 function sanitizeElementAttributes(element: Element): void {
   for (const attribute of Array.from(element.attributes)) {
     const attributeName = attribute.name.toLowerCase();
+    const attributeValue = attribute.value.trim().toLowerCase();
 
     if (attributeName.startsWith('on') || attributeName === 'srcdoc') {
+      element.removeAttribute(attribute.name);
+      continue;
+    }
+
+    if (attributeName === 'title' && attributeValue === 'null') {
       element.removeAttribute(attribute.name);
       continue;
     }
@@ -52,6 +58,13 @@ function sanitizeElementAttributes(element: Element): void {
     if (URL_ATTRIBUTES.has(attributeName) && isUnsafeUrl(attribute.value)) {
       element.removeAttribute(attribute.name);
     }
+  }
+
+  if (
+    element.tagName.toLowerCase() === 'img' &&
+    !element.hasAttribute('loading')
+  ) {
+    element.setAttribute('loading', 'lazy');
   }
 }
 
@@ -74,9 +87,14 @@ function sanitizeWithFallback(value: string): string {
   return value
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
     .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+    .replace(/\stitle\s*=\s*("null"|'null')/gi, '')
     .replace(
       /\s(?:href|src|xlink:href|action|formaction|poster)\s*=\s*("|')\s*(?:javascript:|vbscript:|data:text\/html)[\s\S]*?\1/gi,
       '',
+    )
+    .replace(
+      /<img\b(?![^>]*\sloading\s*=)([^>]*?)(\s*\/?)>/gi,
+      '<img$1 loading="lazy"$2>',
     );
 }
 
@@ -99,8 +117,28 @@ export function prepareHtmlForEditor(value: string): string {
 }
 
 export function buildHtmlForActualite(value: string): string {
-  return ACTUALITE_HTML_TRANSFORMS.reduce(
-    (currentValue, transform) => transform(currentValue),
-    value,
+  return sanitizeHtmlFragment(
+    ACTUALITE_HTML_TRANSFORMS.reduce(
+      (currentValue, transform) => transform(currentValue),
+      value,
+    ),
   );
+}
+
+export function escapeHtmlAttribute(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+export function buildImageMarkup(src: string, alt: string): string {
+  return [
+    '<img',
+    ` src="${escapeHtmlAttribute(src.trim())}"`,
+    ` alt="${escapeHtmlAttribute(alt.trim())}"`,
+    ' loading="lazy"',
+    ' />',
+  ].join('');
 }

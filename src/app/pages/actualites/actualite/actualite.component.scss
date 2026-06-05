@@ -48,7 +48,20 @@
     }
 
     img {
+      height: auto;
+      max-width: 100%;
+    }
+
+    img.image-portrait {
       width: 45%;
+
+      @media screen and (max-width: vars.$md) {
+        width: 100% !important;
+      }
+    }
+
+    img.image-landscape {
+      // width: 100%;
 
       @media screen and (max-width: vars.$md) {
         width: 100% !important;

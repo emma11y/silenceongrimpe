@@ -69,6 +69,7 @@ export class ActualiteComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.renderVideoPlayers();
+    this.updateInlineImageOrientationClasses();
     this.fragmentService.initFragments();
   }
 
@@ -119,5 +120,39 @@ export class ActualiteComponent implements AfterViewInit, OnDestroy {
       componentRef.changeDetectorRef.detectChanges();
       this.videoComponentRefs.push(componentRef);
     }
+  }
+
+  private updateInlineImageOrientationClasses(): void {
+    const host = this.content?.nativeElement;
+
+    if (!host) {
+      return;
+    }
+
+    const images = Array.from(host.querySelectorAll<HTMLImageElement>('img'));
+
+    for (const image of images) {
+      if (image.complete && image.naturalWidth > 0) {
+        this.applyInlineImageOrientationClass(image);
+        continue;
+      }
+
+      image.addEventListener(
+        'load',
+        () => this.applyInlineImageOrientationClass(image),
+        { once: true },
+      );
+    }
+  }
+
+  private applyInlineImageOrientationClass(image: HTMLImageElement): void {
+    image.classList.remove('image-portrait', 'image-landscape');
+
+    if (image.naturalHeight > image.naturalWidth) {
+      image.classList.add('image-portrait');
+      return;
+    }
+
+    image.classList.add('image-landscape');
   }
 }
