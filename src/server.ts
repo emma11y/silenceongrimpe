@@ -6,11 +6,6 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine({
@@ -34,15 +29,11 @@ const angularApp = new AngularNodeAppEngine({
  */
 
 /**
- * Serve static files from /browser
+ * Static files under /browser are served directly by Vercel's CDN, not
+ * through this function - serving them here via express.static made
+ * Vercel's file tracer bundle the whole (700MB+) browser output into the
+ * function, blowing past its size limit.
  */
-app.use(
-  express.static(browserDistFolder, {
-    maxAge: '1y',
-    index: false,
-    redirect: false,
-  })
-);
 
 /**
  * Handle all other requests by rendering the Angular application.

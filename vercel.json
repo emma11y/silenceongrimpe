@@ -6,7 +6,8 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/silenceongrimpe/server/**"
+      "includeFiles": "dist/silenceongrimpe/server/**",
+      "excludeFiles": "dist/silenceongrimpe/browser/**"
     }
   }
 }
