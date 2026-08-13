@@ -39,6 +39,9 @@ const angularApp = new AngularNodeAppEngine({
  * Handle all other requests by rendering the Angular application.
  */
 app.use('/**', (req, res, next) => {
+  res.setHeader('x-debug-req-url', req.url || '(empty)');
+  res.setHeader('x-debug-original-url', req.originalUrl || '(empty)');
+  res.setHeader('x-debug-host', req.headers.host || '(empty)');
   angularApp
     .handle(req)
     .then((response) =>
