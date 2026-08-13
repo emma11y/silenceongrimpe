@@ -5,7 +5,7 @@
     { "source": "/(.*)", "destination": "/api" }
   ],
   "functions": {
-    "api/index.js": {
+    "api/index.mjs": {
       "includeFiles": "dist/silenceongrimpe/server/**",
       "excludeFiles": "dist/silenceongrimpe/browser/**"
     }
