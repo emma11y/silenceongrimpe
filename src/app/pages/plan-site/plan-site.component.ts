@@ -1,4 +1,3 @@
-import { orderBy } from 'lodash-es';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, Route } from '@angular/router';
 
@@ -77,12 +76,19 @@ export class PlanSiteComponent implements OnInit {
   private async getActualites(): Promise<MenuItem[]> {
     const actualites = await this.supabaseService.getActualitesPubliees();
     if (actualites.data) {
-      return orderBy(actualites.data, (x) => x.datePublication).map((item) => {
-        return {
-          path: `/actualites/${item.slug}`,
-          label: item.titre,
-        } as MenuItem;
-      });
+      return [...actualites.data]
+        .sort(
+          (a, b) =>
+            new Date(a.datePublication).getTime() -
+            new Date(b.datePublication).getTime(),
+        )
+        .map(
+          (item) =>
+            ({
+              path: `/actualites/${item.slug}`,
+              label: item.titre,
+            }) as MenuItem,
+        );
     }
 
     return [];

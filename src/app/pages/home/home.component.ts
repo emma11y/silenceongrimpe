@@ -1,4 +1,3 @@
-import { orderBy } from 'lodash-es';
 import { AgendaCarrouselComponent } from './agenda-carrousel/agenda-carrousel.component';
 import { Component, inject } from '@angular/core';
 import { CarrouselComponent } from '@shared/components/carrousel/carrousel.component';
@@ -35,8 +34,13 @@ export class HomeComponent {
       'actualites'
     ] as unknown as Actualite[];
 
-    this.carousels = orderBy(actualites, (x) => x.datePublication, 'desc').map(
-      (actu, index) => {
+    this.carousels = [...actualites]
+      .sort(
+        (a, b) =>
+          (b.datePublication?.getTime() ?? 0) -
+          (a.datePublication?.getTime() ?? 0),
+      )
+      .map((actu, index) => {
         return {
           id: actu.id,
           slug: actu.slug,
