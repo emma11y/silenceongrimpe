@@ -5,7 +5,6 @@ import { AlertService } from '@core/services/alert.service';
 import { PopupService } from '@core/services/popup.service';
 import { SupabaseService } from '@core/services/supabase.service';
 import { Actualite } from '@shared/models/actualite';
-import { orderBy } from 'lodash-es';
 
 @Component({
   selector: 'app-actualites',
@@ -29,7 +28,11 @@ export class ActualitesComponent implements OnInit {
       if (result.data) {
         const actualites = result.data as unknown as Actualite[];
 
-        this.actualites = orderBy(actualites, (x) => x.datePublication);
+        this.actualites = [...actualites].sort(
+          (a, b) =>
+            new Date(a.datePublication ?? 0).getTime() -
+            new Date(b.datePublication ?? 0).getTime(),
+        );
       }
     });
   }
