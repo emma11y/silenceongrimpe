@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { RevalidateService } from '@app/core/services/revalidate.service';
 import { AlertService } from '@core/services/alert.service';
 import { PopupService } from '@core/services/popup.service';
 import { SupabaseService } from '@core/services/supabase.service';
@@ -18,7 +17,6 @@ export class ActualitesComponent implements OnInit {
   private supabaseService: SupabaseService = inject(SupabaseService);
   private alertService: AlertService = inject(AlertService);
   private popupService: PopupService = inject(PopupService);
-  private revalidateService: RevalidateService = inject(RevalidateService);
 
   actualites: Actualite[] = [];
 
@@ -51,20 +49,6 @@ export class ActualitesComponent implements OnInit {
           "Une erreur s'est produite, veuillez réessayer : " + error.message,
         );
         return;
-      }
-
-      if (actualite.publie) {
-        this.revalidateService
-          .revalidateInsert(actualite.slug)
-          .subscribe((result) => {
-            console.log(result);
-          });
-      } else {
-        this.revalidateService
-          .revalidateDelete(actualite.slug)
-          .subscribe((result) => {
-            console.log(result);
-          });
       }
 
       this.alertService.showAlert(

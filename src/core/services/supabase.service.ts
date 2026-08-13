@@ -186,12 +186,4 @@ export class SupabaseService {
   getUrl(guid: string) {
     return `${this.supabaseUrl}/functions/v1/get-image?guid=${guid}`;
   }
-
-  async getVercelSecret() {
-    return await this.supabase
-      .from('secrets')
-      .select('value')
-      .eq('name', 'vercel_secret')
-      .single();
-  }
 }
