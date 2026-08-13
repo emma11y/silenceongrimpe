@@ -32,6 +32,7 @@ export class ActualiteComponent implements AfterViewInit, OnDestroy {
   @ViewChild('content') private readonly content?: ElementRef<HTMLElement>;
   private readonly videoComponentRefs: ComponentRef<VideoPlayerComponent>[] =
     [];
+  private videoObserver?: IntersectionObserver;
 
   private applicationRef: ApplicationRef = inject(ApplicationRef);
   private environmentInjector: EnvironmentInjector =
@@ -74,6 +75,8 @@ export class ActualiteComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.videoObserver?.disconnect();
+
     for (const componentRef of this.videoComponentRefs) {
       this.applicationRef.detachView(componentRef.hostView);
       componentRef.destroy();
@@ -89,37 +92,68 @@ export class ActualiteComponent implements AfterViewInit, OnDestroy {
       return;
     }
 
-    const placeholders = host.querySelectorAll<HTMLElement>('app-video-player');
+    const placeholders = Array.from(
+      host.querySelectorAll<HTMLElement>('app-video-player'),
+    );
+
+    if (placeholders.length === 0) {
+      return;
+    }
+
+    if (typeof IntersectionObserver === 'undefined') {
+      for (const placeholder of placeholders) {
+        this.mountVideoPlayer(placeholder);
+      }
+      return;
+    }
+
+    this.videoObserver = new IntersectionObserver(
+      (entries, observer) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) {
+            continue;
+          }
+
+          observer.unobserve(entry.target);
+          this.mountVideoPlayer(entry.target as HTMLElement);
+        }
+      },
+      { rootMargin: '200px' },
+    );
 
     for (const placeholder of placeholders) {
-      const src = placeholder.dataset['videoSrc']?.trim();
-      const thumbnail = placeholder.dataset['videoThumbnail']?.trim();
-      const transcription = placeholder.dataset['videoTranscription']?.trim();
-      const id = Number.parseInt(placeholder.dataset['videoId'] ?? '', 10);
-      const article = placeholder.dataset['article'] === 'true';
-
-      if (!src || !thumbnail) {
-        placeholder.remove();
-        continue;
-      }
-
-      const componentRef = createComponent(VideoPlayerComponent, {
-        environmentInjector: this.environmentInjector,
-        hostElement: placeholder,
-      });
-
-      componentRef.setInput('video', {
-        id: Number.isNaN(id) ? undefined : id,
-        src,
-        thumbnail,
-        transcription,
-      });
-      componentRef.setInput('article', article);
-
-      this.applicationRef.attachView(componentRef.hostView);
-      componentRef.changeDetectorRef.detectChanges();
-      this.videoComponentRefs.push(componentRef);
+      this.videoObserver.observe(placeholder);
     }
+  }
+
+  private mountVideoPlayer(placeholder: HTMLElement): void {
+    const src = placeholder.dataset['videoSrc']?.trim();
+    const thumbnail = placeholder.dataset['videoThumbnail']?.trim();
+    const transcription = placeholder.dataset['videoTranscription']?.trim();
+    const id = Number.parseInt(placeholder.dataset['videoId'] ?? '', 10);
+    const article = placeholder.dataset['article'] === 'true';
+
+    if (!src || !thumbnail) {
+      placeholder.remove();
+      return;
+    }
+
+    const componentRef = createComponent(VideoPlayerComponent, {
+      environmentInjector: this.environmentInjector,
+      hostElement: placeholder,
+    });
+
+    componentRef.setInput('video', {
+      id: Number.isNaN(id) ? undefined : id,
+      src,
+      thumbnail,
+      transcription,
+    });
+    componentRef.setInput('article', article);
+
+    this.applicationRef.attachView(componentRef.hostView);
+    componentRef.changeDetectorRef.detectChanges();
+    this.videoComponentRefs.push(componentRef);
   }
 
   private updateInlineImageOrientationClasses(): void {
