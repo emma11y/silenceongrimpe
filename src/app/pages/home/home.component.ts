@@ -37,8 +37,8 @@ export class HomeComponent {
     this.carousels = [...actualites]
       .sort(
         (a, b) =>
-          (b.datePublication?.getTime() ?? 0) -
-          (a.datePublication?.getTime() ?? 0),
+          new Date(b.datePublication ?? 0).getTime() -
+          new Date(a.datePublication ?? 0).getTime(),
       )
       .map((actu, index) => {
         return {

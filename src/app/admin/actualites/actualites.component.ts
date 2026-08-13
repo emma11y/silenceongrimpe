@@ -30,8 +30,8 @@ export class ActualitesComponent implements OnInit {
 
         this.actualites = [...actualites].sort(
           (a, b) =>
-            (a.datePublication?.getTime() ?? 0) -
-            (b.datePublication?.getTime() ?? 0),
+            new Date(a.datePublication ?? 0).getTime() -
+            new Date(b.datePublication ?? 0).getTime(),
         );
       }
     });
