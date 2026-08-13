@@ -5,7 +5,12 @@
     @for(temoignage of temoignages; track $index){
       <div class="list-item" role="listitem">
         <div class="list-image">
-          <img [alt]="temoignage.alt" [src]="temoignage.img" />
+          <img
+            [alt]="temoignage.alt"
+            [src]="temoignage.img"
+            [width]="temoignage.imgWidth"
+            [height]="temoignage.imgHeight"
+          />
         </div>
         <div class="list-description">
           <p class="title quote">
