@@ -75,7 +75,7 @@
             [attr.aria-label]="$index + 1 + ' sur ' + carousels.length"
             >
             <div class="carousel-image">
-              <app-display-image [id]="carousel.guid" />
+              <app-display-image [id]="carousel.guid" [priority]="$index === 0" />
             </div>
             <div class="carousel-caption">
               <div class="carousel-caption-title">
