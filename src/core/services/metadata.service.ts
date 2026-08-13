@@ -20,7 +20,7 @@ export class MetadataService {
 
     this.createOrUpdateTag('og:title', title);
 
-    this.createOrUpdateTag('description', metadata.description);
+    this.meta.updateTag({ name: 'description', content: metadata.description });
 
     this.createOrUpdateTag('og:description', metadata.description);
 
