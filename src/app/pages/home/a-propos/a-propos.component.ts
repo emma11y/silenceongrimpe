@@ -13,7 +13,7 @@ export class AProposComponent {
       id: 1,
       name: 'Femmes en montagne',
       open: false,
-      img: '../../../assets/imgs/logos/Logo-FEM.png',
+      img: '../../../assets/imgs/logos/Logo-FEM.webp',
       alt: 'Logo Femmes en montagne - festival de films',
       quote: 'Merci infiniment pour votre accompagnement !',
       subtitle:
@@ -24,7 +24,7 @@ export class AProposComponent {
       id: 2,
       name: `Festival International d'Autrans - Montagne, cinéma & culture`,
       open: false,
-      img: '../../../assets/imgs/logos/festival-international-autrans-logo.png',
+      img: '../../../assets/imgs/logos/festival-international-autrans-logo.webp',
       alt: `Logo Festival International d'Autrans`,
       quote: 'Des conseils précieux !',
       subtitle: `<p class="italic">Le collectif Silence, on grimpe ! a permis à notre organisation de mettre un coup de projecteur sur la non-accessibilité des films et festivals aux personnes en situation de handicap.</p>`,

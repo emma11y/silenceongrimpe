@@ -13,6 +13,7 @@
       format("svg"); /* Legacy iOS */
   font-style: normal;
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -29,6 +30,7 @@
       format("svg"); /* Legacy iOS */
   font-style: normal;
   font-weight: 700;
+  font-display: swap;
 }
 
 @font-face {
@@ -46,6 +48,7 @@
       format("svg"); /* Legacy iOS */
   font-style: italic;
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -64,6 +67,7 @@
       format("svg"); /* Legacy iOS */
   font-style: italic;
   font-weight: 700;
+  font-display: swap;
 }
 
 @font-face {
@@ -72,6 +76,7 @@
     format("truetype");
   font-style: normal;
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -80,6 +85,7 @@
     format("truetype");
   font-style: italic;
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -88,6 +94,7 @@
     format("truetype");
   font-style: normal;
   font-weight: 700;
+  font-display: swap;
 }
 
 @font-face {
@@ -96,4 +103,5 @@
     format("truetype");
   font-style: italic;
   font-weight: 700;
+  font-display: swap;
 }

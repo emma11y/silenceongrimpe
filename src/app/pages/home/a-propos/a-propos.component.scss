@@ -85,7 +85,20 @@
 
       img {
         width: 80%;
+        height: auto;
       }
+    }
+
+    &-item:nth-child(1) &-image img {
+      aspect-ratio: 280 / 184; // Logo-FEM
+    }
+
+    &-item:nth-child(2) &-image img {
+      aspect-ratio: 257 / 280; // Festival International d'Autrans
+    }
+
+    &-item:nth-child(3) &-image img {
+      aspect-ratio: 280 / 98; // Chamonix Film Festival
     }
 
     &-description {
