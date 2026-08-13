@@ -11,7 +11,6 @@ import { DisplayImageComponent } from '@shared/components/display-image/display-
 import { BibliothequeImagesComponent } from '../bibliotheque-images/bibliotheque-images.component';
 import { Picture } from '@shared/models/picture';
 import { PopupComponentService } from '@core/services/popup-component.service';
-import { RevalidateService } from '@app/core/services/revalidate.service';
 import {
   extractFootnotes,
   FootnoteItem,
@@ -42,8 +41,6 @@ export class ActualiteFormComponent {
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
   private readonly popup: PopupComponentService = inject(PopupComponentService);
-  private readonly revalidateService: RevalidateService =
-    inject(RevalidateService);
 
   form: Actualite = new Actualite();
   picture!: Picture;
@@ -107,13 +104,6 @@ export class ActualiteFormComponent {
 
     if (!this.isUpdate) {
       this.isUpdate = true;
-
-      if (this.form.publie && this.form.slug !== this.currentSlug) {
-        this.revalidateService.revalidateUpdate(
-          this.currentSlug,
-          this.form.slug,
-        );
-      }
 
       this.alertService.showAlert('success', "L'actualité a bien été créée.");
 

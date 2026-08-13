@@ -32,25 +32,28 @@ export class MetadataService {
 
     this.createOrUpdateTag(
       'og:url',
-      `${HttpConfig.websiteUrl}${this.router.url}`
+      `${HttpConfig.websiteUrl}${this.router.url}`,
     );
 
     this.createOrUpdateTag('og:locale', 'fr_FR');
   }
 
-  private createOrUpdateTag(property: string, content: string) {
-    if (this.meta.getTag(`property='${property}'`)) {
-      this.meta.updateTag({ property, content });
-    } else {
-      this.meta.addTag({ property, content });
-    }
+  private createOrUpdateTag(nameOrProperty: string, content: string) {
+    const isOpenGraph =
+      nameOrProperty.startsWith('og:') || nameOrProperty.startsWith('article:');
+
+    this.meta.updateTag(
+      isOpenGraph
+        ? { property: nameOrProperty, content }
+        : { name: nameOrProperty, content },
+    );
   }
 
   public setMetadataForArticle(
     title: string,
     description: string,
     date: Date | undefined,
-    thumbnail: string
+    thumbnail: string,
   ): void {
     const metadata = {
       title,
@@ -64,7 +67,7 @@ export class MetadataService {
     if (date) {
       this.createOrUpdateTag(
         'article:published_time',
-        new Date(date).toISOString()
+        new Date(date).toISOString(),
       );
     }
 
@@ -73,7 +76,7 @@ export class MetadataService {
     } else {
       this.createOrUpdateTag(
         'og:image',
-        `${HttpConfig.websiteUrl}/web-app-manifest-512x512.png`
+        `${HttpConfig.websiteUrl}/web-app-manifest-512x512.png`,
       );
     }
   }
