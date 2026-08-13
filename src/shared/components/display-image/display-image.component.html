@@ -1,6 +1,11 @@
 @if (picture) {
   <div class="display-image">
-    <img [src]="this.url" [alt]="picture.alt" loading="lazy" />
+    <img
+      [src]="this.url"
+      [alt]="picture.alt"
+      [attr.loading]="priority ? null : 'lazy'"
+      [attr.fetchpriority]="priority ? 'high' : null"
+    />
     @if(showCredit && picture.credit){
       <p class="credit">© Crédit Photo : {{ picture.credit }}</p>
     }

@@ -19,6 +19,7 @@ import { Picture } from '@shared/models/picture';
 export class DisplayImageComponent implements OnInit, OnChanges {
   @Input() id!: string;
   @Input() showCredit: boolean = false;
+  @Input() priority: boolean = false;
 
   picture!: Picture;
   url!: string;
