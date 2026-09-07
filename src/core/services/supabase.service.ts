@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { Actualite } from '@shared/models/actualite';
 import { Evenement } from '@shared/models/evenement';
+import { Film } from '@shared/models/film';
 import { Picture } from '@shared/models/picture';
 import { createBrowserClient } from '@supabase/ssr';
 import {
@@ -185,5 +186,17 @@ export class SupabaseService {
 
   getUrl(guid: string) {
     return `${this.supabaseUrl}/functions/v1/get-image?guid=${guid}`;
+  }
+
+  createOrUpdateFilm(film: Partial<Film>) {
+    if (film.id) {
+      return this.supabase.from('films').update(film).eq('id', film.id);
+    } else {
+      return this.supabase.from('films').insert(film).select();
+    }
+  }
+
+  getFilm(slug: string): any {
+    return this.supabase.from('films').select('*').eq('slug', slug).single();
   }
 }
