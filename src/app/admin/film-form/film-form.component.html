@@ -108,6 +108,44 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <fieldset class="group">
+            <legend>Qualité des sous-titres</legend>
+
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="qualiteSousTitresProfessionnelle"
+                name="qualiteSousTitres"
+                value="professionnelle"
+                [(ngModel)]="form.qualiteSousTitres"
+                #qualiteSousTitres="ngModel"
+                required
+              />
+              <label for="qualiteSousTitresProfessionnelle"
+                >Professionnelle</label
+              >
+            </div>
+
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="qualiteSousTitresAmateur"
+                name="qualiteSousTitres"
+                value="amateur"
+                [(ngModel)]="form.qualiteSousTitres"
+              />
+              <label for="qualiteSousTitresAmateur">Amateur</label>
+            </div>
+
+            <validation-summary
+              [controlModel]="qualiteSousTitres"
+              fieldName="qualiteSousTitres"
+            />
+          </fieldset>
+        </div>
+      </div>
     </form>
   </fieldset>
 </div>

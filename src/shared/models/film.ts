@@ -5,6 +5,7 @@ export interface Film {
   titre: string;
   duree: number;
   anneeDiffusion: number;
+  qualiteSousTitres: 'professionnelle' | 'amateur';
   description: string;
   realisateurs: string;
   sme: boolean;
