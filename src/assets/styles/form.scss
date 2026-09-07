@@ -93,8 +93,11 @@ input[type="number"] {
 }
 
 .radio-group {
+  display: flex;
+  flex-direction: column;
   border: none;
   padding: 0;
+  margin-bottom: 1em;
 
   legend {
     font-size: 1.25em;
