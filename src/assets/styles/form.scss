@@ -77,7 +77,9 @@ label {
 
 select,
 textarea,
-input[type="text"] {
+input[type="text"],
+input[type="number"],
+input[type="url"] {
   margin-top: 0.5em;
   padding: 0.5em;
   font-size: 1em;
@@ -88,6 +90,48 @@ input[type="text"] {
   &:hover,
   &:focus-visible {
     border-color: var(--orange);
+  }
+}
+
+.radio-group,
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 0;
+  margin-bottom: 1em;
+
+  legend {
+    font-size: 1.25em;
+    font-family: var(--main-family);
+    font-weight: normal;
+    color: var(--color-text-primary);
+    text-align: left;
+    padding: 0;
+    margin-bottom: 0.5em;
+  }
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+
+  input[type="radio"] {
+    width: 1.1em;
+    height: 1.1em;
+    accent-color: var(--bleu-ocean);
+
+    &:hover,
+    &:focus-visible {
+      outline: 0.15em solid var(--orange);
+      outline-offset: 0.1em;
+    }
+  }
+
+  label {
+    font-size: 1em;
   }
 }
 

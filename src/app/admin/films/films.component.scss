@@ -1,5 +1,19 @@
 @use "table-event";
 @use "list";
 
-.films {
+.liste {
+  td.titre,
+  th.titre {
+    width: 60%;
+  }
+
+  td.annee,
+  th.annee {
+    width: 5%;
+  }
+
+  td.duree,
+  th.duree {
+    width: 10%;
+  }
 }

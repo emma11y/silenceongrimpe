@@ -390,7 +390,7 @@ export const routes: Routes = [
                   ),
               },
               {
-                path: ':slug',
+                path: ':id',
                 data: {
                   metadata: {
                     title: 'Modifier la fiche du film',

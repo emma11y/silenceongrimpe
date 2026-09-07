@@ -5,5 +5,285 @@
     <legend>
       {{ isUpdate ? "Modifier la fiche" : "Créer une nouvelle fiche de film" }}
     </legend>
+    <p class="mandatory-note">
+      Les champs marqués d'un astérisque (<span aria-hidden="true">*</span>)
+      sont obligatoires.
+    </p>
+    <form role="form" #filmForm="ngForm">
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="titre"
+              >Titre du film <span aria-hidden="true">*</span></label
+            >
+            <input
+              type="text"
+              id="titre"
+              name="titre"
+              [(ngModel)]="form.titre"
+              #titre="ngModel"
+              required
+            />
+
+            <validation-summary [controlModel]="titre" fieldName="Titre" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="description"
+              >Description <span aria-hidden="true">*</span></label
+            >
+            <textarea
+              rows="5"
+              id="description"
+              name="description"
+              [(ngModel)]="form.description"
+              #description="ngModel"
+              required
+            ></textarea>
+
+            <validation-summary
+              [controlModel]="description"
+              fieldName="Description"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="vignetteUrl"
+              >Lien de la vignette <span aria-hidden="true">*</span></label
+            >
+            <input
+              type="url"
+              id="vignetteUrl"
+              name="vignetteUrl"
+              [(ngModel)]="form.vignetteUrl"
+              #vignetteUrl="ngModel"
+              required
+            />
+
+            <validation-summary
+              [controlModel]="vignetteUrl"
+              fieldName="Lien de la vignette"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="realisateurs" aria-describedby="expRealisateurs"
+              >Réalisateur.rice ou producteur.rice
+              <span aria-hidden="true">*</span></label
+            >
+            <input
+              type="text"
+              id="realisateurs"
+              name="realisateurs"
+              [(ngModel)]="form.realisateurs"
+              #realisateurs="ngModel"
+              required
+            />
+
+            <p class="small" id="expRealisateurs">
+              S'il y a plusieurs noms, séparez-les par un ";".
+            </p>
+
+            <validation-summary
+              [controlModel]="realisateurs"
+              fieldName="Réalisateur.rice ou producteur.rice"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="duree"
+              >Durée max du film (en minutes)
+              <span aria-hidden="true">*</span></label
+            >
+            <input
+              type="number"
+              id="duree"
+              name="duree"
+              [(ngModel)]="form.duree"
+              #duree="ngModel"
+              required
+            />
+
+            <validation-summary [controlModel]="duree" fieldName="Durée" />
+          </div>
+        </div>
+        <div class="col">
+          <div class="group">
+            <label for="anneeDiffusion"
+              >Année de diffusion <span aria-hidden="true">*</span></label
+            >
+            <input
+              type="number"
+              id="anneeDiffusion"
+              name="anneeDiffusion"
+              [(ngModel)]="form.anneeDiffusion"
+              #anneeDiffusion="ngModel"
+              required
+            />
+
+            <validation-summary
+              [controlModel]="anneeDiffusion"
+              fieldName="Année de diffusion"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="lienVisionnage">Lien du teaser ou de visionnage</label>
+            <input
+              type="url"
+              id="lienVisionnage"
+              name="lienVisionnage"
+              [(ngModel)]="form.lienVisionnage"
+              #lienVisionnage="ngModel"
+            />
+
+            <validation-summary
+              [controlModel]="lienVisionnage"
+              fieldName="Lien du teaser ou de visionnage"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <fieldset class="radio-group">
+            <legend>
+              Qualité des sous-titres <span aria-hidden="true">*</span>
+            </legend>
+
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="qualiteSousTitresProfessionnelle"
+                name="qualiteSousTitres"
+                value="professionnelle"
+                [(ngModel)]="form.qualiteSousTitres"
+                #qualiteSousTitres="ngModel"
+                required
+              />
+              <label for="qualiteSousTitresProfessionnelle"
+                >Professionnelle</label
+              >
+            </div>
+
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="qualiteSousTitresAmateur"
+                name="qualiteSousTitres"
+                value="amateur"
+                [(ngModel)]="form.qualiteSousTitres"
+              />
+              <label for="qualiteSousTitresAmateur">Amateur</label>
+            </div>
+
+            <validation-summary
+              [controlModel]="qualiteSousTitres"
+              fieldName="Qualité des sous-titres"
+            />
+          </fieldset>
+        </div>
+      </div>
+      <fieldset class="checkbox-group">
+        <legend>Accessibilité du film</legend>
+
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <input
+                type="checkbox"
+                id="sousTitresIncrustes"
+                name="sousTitresIncrustes"
+                [(ngModel)]="form.sousTitresIncrustes"
+                #sousTitresIncrustes="ngModel"
+                (keyup.Enter)="
+                  form.sousTitresIncrustes = !form.sousTitresIncrustes
+                "
+              />
+              <label for="sousTitresIncrustes">Sous-titres incrustés</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <input
+                type="checkbox"
+                id="sme"
+                name="sme"
+                [(ngModel)]="form.sme"
+                #sme="ngModel"
+                (keyup.Enter)="form.sme = !form.sme"
+              />
+              <label for="sme">VFST-SME</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <input
+                type="checkbox"
+                id="vost"
+                name="vost"
+                [(ngModel)]="form.vost"
+                #vost="ngModel"
+                (keyup.Enter)="form.vost = !form.vost"
+              />
+              <label for="vost">VOSTFR</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <input
+                type="checkbox"
+                id="lsf"
+                name="lsf"
+                [(ngModel)]="form.lsf"
+                #lsf="ngModel"
+                (keyup.Enter)="form.lsf = !form.lsf"
+              />
+              <label for="lsf">Langue des Signes Française (LSF)</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <input
+                type="checkbox"
+                id="ad"
+                name="ad"
+                [(ngModel)]="form.ad"
+                #ad="ngModel"
+                (keyup.Enter)="form.ad = !form.ad"
+              />
+              <label for="ad">Audiodescription (AD)</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <button class="action" type="submit" (click)="onClick(filmForm)">
+        {{ isUpdate ? "Modifier le film" : "Créer le film" }}
+      </button>
+    </form>
   </fieldset>
 </div>

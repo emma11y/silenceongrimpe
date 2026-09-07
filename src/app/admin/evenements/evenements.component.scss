@@ -1,5 +1,6 @@
 @use "variables" as vars;
 @use "table-event";
+@use "list";
 
 .liste {
   h2 {
@@ -14,11 +15,6 @@
 
   table {
     margin-bottom: 2em;
-  }
-
-  &-new {
-    margin-bottom: 1em;
-    float: right;
   }
 
   .link,
