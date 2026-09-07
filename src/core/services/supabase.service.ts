@@ -201,7 +201,7 @@ export class SupabaseService {
   }
 
   getFilms(): any {
-    return this.supabase.from('films').select('*');
+    return this.supabase.from('films').select('*').order('titre');
   }
 
   deleteFilm(id: number | undefined) {
