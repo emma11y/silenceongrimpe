@@ -142,6 +142,25 @@
       </div>
       <div class="row">
         <div class="col">
+          <div class="group">
+            <label for="lienVisionnage">Lien du teaser ou de visionnage</label>
+            <input
+              type="url"
+              id="lienVisionnage"
+              name="lienVisionnage"
+              [(ngModel)]="form.lienVisionnage"
+              #lienVisionnage="ngModel"
+            />
+
+            <validation-summary
+              [controlModel]="lienVisionnage"
+              fieldName="Lien du teaser ou de visionnage"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
           <fieldset class="radio-group">
             <legend>
               Qualité des sous-titres <span aria-hidden="true">*</span>

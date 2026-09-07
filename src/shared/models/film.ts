@@ -3,6 +3,7 @@ export interface Film {
   titre: string;
   duree: number;
   anneeDiffusion: number;
+  lienVisionnage?: string;
   qualiteSousTitres: 'professionnelle' | 'amateur';
   description: string;
   vignetteUrl: string;
