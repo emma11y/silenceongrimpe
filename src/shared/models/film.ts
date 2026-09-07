@@ -4,6 +4,7 @@ export interface Film {
   slug: string;
   titre: string;
   duree: number;
+  anneeDiffusion: number;
   description: string;
   realisateurs: string;
   sme: boolean;
