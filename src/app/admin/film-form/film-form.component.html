@@ -53,6 +53,26 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="realisateurs">Réalisateur.rice ou producteur.rice</label>
+            <input
+              type="text"
+              id="realisateurs"
+              name="realisateurs"
+              [(ngModel)]="form.realisateurs"
+              #realisateurs="ngModel"
+              required
+            />
+
+            <validation-summary
+              [controlModel]="realisateurs"
+              fieldName="realisateurs"
+            />
+          </div>
+        </div>
+      </div>
     </form>
   </fieldset>
 </div>
