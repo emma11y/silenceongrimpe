@@ -92,7 +92,8 @@ input[type="number"] {
   }
 }
 
-.radio-group {
+.radio-group,
+.checkbox-group {
   display: flex;
   flex-direction: column;
   border: none;
@@ -111,20 +112,6 @@ input[type="number"] {
 }
 
 .checkbox-group {
-  border: none;
-  padding: 0;
-  margin-bottom: 1em;
-
-  legend {
-    font-size: 1.25em;
-    font-family: var(--main-family);
-    font-weight: normal;
-    color: var(--color-text-primary);
-    text-align: left;
-    padding: 0;
-    margin-bottom: 0.5em;
-  }
-
   .group {
     flex-direction: row;
     align-items: center;
