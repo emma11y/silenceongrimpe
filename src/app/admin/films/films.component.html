@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th class="titre">Titre</th>
-        <th>Durée</th>
+        <th class="duree">Durée</th>
         <th>Année</th>
         <th>Qualité des sous-titres</th>
         <th class="icon">STI</th>
@@ -24,7 +24,7 @@
       @for (film of films; track $index) {
       <tr>
         <td class="titre">{{ film.titre }}</td>
-        <td>{{ film.duree }} min</td>
+        <td class="duree">{{ film.duree }} min</td>
         <td>{{ film.anneeDiffusion }}</td>
         <td>{{ film.qualiteSousTitres }}</td>
         <td class="icon">
