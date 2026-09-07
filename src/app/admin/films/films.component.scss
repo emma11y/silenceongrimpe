@@ -1,5 +1,9 @@
 @use "table-event";
 @use "list";
 
-.films {
+.liste {
+  td.titre,
+  th.titre {
+    width: 40%;
+  }
 }
