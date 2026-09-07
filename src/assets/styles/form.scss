@@ -92,10 +92,36 @@ input[type="number"] {
   }
 }
 
+.radio-group {
+  border: none;
+  padding: 0;
+
+  legend {
+    font-size: 1.25em;
+    font-family: var(--main-family);
+    color: var(--color-text-primary);
+    padding: 0;
+    margin-bottom: 0.5em;
+  }
+}
+
 .radio-option {
   display: flex;
   align-items: center;
   gap: 0.5em;
+  margin-bottom: 0.5em;
+
+  input[type="radio"] {
+    width: 1.1em;
+    height: 1.1em;
+    accent-color: var(--bleu-ocean);
+
+    &:hover,
+    &:focus-visible {
+      outline: 0.15em solid var(--orange);
+      outline-offset: 0.1em;
+    }
+  }
 
   label {
     font-size: 1em;
