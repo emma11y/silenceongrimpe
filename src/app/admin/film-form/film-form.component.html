@@ -5,5 +5,24 @@
     <legend>
       {{ isUpdate ? "Modifier la fiche" : "Créer une nouvelle fiche de film" }}
     </legend>
+    <form role="form" #filmForm="ngForm">
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="titre">Titre du film</label>
+            <input
+              type="text"
+              id="titre"
+              name="titre"
+              [(ngModel)]="form.titre"
+              #titre="ngModel"
+              required
+            />
+
+            <validation-summary [controlModel]="titre" fieldName="titre" />
+          </div>
+        </div>
+      </div>
+    </form>
   </fieldset>
 </div>

@@ -1,14 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
+import { Film } from '@shared/models/film';
 
 @Component({
   selector: 'app-film-form',
-  imports: [],
+  imports: [RouterLink, FormsModule, ValidationSummaryComponent],
   templateUrl: './film-form.component.html',
   styleUrl: './film-form.component.scss',
 })
 export class FilmFormComponent {
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
+
+  form: Partial<Film> = {};
 
   isUpdate: boolean = false;
 
