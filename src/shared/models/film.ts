@@ -8,9 +8,11 @@ export interface Film {
   qualiteSousTitres: 'professionnelle' | 'amateur';
   description: string;
   realisateurs: string;
+  sousTitresIncrustes: boolean;
   sme: boolean;
   vost: boolean;
   vf: boolean;
+  lsf: boolean;
   ad: boolean;
   publie: boolean;
   vignetteId: string | undefined;
