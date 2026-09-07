@@ -1,5 +1,128 @@
-<div class="films">
+<div class="liste">
   <h2>Liste des films</h2>
 
-  <a class="new" routerLink="/admin/film">Créer une nouvelle fiche de film</a>
+  <a class="liste-new" routerLink="/admin/film">Créer une nouvelle fiche de film</a>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="titre">Titre</th>
+        <th>Durée</th>
+        <th>Année</th>
+        <th>Qualité des sous-titres</th>
+        <th class="icon">STI</th>
+        <th class="icon">SME</th>
+        <th class="icon">VOST</th>
+        <th class="icon">VF</th>
+        <th class="icon">LSF</th>
+        <th class="icon">AD</th>
+        <th class="icon">Publié</th>
+        <th class="actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (film of films; track $index) {
+      <tr>
+        <td class="titre">{{ film.titre }}</td>
+        <td>{{ film.duree }} min</td>
+        <td>{{ film.anneeDiffusion }}</td>
+        <td>{{ film.qualiteSousTitres }}</td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': film.sousTitresIncrustes,
+              'fa-xmark': !film.sousTitresIncrustes
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{
+            film.sousTitresIncrustes ? "Oui" : "Non"
+          }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': film.sme,
+              'fa-xmark': !film.sme
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ film.sme ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': film.vost,
+              'fa-xmark': !film.vost
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ film.vost ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': film.vf,
+              'fa-xmark': !film.vf
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ film.vf ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': film.lsf,
+              'fa-xmark': !film.lsf
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ film.lsf ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': film.ad,
+              'fa-xmark': !film.ad
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ film.ad ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="icon">
+          <i
+            class="fa fa-solid"
+            [ngClass]="{
+              'fa-square-check': film.publie,
+              'fa-xmark': !film.publie
+            }"
+            aria-hidden="true"
+          ></i>
+          <span class="sr-only">{{ film.publie ? "Oui" : "Non" }}</span>
+        </td>
+        <td class="actions">
+          <a
+            class="button"
+            title="Modifier"
+            [routerLink]="['/', 'admin', 'film', film.id]"
+          >
+            <span class="sr-only">Modifier</span>
+
+            <i class="fa fa-solid fa-pen" aria-hidden="true"></i>
+          </a>
+
+          <button type="button" title="Supprimer" (click)="onDelete(film)">
+            <i class="fa fa-solid fa-trash" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 </div>

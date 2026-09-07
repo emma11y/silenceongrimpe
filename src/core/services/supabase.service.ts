@@ -199,4 +199,12 @@ export class SupabaseService {
   getFilm(id: number): any {
     return this.supabase.from('films').select('*').eq('id', id).single();
   }
+
+  getFilms(): any {
+    return this.supabase.from('films').select('*');
+  }
+
+  deleteFilm(id: number | undefined) {
+    return this.supabase.from('films').delete().eq('id', id);
+  }
 }
