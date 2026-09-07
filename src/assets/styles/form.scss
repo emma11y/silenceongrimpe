@@ -99,7 +99,9 @@ input[type="number"] {
   legend {
     font-size: 1.25em;
     font-family: var(--main-family);
+    font-weight: normal;
     color: var(--color-text-primary);
+    text-align: left;
     padding: 0;
     margin-bottom: 0.5em;
   }
