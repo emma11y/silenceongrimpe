@@ -76,6 +76,26 @@
       <div class="row">
         <div class="col">
           <div class="group">
+            <label for="vignetteUrl">Lien de la vignette</label>
+            <input
+              type="url"
+              id="vignetteUrl"
+              name="vignetteUrl"
+              [(ngModel)]="form.vignetteUrl"
+              #vignetteUrl="ngModel"
+              required
+            />
+
+            <validation-summary
+              [controlModel]="vignetteUrl"
+              fieldName="vignetteUrl"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
             <label for="realisateurs">Réalisateur.rice ou producteur.rice</label>
             <input
               type="text"

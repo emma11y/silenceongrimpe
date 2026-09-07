@@ -78,7 +78,8 @@ label {
 select,
 textarea,
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+input[type="url"] {
   margin-top: 0.5em;
   padding: 0.5em;
   font-size: 1em;

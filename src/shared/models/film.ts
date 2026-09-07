@@ -1,4 +1,3 @@
-import { Position } from './position';
 export interface Film {
   id: number | undefined;
   slug: string;
@@ -7,6 +6,7 @@ export interface Film {
   anneeDiffusion: number;
   qualiteSousTitres: 'professionnelle' | 'amateur';
   description: string;
+  vignetteUrl: string;
   realisateurs: string;
   sousTitresIncrustes: boolean;
   sme: boolean;
@@ -15,6 +15,4 @@ export interface Film {
   lsf: boolean;
   ad: boolean;
   publie: boolean;
-  vignetteId: string | undefined;
-  vignettePosition: Position;
 }
