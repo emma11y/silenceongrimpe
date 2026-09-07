@@ -25,39 +25,7 @@
               required
             />
 
-            <validation-summary [controlModel]="titre" fieldName="titre" />
-          </div>
-        </div>
-        <div class="col">
-          <div class="group">
-            <div class="group-label-slug">
-              <label for="slug" aria-describedby="expSlug"
-                >Slug <span aria-hidden="true">*</span></label
-              >
-
-              <button
-                type="button"
-                class="generate-slug"
-                (click)="onGenerateSlug()"
-              >
-                Générer un slug
-              </button>
-            </div>
-
-            <input
-              type="text"
-              id="slug"
-              name="slug"
-              [(ngModel)]="form.slug"
-              #slug="ngModel"
-              required
-            />
-
-            <p class="small" id="expSlug">
-              Le slug permet de créer une URL spécifique.
-            </p>
-
-            <validation-summary [controlModel]="slug" fieldName="slug" />
+            <validation-summary [controlModel]="titre" fieldName="Titre" />
           </div>
         </div>
       </div>
@@ -78,7 +46,7 @@
 
             <validation-summary
               [controlModel]="description"
-              fieldName="description"
+              fieldName="Description"
             />
           </div>
         </div>
@@ -100,7 +68,7 @@
 
             <validation-summary
               [controlModel]="vignetteUrl"
-              fieldName="vignetteUrl"
+              fieldName="Lien de la vignette"
             />
           </div>
         </div>
@@ -108,9 +76,7 @@
       <div class="row">
         <div class="col">
           <div class="group">
-            <label
-              for="realisateurs"
-              aria-describedby="expRealisateurs"
+            <label for="realisateurs" aria-describedby="expRealisateurs"
               >Réalisateur.rice ou producteur.rice
               <span aria-hidden="true">*</span></label
             >
@@ -129,7 +95,7 @@
 
             <validation-summary
               [controlModel]="realisateurs"
-              fieldName="realisateurs"
+              fieldName="Réalisateur.rice ou producteur.rice"
             />
           </div>
         </div>
@@ -150,7 +116,7 @@
               required
             />
 
-            <validation-summary [controlModel]="duree" fieldName="duree" />
+            <validation-summary [controlModel]="duree" fieldName="Durée" />
           </div>
         </div>
         <div class="col">
@@ -169,7 +135,7 @@
 
             <validation-summary
               [controlModel]="anneeDiffusion"
-              fieldName="anneeDiffusion"
+              fieldName="Année de diffusion"
             />
           </div>
         </div>
@@ -209,7 +175,7 @@
 
             <validation-summary
               [controlModel]="qualiteSousTitres"
-              fieldName="qualiteSousTitres"
+              fieldName="Qualité des sous-titres"
             />
           </fieldset>
         </div>

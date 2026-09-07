@@ -196,7 +196,7 @@ export class SupabaseService {
     }
   }
 
-  getFilm(slug: string): any {
-    return this.supabase.from('films').select('*').eq('slug', slug).single();
+  getFilm(id: number): any {
+    return this.supabase.from('films').select('*').eq('id', id).single();
   }
 }

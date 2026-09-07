@@ -1,6 +1,5 @@
 export interface Film {
   id: number | undefined;
-  slug: string;
   titre: string;
   duree: number;
   anneeDiffusion: number;
