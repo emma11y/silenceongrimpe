@@ -295,6 +295,10 @@
           </div>
         </div>
       </fieldset>
+
+      <button class="action" type="submit" (click)="onClick(filmForm)">
+        {{ isUpdate ? "Modifier le film" : "Créer le film" }}
+      </button>
     </form>
   </fieldset>
 </div>

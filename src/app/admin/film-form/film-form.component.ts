@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
 import { Film } from '@shared/models/film';
 import { convertToSlug } from '@shared/utilities/string.utility';
+import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
 
 @Component({
   selector: 'app-film-form',
@@ -38,5 +39,12 @@ export class FilmFormComponent {
     }
 
     this.form.slug = convertToSlug(this.form.titre);
+  }
+
+  public onClick(form: NgForm): void {
+    if (!form.valid) {
+      markControlAsTouchedOnForm(form.form);
+      return;
+    }
   }
 }
