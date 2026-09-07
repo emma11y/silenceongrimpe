@@ -56,6 +56,26 @@
       <div class="row">
         <div class="col">
           <div class="group">
+            <label for="description">Description</label>
+            <textarea
+              rows="5"
+              id="description"
+              name="description"
+              [(ngModel)]="form.description"
+              #description="ngModel"
+              required
+            ></textarea>
+
+            <validation-summary
+              [controlModel]="description"
+              fieldName="description"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="group">
             <label for="realisateurs">Réalisateur.rice ou producteur.rice</label>
             <input
               type="text"
