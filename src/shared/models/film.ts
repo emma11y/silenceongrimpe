@@ -11,8 +11,6 @@ export interface Film {
   sousTitresIncrustes: boolean;
   sme: boolean;
   vost: boolean;
-  vf: boolean;
   lsf: boolean;
   ad: boolean;
-  publie: boolean;
 }

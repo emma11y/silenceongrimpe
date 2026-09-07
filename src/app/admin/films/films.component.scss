@@ -4,13 +4,16 @@
 .liste {
   td.titre,
   th.titre {
-    width: 40%;
+    width: 60%;
   }
 
-  td.duree,
-  th.duree,
   td.annee,
   th.annee {
     width: 5%;
+  }
+
+  td.duree,
+  th.duree {
+    width: 10%;
   }
 }
