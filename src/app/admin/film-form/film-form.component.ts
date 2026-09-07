@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
 import { Film } from '@shared/models/film';
+import { convertToSlug } from '@shared/utilities/string.utility';
 
 @Component({
   selector: 'app-film-form',
@@ -32,6 +33,10 @@ export class FilmFormComponent {
   }
 
   public onGenerateSlug() {
-    //this.form.slug = convertToSlug(this.form.titre);
+    if (!this.form.titre) {
+      return;
+    }
+
+    this.form.slug = convertToSlug(this.form.titre);
   }
 }

@@ -22,6 +22,36 @@
             <validation-summary [controlModel]="titre" fieldName="titre" />
           </div>
         </div>
+        <div class="col">
+          <div class="group">
+            <div class="group-label-slug">
+              <label for="slug" aria-describedby="expSlug">Slug</label>
+
+              <button
+                type="button"
+                class="generate-slug"
+                (click)="onGenerateSlug()"
+              >
+                Générer un slug
+              </button>
+            </div>
+
+            <input
+              type="text"
+              id="slug"
+              name="slug"
+              [(ngModel)]="form.slug"
+              #slug="ngModel"
+              required
+            />
+
+            <p class="small" id="expSlug">
+              Le slug permet de créer une URL spécifique.
+            </p>
+
+            <validation-summary [controlModel]="slug" fieldName="slug" />
+          </div>
+        </div>
       </div>
     </form>
   </fieldset>
