@@ -1,1 +1,32 @@
 @use "form.scss";
+@use "variables" as vars;
+
+.form-component {
+  .small {
+    margin: 0;
+    margin-top: 0.5em;
+    font-size: 80%;
+  }
+
+  .group:has(input[type="checkbox"]) {
+    flex-direction: row;
+    border: 0.15em solid var(--bleu-ocean);
+    border-radius: 0.25em;
+    width: calc(50% - 2em);
+    padding: 0.5em;
+
+    &:has(:focus-visible),
+    &:has(:hover) {
+      border-color: var(--orange);
+    }
+
+    @media screen and (max-width: vars.$md) {
+      width: calc(100% - 2em);
+    }
+  }
+
+  input[type="checkbox"] {
+    margin-right: 0.5em;
+    font-size: 1.5em;
+  }
+}
