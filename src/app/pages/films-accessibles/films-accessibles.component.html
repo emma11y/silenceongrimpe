@@ -1,0 +1,217 @@
+<div class="films">
+  <div class="width">
+    <h1>Liste des des films accessibles</h1>
+    <p>
+      Avez-vous envie de savoir si un film de montagne, d'aventure ou de voyages
+      est sous-titré ? Vous cherchez une idée de film sous-titré pour votre
+      festival ? Jetez vite un coup d'oeil à la liste.
+    </p>
+  </div>
+
+  <div class="search">
+    <fieldset class="width">
+      <legend><h2>Rechercher un film</h2></legend>
+
+      <form role="form" #searchForm="ngForm" (ngSubmit)="onSearch()">
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <label for="titre">Titre du film</label>
+              <input
+                type="text"
+                id="titre"
+                name="titre"
+                [(ngModel)]="filters.titre"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <fieldset class="radio-group">
+              <legend>Qualité des sous-titres</legend>
+
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="qualiteSousTitresProfessionnelle"
+                  name="qualiteSousTitres"
+                  value="professionnelle"
+                  [(ngModel)]="filters.qualiteSousTitres"
+                />
+                <label for="qualiteSousTitresProfessionnelle"
+                  >Professionnelle</label
+                >
+              </div>
+
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="qualiteSousTitresAmateur"
+                  name="qualiteSousTitres"
+                  value="amateur"
+                  [(ngModel)]="filters.qualiteSousTitres"
+                />
+                <label for="qualiteSousTitresAmateur">Amateur</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <fieldset class="checkbox-group">
+          <legend>Critères d'accessibilité</legend>
+
+          <div class="row">
+            <div class="col">
+              <div class="group">
+                <input
+                  type="checkbox"
+                  id="sousTitresIncrustes"
+                  name="sousTitresIncrustes"
+                  [(ngModel)]="filters.sousTitresIncrustes"
+                  (keyup.Enter)="
+                    filters.sousTitresIncrustes = !filters.sousTitresIncrustes
+                  "
+                />
+                <label for="sousTitresIncrustes"
+                  >Afficher uniquement des films avec des sous-titres
+                  incrustés</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="group">
+                <input
+                  type="checkbox"
+                  id="lsf"
+                  name="lsf"
+                  [(ngModel)]="filters.lsf"
+                  (keyup.Enter)="filters.lsf = !filters.lsf"
+                />
+                <label for="lsf">Langue des Signes Française (LSF)</label>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="group">
+                <input
+                  type="checkbox"
+                  id="ad"
+                  name="ad"
+                  [(ngModel)]="filters.ad"
+                  (keyup.Enter)="filters.ad = !filters.ad"
+                />
+                <label for="ad">Audiodescription (AD)</label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <label for="dureeMax">Durée max du film (en minutes)</label>
+              <input
+                type="number"
+                id="dureeMax"
+                name="dureeMax"
+                min="0"
+                [(ngModel)]="filters.dureeMax"
+              />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="group">
+              <label for="anneeDiffusion">Année de diffusion</label>
+              <input
+                type="number"
+                id="anneeDiffusion"
+                name="anneeDiffusion"
+                [(ngModel)]="filters.anneeDiffusion"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <label for="realisateurs"
+                >Réalisateur/ Réalisatrice / Producteur / Productrice</label
+              >
+              <input
+                type="text"
+                id="realisateurs"
+                name="realisateurs"
+                [(ngModel)]="filters.realisateurs"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button class="action" type="submit">Lancer la recherche</button>
+      </form>
+    </fieldset>
+  </div>
+
+  <div class="encart">
+    <div class="width">
+      <p>
+        Vous avez un film sous-titré dans notre thématique (montagne, aventure,
+        voyages) ?
+      </p>
+      <p>
+        N'hésitez pas à remplir notre formulaire pour lui donner de la
+        visibilité.
+      </p>
+    </div>
+
+    <div class="toc">
+      <a routerLink="/films-accessibles/ajout">Ajouter un film</a>
+    </div>
+  </div>
+
+  <div class="result width">
+    <h2>Films</h2>
+
+    <div role="list">
+      @for (film of filteredFilms; track film.id) {
+        <div role="listitem" class="card">
+          <div class="picture">
+            <img
+              [src]="film.vignetteUrl"
+              [alt]="'Affiche du film ' + film.titre"
+            />
+          </div>
+          <div class="body">
+            <p class="title">
+              {{ film.titre }} | {{ film.duree }}min | {{ film.anneeDiffusion }}
+            </p>
+            <p class="realisateurs">{{ film.realisateurs }}</p>
+
+            <ul class="tags">
+              @for (tag of filmTags(film); track tag) {
+                <li>{{ tag }}</li>
+              }
+            </ul>
+
+            <p class="description">{{ film.description }}</p>
+
+            @if (film.lienVisionnage) {
+              <a class="action" [href]="film.lienVisionnage" target="_blank"
+                >Voir plus</a
+              >
+            }
+          </div>
+        </div>
+      } @empty {
+        <p>Aucun film ne correspond à votre recherche.</p>
+      }
+    </div>
+  </div>
+</div>

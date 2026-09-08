@@ -12,6 +12,7 @@ import { ActualiteBySlugResolver } from '@core/resolvers/actualite-by-slug.resol
 import { ErrorComponent } from './pages/error/error.component';
 import { ActualitesALaUneResolver } from '@core/resolvers/actualites-a-la-une.resolver';
 import { PlanSiteComponent } from './pages/plan-site/plan-site.component';
+import { FilmsAccessiblesResolver } from '@core/resolvers/films-accessibles-resolver';
 
 export const routes: Routes = [
   {
@@ -125,6 +126,42 @@ export const routes: Routes = [
               import('./pages/agenda/agenda.component').then(
                 (m) => m.AgendaComponent,
               ),
+          },
+          {
+            path: 'films-accessibles',
+            children: [
+              {
+                path: '',
+                data: {
+                  metadata: {
+                    title: 'Films accessibles',
+                    description:
+                      'Liste des films accessibles pour les festivals de montagne',
+                  },
+                },
+                resolve: {
+                  items: FilmsAccessiblesResolver,
+                },
+                loadComponent: () =>
+                  import('./pages/films-accessibles/films-accessibles.component').then(
+                    (m) => m.FilmsAccessiblesComponent,
+                  ),
+              },
+              {
+                path: 'ajout',
+                data: {
+                  metadata: {
+                    title: 'Ajouter un film accessible',
+                    description:
+                      'Ajouter un film accessible à notre liste de films accessibles',
+                  },
+                },
+                loadComponent: () =>
+                  import('./pages/films-accessibles/ajout-film-accessible/ajout-film-accessible.component').then(
+                    (m) => m.AjoutFilmAccessibleComponent,
+                  ),
+              },
+            ],
           },
 
           {
