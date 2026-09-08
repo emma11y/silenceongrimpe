@@ -110,6 +110,10 @@
     .search-actions {
       justify-content: center;
       gap: 1em;
+
+      .action {
+        margin: 0;
+      }
     }
   }
 
