@@ -36,11 +36,13 @@ export class AjoutFilmAccessibleComponent {
           anneeDiffusion: this.form.anneeDiffusion,
           lienVisionnage: this.form.lienVisionnage,
           qualiteSousTitres: this.form.qualiteSousTitres,
-          sousTitresIncrustes: this.form.sousTitresIncrustes,
-          sme: this.form.sme,
-          vost: this.form.vost,
-          lsf: this.form.lsf,
-          ad: this.form.ad,
+          sousTitresIncrustes: this.formatBoolean(
+            this.form.sousTitresIncrustes
+          ),
+          sme: this.formatBoolean(this.form.sme),
+          vost: this.formatBoolean(this.form.vost),
+          lsf: this.formatBoolean(this.form.lsf),
+          ad: this.formatBoolean(this.form.ad),
         },
         'LVwSjhpUHzlOdDoLg'
       )
@@ -60,5 +62,9 @@ export class AjoutFilmAccessibleComponent {
           );
         }
       );
+  }
+
+  private formatBoolean(value: boolean | undefined): string {
+    return value ? 'Oui' : 'Non';
   }
 }
