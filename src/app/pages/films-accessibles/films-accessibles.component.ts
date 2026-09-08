@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Film } from '@shared/models/film';
@@ -31,6 +31,8 @@ export class FilmsAccessiblesComponent {
   };
 
   private route: ActivatedRoute = inject(ActivatedRoute);
+
+  @ViewChild('results', { static: true }) private resultsSection!: ElementRef<HTMLElement>;
 
   films: Film[] = [];
   filteredFilms: Film[] = [];
@@ -77,6 +79,13 @@ export class FilmsAccessiblesComponent {
       return true;
     });
     this.hasSearched = true;
+    this.scrollToResults();
+  }
+
+  private scrollToResults(): void {
+    const el = this.resultsSection.nativeElement;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.focus();
   }
 
   resetSearch(form: NgForm): void {
