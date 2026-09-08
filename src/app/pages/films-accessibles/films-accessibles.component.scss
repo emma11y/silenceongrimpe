@@ -169,14 +169,14 @@
       flex-shrink: 0;
       width: 200px;
 
+      @media screen and (max-width: vars.$md) {
+        justify-self: center;
+      }
+
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-
-        @media screen and (max-width: vars.$md) {
-          height: 200px;
-        }
       }
     }
 
@@ -229,6 +229,36 @@
       &:hover,
       &:focus-visible {
         background-color: var(--orange);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1em;
+      margin-top: 2em;
+
+      ul {
+        display: flex;
+        list-style: none;
+        gap: 0.5em;
+        margin: 0;
+        padding: 0;
+      }
+
+      .action {
+        margin-top: 0;
+
+        &.current {
+          background-color: var(--bleu-ocean);
+          color: var(--blanc);
+        }
       }
     }
   }

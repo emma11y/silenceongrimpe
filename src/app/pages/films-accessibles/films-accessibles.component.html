@@ -189,8 +189,10 @@
   <div class="result width" #results tabindex="-1">
     <h2>Films</h2>
 
+    <p>{{ pagedFilms.length }} films</p>
+
     <div role="list">
-      @for (film of filteredFilms; track film.id) {
+      @for (film of pagedFilms; track film.id) {
         <div role="listitem" class="card">
           <div class="picture">
             <img
@@ -199,9 +201,9 @@
             />
           </div>
           <div class="body">
-            <p class="title">
+            <h3 class="title">
               {{ film.titre }} | {{ film.duree }}min | {{ film.anneeDiffusion }}
-            </p>
+            </h3>
             <p class="realisateurs">
               {{ formatRealisateurs(film.realisateurs) }}
             </p>
@@ -238,5 +240,44 @@
         <p>Aucun film ne correspond à votre recherche.</p>
       }
     </div>
+
+    @if (totalPages > 1) {
+      <nav class="pagination" aria-label="Pagination des films">
+        <button
+          type="button"
+          class="action"
+          [disabled]="currentPage === 1"
+          (click)="goToPage(currentPage - 1)"
+        >
+          Page précédente
+        </button>
+
+        <ul>
+          @for (page of pageNumbers; track page) {
+            <li>
+              <button
+                type="button"
+                class="action"
+                [class.current]="page === currentPage"
+                [attr.aria-current]="page === currentPage ? 'page' : null"
+                [attr.aria-label]="'Page ' + page"
+                (click)="goToPage(page)"
+              >
+                {{ page }}
+              </button>
+            </li>
+          }
+        </ul>
+
+        <button
+          type="button"
+          class="action"
+          [disabled]="currentPage === totalPages"
+          (click)="goToPage(currentPage + 1)"
+        >
+          Page suivante
+        </button>
+      </nav>
+    }
   </div>
 </div>

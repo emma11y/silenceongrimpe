@@ -22,6 +22,7 @@ interface FilmsSearchFilters {
 })
 export class FilmsAccessiblesComponent {
   private static readonly DESCRIPTION_LIMIT = 200;
+  private static readonly PAGE_SIZE = 10;
   private static readonly DEFAULT_FILTERS: FilmsSearchFilters = {
     titre: '',
     sousTitresIncrustes: false,
@@ -37,6 +38,7 @@ export class FilmsAccessiblesComponent {
   films: Film[] = [];
   filteredFilms: Film[] = [];
   hasSearched = false;
+  currentPage = 1;
   private expandedDescriptions = new Set<number>();
 
   filters: FilmsSearchFilters = { ...FilmsAccessiblesComponent.DEFAULT_FILTERS };
@@ -79,6 +81,28 @@ export class FilmsAccessiblesComponent {
       return true;
     });
     this.hasSearched = true;
+    this.currentPage = 1;
+    this.scrollToResults();
+  }
+
+  get totalPages(): number {
+    return Math.max(1, Math.ceil(this.filteredFilms.length / FilmsAccessiblesComponent.PAGE_SIZE));
+  }
+
+  get pageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  get pagedFilms(): Film[] {
+    const start = (this.currentPage - 1) * FilmsAccessiblesComponent.PAGE_SIZE;
+    return this.filteredFilms.slice(start, start + FilmsAccessiblesComponent.PAGE_SIZE);
+  }
+
+  goToPage(page: number): void {
+    if (page < 1 || page > this.totalPages || page === this.currentPage) {
+      return;
+    }
+    this.currentPage = page;
     this.scrollToResults();
   }
 
@@ -92,6 +116,7 @@ export class FilmsAccessiblesComponent {
     form.resetForm({ ...FilmsAccessiblesComponent.DEFAULT_FILTERS });
     this.filteredFilms = this.films;
     this.hasSearched = false;
+    this.currentPage = 1;
   }
 
   filmTags(film: Film): string[] {
