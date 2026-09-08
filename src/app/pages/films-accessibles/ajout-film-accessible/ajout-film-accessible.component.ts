@@ -67,6 +67,7 @@ export class AjoutFilmAccessibleComponent {
           vost: this.formatBoolean(this.form.vost),
           lsf: this.formatBoolean(this.form.lsf),
           ad: this.formatBoolean(this.form.ad),
+          adminLink: this.buildAdminLink(),
         },
         'LVwSjhpUHzlOdDoLg'
       )
@@ -105,5 +106,31 @@ export class AjoutFilmAccessibleComponent {
 
   private formatBoolean(value: boolean | undefined): string {
     return value ? 'Oui' : 'Non';
+  }
+
+  private buildAdminLink(): string {
+    const params = new URLSearchParams();
+
+    const setIfDefined = (key: string, value: unknown) => {
+      if (value !== undefined && value !== null && value !== '') {
+        params.set(key, String(value));
+      }
+    };
+
+    setIfDefined('titre', this.form.titre);
+    setIfDefined('description', this.form.description);
+    setIfDefined('vignetteUrl', this.form.vignetteUrl);
+    setIfDefined('realisateurs', this.form.realisateurs);
+    setIfDefined('duree', this.form.duree);
+    setIfDefined('anneeDiffusion', this.form.anneeDiffusion);
+    setIfDefined('lienVisionnage', this.form.lienVisionnage);
+    setIfDefined('qualiteSousTitres', this.form.qualiteSousTitres);
+    setIfDefined('sousTitresIncrustes', this.form.sousTitresIncrustes);
+    setIfDefined('sme', this.form.sme);
+    setIfDefined('vost', this.form.vost);
+    setIfDefined('lsf', this.form.lsf);
+    setIfDefined('ad', this.form.ad);
+
+    return `${window.location.origin}/admin/film?${params.toString()}`;
   }
 }

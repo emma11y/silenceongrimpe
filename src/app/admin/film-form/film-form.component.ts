@@ -32,8 +32,36 @@ export class FilmFormComponent {
           this.isUpdate = true;
           this.form = film as Film;
         }
+      } else {
+        this.form = this.filmFromQueryParams(this.route.snapshot.queryParams);
       }
     });
+  }
+
+  private filmFromQueryParams(
+    queryParams: Record<string, string>
+  ): Partial<Film> {
+    const toBoolean = (value: string | undefined) => value === 'true';
+    const toNumber = (value: string | undefined) =>
+      value ? Number(value) : undefined;
+
+    return {
+      titre: queryParams['titre'],
+      description: queryParams['description'],
+      vignetteUrl: queryParams['vignetteUrl'],
+      realisateurs: queryParams['realisateurs'],
+      duree: toNumber(queryParams['duree']) as number,
+      anneeDiffusion: toNumber(queryParams['anneeDiffusion']) as number,
+      lienVisionnage: queryParams['lienVisionnage'],
+      qualiteSousTitres: queryParams['qualiteSousTitres'] as
+        | 'professionnelle'
+        | 'amateur',
+      sousTitresIncrustes: toBoolean(queryParams['sousTitresIncrustes']),
+      sme: toBoolean(queryParams['sme']),
+      vost: toBoolean(queryParams['vost']),
+      lsf: toBoolean(queryParams['lsf']),
+      ad: toBoolean(queryParams['ad']),
+    };
   }
 
   public async onClick(form: NgForm): Promise<void> {
