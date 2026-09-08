@@ -39,4 +39,9 @@
   .radio-option label {
     font-size: 1.15em;
   }
+
+  .error {
+    margin: 0.5em 0;
+    color: var(--erreur);
+  }
 }

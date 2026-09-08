@@ -277,6 +277,40 @@
         </div>
       </fieldset>
 
+      <div class="row">
+        <div class="col">
+          <div class="group">
+            <label for="captcha"
+              >Combien font {{ number1 }} + {{ number2 }} ?
+              <span aria-hidden="true">*</span></label
+            >
+            <input
+              type="tel"
+              id="captcha"
+              name="captcha"
+              [(ngModel)]="captcha"
+              #captchaModel="ngModel"
+              required
+              aria-describedby="expCaptcha"
+            />
+
+            <p class="small" id="expCaptcha">
+              Il s'agit d'un captcha basé sur une opération mathématique
+              requise pour la validation du formulaire.
+            </p>
+
+            @if (!isCaptchaValid() && captcha) {
+              <p class="error">Le captcha est incorrect. Veuillez réessayer.</p>
+            }
+
+            <validation-summary
+              [controlModel]="captchaModel"
+              fieldName="Captcha"
+            />
+          </div>
+        </div>
+      </div>
+
       <button class="action" type="submit" (click)="onSubmit(filmForm)">
         Proposer ce film
       </button>

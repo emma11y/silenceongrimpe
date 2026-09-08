@@ -17,9 +17,26 @@ export class AjoutFilmAccessibleComponent {
 
   form: Partial<Film> = {};
 
+  public number1: number = this.getRandomInt(1, 10);
+  public number2: number = this.getRandomInt(1, 10);
+  public captcha: string | undefined;
+
   public async onSubmit(form: NgForm): Promise<void> {
-    if (!form.valid) {
+    if (!form.valid || !this.isCaptchaValid()) {
       markControlAsTouchedOnForm(form.form);
+
+      if (this.captcha) {
+        this.captcha = '';
+      }
+
+      this.number1 = this.getRandomInt(1, 10);
+      this.number2 = this.getRandomInt(1, 10);
+
+      this.alertService.showAlert(
+        'error',
+        'Vous devez renseigner les champs obligatoires.'
+      );
+
       return;
     }
 
@@ -50,6 +67,8 @@ export class AjoutFilmAccessibleComponent {
         () => {
           form.resetForm();
           this.form = {};
+          this.number1 = this.getRandomInt(1, 10);
+          this.number2 = this.getRandomInt(1, 10);
           this.alertService.showAlert(
             'success',
             'Votre proposition de film a bien été envoyée, merci !'
@@ -62,6 +81,19 @@ export class AjoutFilmAccessibleComponent {
           );
         }
       );
+  }
+
+  public isCaptchaValid(): boolean {
+    if (this.captcha) {
+      const expectedSum = this.number1 + this.number2;
+      return Number.parseInt(this.captcha) === expectedSum;
+    }
+
+    return false;
+  }
+
+  public getRandomInt(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 
   private formatBoolean(value: boolean | undefined): string {
