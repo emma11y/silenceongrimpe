@@ -31,6 +31,7 @@
               [(ngModel)]="form.titre"
               #titre="ngModel"
               required
+              [attr.aria-invalid]="titre.invalid"
             />
 
             <validation-summary [controlModel]="titre" fieldName="Titre" />
@@ -50,6 +51,7 @@
               [(ngModel)]="form.description"
               #description="ngModel"
               required
+              [attr.aria-invalid]="description.invalid"
             ></textarea>
 
             <validation-summary
@@ -62,7 +64,7 @@
       <div class="row">
         <div class="col">
           <div class="group">
-            <label for="vignetteUrl" aria-describedby="expVignetteUrl"
+            <label for="vignetteUrl"
               >Lien de l'affiche <span aria-hidden="true">*</span></label
             >
             <input
@@ -73,6 +75,8 @@
               #vignetteUrl="ngModel"
               required
               [pattern]="vignetteUrlRegex"
+              aria-describedby="expVignetteUrl"
+              [attr.aria-invalid]="vignetteUrl.invalid"
             />
 
             <p class="small" id="expVignetteUrl">
@@ -92,7 +96,7 @@
       <div class="row">
         <div class="col">
           <div class="group">
-            <label for="realisateurs" aria-describedby="expRealisateurs"
+            <label for="realisateurs"
               >Réalisateur.rice ou producteur.rice
               <span aria-hidden="true">*</span></label
             >
@@ -103,6 +107,8 @@
               [(ngModel)]="form.realisateurs"
               #realisateurs="ngModel"
               required
+              aria-describedby="expRealisateurs"
+              [attr.aria-invalid]="realisateurs.invalid"
             />
 
             <p class="small" id="expRealisateurs">
@@ -130,6 +136,7 @@
               [(ngModel)]="form.duree"
               #duree="ngModel"
               required
+              [attr.aria-invalid]="duree.invalid"
             />
 
             <validation-summary [controlModel]="duree" fieldName="Durée" />
@@ -147,6 +154,7 @@
               [(ngModel)]="form.anneeDiffusion"
               #anneeDiffusion="ngModel"
               required
+              [attr.aria-invalid]="anneeDiffusion.invalid"
             />
 
             <validation-summary
@@ -159,9 +167,7 @@
       <div class="row">
         <div class="col">
           <div class="group">
-            <label
-              for="lienVisionnage"
-              aria-describedby="expLienVisionnage"
+            <label for="lienVisionnage"
               >Lien du teaser ou de visionnage</label
             >
             <input
@@ -171,6 +177,8 @@
               [(ngModel)]="form.lienVisionnage"
               #lienVisionnage="ngModel"
               [pattern]="lienVisionnageRegex"
+              aria-describedby="expLienVisionnage"
+              [attr.aria-invalid]="lienVisionnage.invalid"
             />
 
             <p class="small" id="expLienVisionnage">
@@ -200,6 +208,7 @@
                 [(ngModel)]="form.qualiteSousTitres"
                 #qualiteSousTitres="ngModel"
                 required
+                [attr.aria-invalid]="qualiteSousTitres.invalid"
               />
               <label for="qualiteSousTitresProfessionnelle"
                 >Professionnelle</label
@@ -213,6 +222,7 @@
                 name="qualiteSousTitres"
                 value="amateur"
                 [(ngModel)]="form.qualiteSousTitres"
+                [attr.aria-invalid]="qualiteSousTitres.invalid"
               />
               <label for="qualiteSousTitresAmateur">Amateur</label>
             </div>
@@ -323,6 +333,7 @@
               #captchaModel="ngModel"
               required
               aria-describedby="expCaptcha"
+              [attr.aria-invalid]="captchaModel.invalid"
             />
 
             <p class="small" id="expCaptcha">
