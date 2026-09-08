@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import emailjs from 'emailjs-com';
 import { AlertService } from '@core/services/alert.service';
@@ -8,7 +9,7 @@ import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
 
 @Component({
   selector: 'app-ajout-film-accessible',
-  imports: [FormsModule, ValidationSummaryComponent],
+  imports: [RouterLink, FormsModule, ValidationSummaryComponent],
   templateUrl: './ajout-film-accessible.component.html',
   styleUrl: './ajout-film-accessible.component.scss',
 })
