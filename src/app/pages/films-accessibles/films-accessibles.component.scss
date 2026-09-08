@@ -26,6 +26,7 @@
     fieldset {
       border: none;
       padding: 0;
+      margin-top: 0;
       margin-bottom: 0;
 
       h2 {
@@ -95,6 +96,20 @@
       &:focus-visible {
         background-color: var(--orange);
       }
+
+      &.secondary {
+        background-color: transparent;
+
+        &:hover,
+        &:focus-visible {
+          background-color: var(--orange);
+        }
+      }
+    }
+
+    .search-actions {
+      justify-content: center;
+      gap: 1em;
     }
   }
 
@@ -111,6 +126,14 @@
       border: 0.15em solid var(--bleu-ocean);
       border-radius: 0.25em;
       overflow: hidden;
+
+      .tags li {
+        padding: 0.5em 1em;
+        border-radius: 0.5em;
+        span {
+          vertical-align: sub;
+        }
+      }
 
       &:nth-child(odd) {
         background-color: var(--bleu-pastel);
@@ -130,8 +153,6 @@
         .tags li {
           background-color: var(--bleu-pastel);
           color: var(--bleu-ocean);
-          padding: 0.5em 1em;
-          border-radius: 0.5em;
         }
       }
 
@@ -192,6 +213,7 @@
     .action {
       display: inline-block;
       margin-top: 1em;
+      font-size: 1em;
       background-color: var(--jaune-pale);
       color: var(--bleu-ocean);
       border: 0.1em solid var(--bleu-ocean);

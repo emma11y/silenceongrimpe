@@ -154,26 +154,18 @@
           </div>
         </div>
 
-        <button class="action" type="submit">Lancer la recherche</button>
+        <div class="row search-actions">
+          <button class="action" type="submit">Lancer la recherche</button>
+          <button
+            class="action secondary"
+            type="button"
+            (click)="resetSearch(searchForm)"
+          >
+            Effacer la recherche
+          </button>
+        </div>
       </form>
     </fieldset>
-  </div>
-
-  <div class="encart">
-    <div class="width">
-      <p>
-        Vous avez un film sous-titré dans notre thématique (montagne, aventure,
-        voyages) ?
-      </p>
-      <p>
-        N'hésitez pas à remplir notre formulaire pour lui donner de la
-        visibilité.
-      </p>
-    </div>
-
-    <div class="toc">
-      <a routerLink="/films-accessibles/ajout">Ajouter un film</a>
-    </div>
   </div>
 
   <div class="result width">
@@ -192,7 +184,9 @@
             <p class="title">
               {{ film.titre }} | {{ film.duree }}min | {{ film.anneeDiffusion }}
             </p>
-            <p class="realisateurs">{{ formatRealisateurs(film.realisateurs) }}</p>
+            <p class="realisateurs">
+              {{ formatRealisateurs(film.realisateurs) }}
+            </p>
 
             <ul class="tags">
               @for (tag of filmTags(film); track tag) {
@@ -215,6 +209,9 @@
                 (click)="toggleDescription(film)"
               >
                 {{ isExpanded(film) ? "Voir moins" : "Voir plus" }}
+                <span class="sr-only"
+                  >&nbsp; la description du film {{ film.titre }}</span
+                >
               </button>
             }
           </div>
@@ -222,6 +219,22 @@
       } @empty {
         <p>Aucun film ne correspond à votre recherche.</p>
       }
+    </div>
+  </div>
+  <div class="encart">
+    <div class="width">
+      <p>
+        Vous avez un film sous-titré dans notre thématique (montagne, aventure,
+        voyages) ?
+      </p>
+      <p>
+        N'hésitez pas à remplir notre formulaire pour lui donner de la
+        visibilité.
+      </p>
+    </div>
+
+    <div class="toc">
+      <a routerLink="/films-accessibles/ajout">Ajouter un film</a>
     </div>
   </div>
 </div>

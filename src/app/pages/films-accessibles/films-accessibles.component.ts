@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Film } from '@shared/models/film';
 
@@ -22,6 +22,13 @@ interface FilmsSearchFilters {
 })
 export class FilmsAccessiblesComponent {
   private static readonly DESCRIPTION_LIMIT = 200;
+  private static readonly DEFAULT_FILTERS: FilmsSearchFilters = {
+    titre: '',
+    sousTitresIncrustes: false,
+    lsf: false,
+    ad: false,
+    realisateurs: '',
+  };
 
   private route: ActivatedRoute = inject(ActivatedRoute);
 
@@ -29,13 +36,7 @@ export class FilmsAccessiblesComponent {
   filteredFilms: Film[] = [];
   private expandedDescriptions = new Set<number>();
 
-  filters: FilmsSearchFilters = {
-    titre: '',
-    sousTitresIncrustes: false,
-    lsf: false,
-    ad: false,
-    realisateurs: '',
-  };
+  filters: FilmsSearchFilters = { ...FilmsAccessiblesComponent.DEFAULT_FILTERS };
 
   constructor() {
     this.films = this.route.snapshot.data['films'] as Film[];
@@ -74,6 +75,11 @@ export class FilmsAccessiblesComponent {
       }
       return true;
     });
+  }
+
+  resetSearch(form: NgForm): void {
+    form.resetForm({ ...FilmsAccessiblesComponent.DEFAULT_FILTERS });
+    this.filteredFilms = this.films;
   }
 
   filmTags(film: Film): string[] {
