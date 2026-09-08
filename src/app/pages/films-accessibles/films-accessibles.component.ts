@@ -108,6 +108,13 @@ export class FilmsAccessiblesComponent {
     }
   }
 
+  formatRealisateurs(realisateurs: string): string {
+    return realisateurs
+      .split(';')
+      .map((r) => r.trim())
+      .join(' | ');
+  }
+
   truncatedDescription(film: Film): string {
     if (!this.isDescriptionLong(film) || this.isExpanded(film)) {
       return film.description;

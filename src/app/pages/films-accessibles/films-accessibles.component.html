@@ -192,11 +192,13 @@
             <p class="title">
               {{ film.titre }} | {{ film.duree }}min | {{ film.anneeDiffusion }}
             </p>
-            <p class="realisateurs">{{ film.realisateurs }}</p>
+            <p class="realisateurs">{{ formatRealisateurs(film.realisateurs) }}</p>
 
             <ul class="tags">
               @for (tag of filmTags(film); track tag) {
-                <li>{{ tag }}</li>
+                <li>
+                  <span>{{ tag }}</span>
+                </li>
               }
             </ul>
 
