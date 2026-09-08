@@ -21,10 +21,13 @@ interface FilmsSearchFilters {
   styleUrl: './films-accessibles.component.scss',
 })
 export class FilmsAccessiblesComponent {
+  private static readonly DESCRIPTION_LIMIT = 200;
+
   private route: ActivatedRoute = inject(ActivatedRoute);
 
   films: Film[] = [];
   filteredFilms: Film[] = [];
+  private expandedDescriptions = new Set<number>();
 
   filters: FilmsSearchFilters = {
     titre: '',
@@ -87,5 +90,30 @@ export class FilmsAccessiblesComponent {
       tags.push('AD');
     }
     return tags;
+  }
+
+  isDescriptionLong(film: Film): boolean {
+    return film.description.length > FilmsAccessiblesComponent.DESCRIPTION_LIMIT;
+  }
+
+  isExpanded(film: Film): boolean {
+    return this.expandedDescriptions.has(film.id!);
+  }
+
+  toggleDescription(film: Film): void {
+    if (this.expandedDescriptions.has(film.id!)) {
+      this.expandedDescriptions.delete(film.id!);
+    } else {
+      this.expandedDescriptions.add(film.id!);
+    }
+  }
+
+  truncatedDescription(film: Film): string {
+    if (!this.isDescriptionLong(film) || this.isExpanded(film)) {
+      return film.description;
+    }
+    return (
+      film.description.slice(0, FilmsAccessiblesComponent.DESCRIPTION_LIMIT).trimEnd() + '…'
+    );
   }
 }

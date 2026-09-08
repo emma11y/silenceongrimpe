@@ -200,12 +200,20 @@
               }
             </ul>
 
-            <p class="description">{{ film.description }}</p>
+            <p class="description" [id]="'description-' + film.id">
+              {{ truncatedDescription(film) }}
+            </p>
 
-            @if (film.lienVisionnage) {
-              <a class="action" [href]="film.lienVisionnage" target="_blank"
-                >Voir plus</a
+            @if (isDescriptionLong(film)) {
+              <button
+                type="button"
+                class="action"
+                [attr.aria-expanded]="isExpanded(film)"
+                [attr.aria-controls]="'description-' + film.id"
+                (click)="toggleDescription(film)"
               >
+                {{ isExpanded(film) ? "Voir moins" : "Voir plus" }}
+              </button>
             }
           </div>
         </div>
