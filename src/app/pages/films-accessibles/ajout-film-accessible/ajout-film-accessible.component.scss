@@ -2,6 +2,10 @@
 @use "variables" as vars;
 
 .form-component {
+  i {
+    margin-right: 0.5em;
+  }
+
   .mandatory-note {
     font-size: 90%;
     text-align: center;
