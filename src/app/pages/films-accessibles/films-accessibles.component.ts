@@ -34,6 +34,7 @@ export class FilmsAccessiblesComponent {
 
   films: Film[] = [];
   filteredFilms: Film[] = [];
+  hasSearched = false;
   private expandedDescriptions = new Set<number>();
 
   filters: FilmsSearchFilters = { ...FilmsAccessiblesComponent.DEFAULT_FILTERS };
@@ -75,11 +76,13 @@ export class FilmsAccessiblesComponent {
       }
       return true;
     });
+    this.hasSearched = true;
   }
 
   resetSearch(form: NgForm): void {
     form.resetForm({ ...FilmsAccessiblesComponent.DEFAULT_FILTERS });
     this.filteredFilms = this.films;
+    this.hasSearched = false;
   }
 
   filmTags(film: Film): string[] {

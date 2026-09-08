@@ -7,6 +7,22 @@
       festival ? Jetez vite un coup d'oeil à la liste.
     </p>
   </div>
+  <div class="encart">
+    <div class="width">
+      <p>
+        Vous avez un film sous-titré dans notre thématique (montagne, aventure,
+        voyages) ?
+      </p>
+      <p>
+        N'hésitez pas à remplir notre formulaire pour lui donner de la
+        visibilité.
+      </p>
+    </div>
+
+    <div class="toc">
+      <a routerLink="/films-accessibles/ajout">Ajouter un film</a>
+    </div>
+  </div>
 
   <div class="search">
     <fieldset class="width">
@@ -156,13 +172,15 @@
 
         <div class="row search-actions">
           <button class="action" type="submit">Lancer la recherche</button>
-          <button
-            class="action secondary"
-            type="button"
-            (click)="resetSearch(searchForm)"
-          >
-            Effacer la recherche
-          </button>
+          @if (hasSearched) {
+            <button
+              class="action secondary"
+              type="button"
+              (click)="resetSearch(searchForm)"
+            >
+              Effacer la recherche
+            </button>
+          }
         </div>
       </form>
     </fieldset>
@@ -219,22 +237,6 @@
       } @empty {
         <p>Aucun film ne correspond à votre recherche.</p>
       }
-    </div>
-  </div>
-  <div class="encart">
-    <div class="width">
-      <p>
-        Vous avez un film sous-titré dans notre thématique (montagne, aventure,
-        voyages) ?
-      </p>
-      <p>
-        N'hésitez pas à remplir notre formulaire pour lui donner de la
-        visibilité.
-      </p>
-    </div>
-
-    <div class="toc">
-      <a routerLink="/films-accessibles/ajout">Ajouter un film</a>
     </div>
   </div>
 </div>
