@@ -20,8 +20,13 @@ export class AjoutFilmAccessibleComponent {
   public number1: number = this.getRandomInt(1, 10);
   public number2: number = this.getRandomInt(1, 10);
   public captcha: string | undefined;
+  public siteWeb: string | undefined;
 
   public async onSubmit(form: NgForm): Promise<void> {
+    if (this.siteWeb) {
+      return;
+    }
+
     if (!form.valid || !this.isCaptchaValid()) {
       markControlAsTouchedOnForm(form.form);
 

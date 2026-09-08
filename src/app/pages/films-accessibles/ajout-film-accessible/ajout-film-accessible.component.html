@@ -6,6 +6,18 @@
       sont obligatoires.
     </p>
     <form role="form" #filmForm="ngForm">
+      <div class="honeypot" aria-hidden="true">
+        <label for="siteWeb">Site web</label>
+        <input
+          type="text"
+          id="siteWeb"
+          name="siteWeb"
+          [(ngModel)]="siteWeb"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+
       <div class="row">
         <div class="col">
           <div class="group">
