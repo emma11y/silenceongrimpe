@@ -33,7 +33,8 @@ export class FilmsAccessiblesComponent {
 
   private route: ActivatedRoute = inject(ActivatedRoute);
 
-  @ViewChild('results', { static: true }) private resultsSection!: ElementRef<HTMLElement>;
+  @ViewChild('results', { static: true })
+  private resultsSection!: ElementRef<HTMLElement>;
 
   films: Film[] = [];
   filteredFilms: Film[] = [];
@@ -41,7 +42,9 @@ export class FilmsAccessiblesComponent {
   currentPage = 1;
   private expandedDescriptions = new Set<number>();
 
-  filters: FilmsSearchFilters = { ...FilmsAccessiblesComponent.DEFAULT_FILTERS };
+  filters: FilmsSearchFilters = {
+    ...FilmsAccessiblesComponent.DEFAULT_FILTERS,
+  };
 
   constructor() {
     this.films = this.route.snapshot.data['films'] as Film[];
@@ -49,12 +52,22 @@ export class FilmsAccessiblesComponent {
   }
 
   onSearch(): void {
+    if (this.isFiltersEmpty()) {
+      return;
+    }
+
     const f = this.filters;
     this.filteredFilms = this.films.filter((film) => {
-      if (f.titre && !film.titre.toLowerCase().includes(f.titre.toLowerCase())) {
+      if (
+        f.titre &&
+        !film.titre.toLowerCase().includes(f.titre.toLowerCase())
+      ) {
         return false;
       }
-      if (f.qualiteSousTitres && film.qualiteSousTitres !== f.qualiteSousTitres) {
+      if (
+        f.qualiteSousTitres &&
+        film.qualiteSousTitres !== f.qualiteSousTitres
+      ) {
         return false;
       }
       if (f.sousTitresIncrustes && !film.sousTitresIncrustes) {
@@ -69,7 +82,10 @@ export class FilmsAccessiblesComponent {
       if (f.dureeMax != null && film.duree > f.dureeMax) {
         return false;
       }
-      if (f.anneeDiffusion != null && film.anneeDiffusion !== f.anneeDiffusion) {
+      if (
+        f.anneeDiffusion != null &&
+        film.anneeDiffusion !== f.anneeDiffusion
+      ) {
         return false;
       }
       if (
@@ -85,8 +101,20 @@ export class FilmsAccessiblesComponent {
     this.scrollToResults();
   }
 
+  private isFiltersEmpty(): boolean {
+    return (
+      JSON.stringify(this.filters) ===
+      JSON.stringify(FilmsAccessiblesComponent.DEFAULT_FILTERS)
+    );
+  }
+
   get totalPages(): number {
-    return Math.max(1, Math.ceil(this.filteredFilms.length / FilmsAccessiblesComponent.PAGE_SIZE));
+    return Math.max(
+      1,
+      Math.ceil(
+        this.filteredFilms.length / FilmsAccessiblesComponent.PAGE_SIZE,
+      ),
+    );
   }
 
   get pageNumbers(): number[] {
@@ -95,7 +123,10 @@ export class FilmsAccessiblesComponent {
 
   get pagedFilms(): Film[] {
     const start = (this.currentPage - 1) * FilmsAccessiblesComponent.PAGE_SIZE;
-    return this.filteredFilms.slice(start, start + FilmsAccessiblesComponent.PAGE_SIZE);
+    return this.filteredFilms.slice(
+      start,
+      start + FilmsAccessiblesComponent.PAGE_SIZE,
+    );
   }
 
   goToPage(page: number): void {
@@ -122,7 +153,9 @@ export class FilmsAccessiblesComponent {
   filmTags(film: Film): string[] {
     const tags: string[] = [];
     tags.push(film.vost ? 'VOSTFR' : film.sme ? 'VFST-SME' : 'VFST');
-    tags.push(film.qualiteSousTitres === 'professionnelle' ? 'ST PRO' : 'ST AMATEUR');
+    tags.push(
+      film.qualiteSousTitres === 'professionnelle' ? 'ST PRO' : 'ST AMATEUR',
+    );
     if (film.sousTitresIncrustes) {
       tags.push('ST INCRUSTES');
     }
@@ -136,7 +169,9 @@ export class FilmsAccessiblesComponent {
   }
 
   isDescriptionLong(film: Film): boolean {
-    return film.description.length > FilmsAccessiblesComponent.DESCRIPTION_LIMIT;
+    return (
+      film.description.length > FilmsAccessiblesComponent.DESCRIPTION_LIMIT
+    );
   }
 
   isExpanded(film: Film): boolean {
@@ -163,7 +198,9 @@ export class FilmsAccessiblesComponent {
       return film.description;
     }
     return (
-      film.description.slice(0, FilmsAccessiblesComponent.DESCRIPTION_LIMIT).trimEnd() + '…'
+      film.description
+        .slice(0, FilmsAccessiblesComponent.DESCRIPTION_LIMIT)
+        .trimEnd() + '…'
     );
   }
 }
