@@ -166,6 +166,7 @@
               name="lienVisionnage"
               [(ngModel)]="form.lienVisionnage"
               #lienVisionnage="ngModel"
+              [pattern]="lienVisionnageRegex"
             />
 
             <validation-summary
