@@ -18,12 +18,16 @@
     flex-direction: row;
     border: 0.15em solid var(--bleu-ocean);
     border-radius: 0.25em;
-    width: calc(50% - 2em);
+    width: calc(65% - 2em);
     padding: 0.5em;
 
     &:has(:focus-visible),
     &:has(:hover) {
       border-color: var(--orange);
+    }
+
+    label {
+      font-size: 1.15em;
     }
 
     @media screen and (max-width: vars.$md) {
@@ -33,7 +37,6 @@
 
   input[type="checkbox"] {
     margin-right: 0.5em;
-    font-size: 1.5em;
   }
 
   .radio-option label {

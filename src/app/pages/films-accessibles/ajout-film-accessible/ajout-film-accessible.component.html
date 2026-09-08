@@ -62,8 +62,8 @@
       <div class="row">
         <div class="col">
           <div class="group">
-            <label for="vignetteUrl"
-              >Lien de la vignette <span aria-hidden="true">*</span></label
+            <label for="vignetteUrl" aria-describedby="expVignetteUrl"
+              >Lien de l'affiche <span aria-hidden="true">*</span></label
             >
             <input
               type="url"
@@ -72,7 +72,13 @@
               [(ngModel)]="form.vignetteUrl"
               #vignetteUrl="ngModel"
               required
+              [pattern]="vignetteUrlRegex"
             />
+
+            <p class="small" id="expVignetteUrl">
+              Doit être un lien direct vers une image (jpg, png, webp, gif ou
+              svg).
+            </p>
 
             <validation-summary
               [controlModel]="vignetteUrl"
@@ -238,7 +244,9 @@
                 #sme="ngModel"
                 (keyup.Enter)="form.sme = !form.sme"
               />
-              <label for="sme">VFST-SME</label>
+              <label for="sme"
+                >VFST-SME (sous-titres pour sourds et malentendants)</label
+              >
             </div>
           </div>
         </div>
@@ -253,7 +261,7 @@
                 #vost="ngModel"
                 (keyup.Enter)="form.vost = !form.vost"
               />
-              <label for="vost">VOSTFR</label>
+              <label for="vost">VOSTFR (sous-titres "normaux")</label>
             </div>
           </div>
         </div>
@@ -307,8 +315,8 @@
             />
 
             <p class="small" id="expCaptcha">
-              Il s'agit d'un captcha basé sur une opération mathématique
-              requise pour la validation du formulaire.
+              Il s'agit d'un captcha basé sur une opération mathématique requise
+              pour la validation du formulaire.
             </p>
 
             @if (!isCaptchaValid() && captcha) {

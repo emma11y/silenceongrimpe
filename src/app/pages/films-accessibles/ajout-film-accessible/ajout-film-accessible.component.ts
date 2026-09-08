@@ -21,6 +21,7 @@ export class AjoutFilmAccessibleComponent {
   public number2: number = this.getRandomInt(1, 10);
   public captcha: string | undefined;
   public siteWeb: string | undefined;
+  public vignetteUrlRegex: RegExp = /^https?:\/\/.+\.(jpe?g|png|webp|gif|svg)(\?.*)?$/i;
 
   public async onSubmit(form: NgForm): Promise<void> {
     if (this.siteWeb) {
