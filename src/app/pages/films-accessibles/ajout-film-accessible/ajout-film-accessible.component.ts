@@ -23,7 +23,7 @@ export class AjoutFilmAccessibleComponent {
   public siteWeb: string | undefined;
   public vignetteUrlRegex: RegExp =
     /^https?:\/\/[^\s]+\.(jpe?g|png|webp|gif|svg)(\?[^\s#]*)?(#[^\s]*)?$/i;
-  public lienVisionnageRegex: RegExp = /^https?:\/\/[^\s]+$/i;
+  public lienVisionnageRegex: RegExp = /^https:\/\/[^\s]+$/;
 
   public async onSubmit(form: NgForm): Promise<void> {
     if (this.siteWeb) {

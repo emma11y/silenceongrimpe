@@ -159,7 +159,11 @@
       <div class="row">
         <div class="col">
           <div class="group">
-            <label for="lienVisionnage">Lien du teaser ou de visionnage</label>
+            <label
+              for="lienVisionnage"
+              aria-describedby="expLienVisionnage"
+              >Lien du teaser ou de visionnage</label
+            >
             <input
               type="url"
               id="lienVisionnage"
@@ -168,6 +172,10 @@
               #lienVisionnage="ngModel"
               [pattern]="lienVisionnageRegex"
             />
+
+            <p class="small" id="expLienVisionnage">
+              {{ "Format attendu : le lien doit commencer par https://" }}
+            </p>
 
             <validation-summary
               [controlModel]="lienVisionnage"
