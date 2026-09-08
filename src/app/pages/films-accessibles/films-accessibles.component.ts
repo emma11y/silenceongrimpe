@@ -48,6 +48,7 @@ export class FilmsAccessiblesComponent {
 
   constructor() {
     this.films = this.route.snapshot.data['films'] as Film[];
+
     this.filteredFilms = this.films;
   }
 

@@ -140,7 +140,7 @@ export const routes: Routes = [
                   },
                 },
                 resolve: {
-                  items: FilmsAccessiblesResolver,
+                  films: FilmsAccessiblesResolver,
                 },
                 loadComponent: () =>
                   import('./pages/films-accessibles/films-accessibles.component').then(

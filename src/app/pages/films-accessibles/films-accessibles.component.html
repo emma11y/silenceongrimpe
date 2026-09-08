@@ -189,7 +189,7 @@
   <div class="result width" #results tabindex="-1">
     <h2>Films</h2>
 
-    <p>{{ pagedFilms.length }} films</p>
+    <p>{{ filteredFilms.length }} films</p>
 
     <div role="list">
       @for (film of pagedFilms; track film.id) {
@@ -243,14 +243,16 @@
 
     @if (totalPages > 1) {
       <nav class="pagination" aria-label="Pagination des films">
-        <button
-          type="button"
-          class="action"
-          [disabled]="currentPage === 1"
-          (click)="goToPage(currentPage - 1)"
-        >
-          Page précédente
-        </button>
+        @if (currentPage > 1) {
+          <button
+            type="button"
+            class="action"
+            [disabled]="currentPage === 1"
+            (click)="goToPage(currentPage - 1)"
+          >
+            Page précédente
+          </button>
+        }
 
         <ul>
           @for (page of pageNumbers; track page) {
@@ -260,23 +262,24 @@
                 class="action"
                 [class.current]="page === currentPage"
                 [attr.aria-current]="page === currentPage ? 'page' : null"
-                [attr.aria-label]="'Page ' + page"
+                [tabindex]="page === currentPage ? -1 : undefined"
                 (click)="goToPage(page)"
               >
-                {{ page }}
+                <span class="sr-only">Aller à la page &nbsp;</span> {{ page }}
               </button>
             </li>
           }
         </ul>
 
-        <button
-          type="button"
-          class="action"
-          [disabled]="currentPage === totalPages"
-          (click)="goToPage(currentPage + 1)"
-        >
-          Page suivante
-        </button>
+        @if (currentPage < totalPages) {
+          <button
+            type="button"
+            class="action"
+            (click)="goToPage(currentPage + 1)"
+          >
+            Page suivante
+          </button>
+        }
       </nav>
     }
   </div>
