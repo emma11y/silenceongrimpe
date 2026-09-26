@@ -7,6 +7,7 @@ create table if not exists public.films (
   "anneeDiffusion" integer not null,
   "lienVisionnage" text,
   "qualiteSousTitres" text not null check ("qualiteSousTitres" in ('professionnelle', 'amateur')),
+  "auteurSousTitres" text,
   description text not null,
   "vignetteUrl" text not null,
   realisateurs text not null,
