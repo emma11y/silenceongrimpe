@@ -56,6 +56,7 @@ export class FilmFormComponent {
       qualiteSousTitres: queryParams['qualiteSousTitres'] as
         | 'professionnelle'
         | 'amateur',
+      auteurSousTitres: queryParams['auteurSousTitres'],
       sousTitresIncrustes: toBoolean(queryParams['sousTitresIncrustes']),
       sme: toBoolean(queryParams['sme']),
       vost: toBoolean(queryParams['vost']),
