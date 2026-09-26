@@ -56,7 +56,7 @@ export class PlanSiteComponent implements OnInit {
       },
       {
         path: '/films-accessibles',
-        label: 'Films accessibles',
+        label: 'Films',
         children: [
           {
             path: '/films-accessibles/ajout',

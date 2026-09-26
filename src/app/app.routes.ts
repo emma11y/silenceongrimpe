@@ -135,8 +135,7 @@ export const routes: Routes = [
                 data: {
                   metadata: {
                     title: 'Films accessibles',
-                    description:
-                      'Liste des films accessibles pour les festivals de montagne',
+                    description: `Avez-vous envie de savoir si un film de montagne, d'aventure ou de voyages est sous-titré ? Vous cherchez une idée de film sous-titré pour votre festival ? Jetez vite un coup d'oeil à la liste.`,
                   },
                 },
                 resolve: {
@@ -152,8 +151,7 @@ export const routes: Routes = [
                 data: {
                   metadata: {
                     title: 'Ajouter un film accessible',
-                    description:
-                      'Ajouter un film accessible à notre liste de films accessibles',
+                    description: `Ajouter un film à notre liste de films accessibles pour les festivals de montagne, d'aventure ou de voyages`,
                   },
                 },
                 loadComponent: () =>
