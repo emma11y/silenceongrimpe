@@ -236,6 +236,32 @@
           </fieldset>
         </div>
       </div>
+      @if (form.qualiteSousTitres === 'professionnelle') {
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <label for="auteurSousTitres"
+                >Nom de la personne / de l'agence qui a réalisé les
+                sous-titres <span aria-hidden="true">*</span></label
+              >
+              <input
+                type="text"
+                id="auteurSousTitres"
+                name="auteurSousTitres"
+                [(ngModel)]="form.auteurSousTitres"
+                #auteurSousTitres="ngModel"
+                required
+                [attr.aria-invalid]="auteurSousTitres.invalid"
+              />
+
+              <validation-summary
+                [controlModel]="auteurSousTitres"
+                fieldName="Nom de la personne / de l'agence qui a réalisé les sous-titres"
+              />
+            </div>
+          </div>
+        </div>
+      }
       <fieldset class="checkbox-group">
         <legend>Accessibilité du film</legend>
 

@@ -62,6 +62,7 @@ export class AjoutFilmAccessibleComponent {
           anneeDiffusion: this.form.anneeDiffusion,
           lienVisionnage: this.form.lienVisionnage,
           qualiteSousTitres: this.form.qualiteSousTitres,
+          auteurSousTitres: this.form.auteurSousTitres,
           sousTitresIncrustes: this.formatBoolean(
             this.form.sousTitresIncrustes
           ),
@@ -127,6 +128,7 @@ export class AjoutFilmAccessibleComponent {
     setIfDefined('anneeDiffusion', this.form.anneeDiffusion);
     setIfDefined('lienVisionnage', this.form.lienVisionnage);
     setIfDefined('qualiteSousTitres', this.form.qualiteSousTitres);
+    setIfDefined('auteurSousTitres', this.form.auteurSousTitres);
     setIfDefined('sousTitresIncrustes', this.form.sousTitresIncrustes);
     setIfDefined('sme', this.form.sme);
     setIfDefined('vost', this.form.vost);

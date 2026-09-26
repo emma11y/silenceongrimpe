@@ -5,6 +5,7 @@ export interface Film {
   anneeDiffusion: number;
   lienVisionnage?: string;
   qualiteSousTitres: 'professionnelle' | 'amateur';
+  auteurSousTitres?: string;
   description: string;
   vignetteUrl: string;
   realisateurs: string;
