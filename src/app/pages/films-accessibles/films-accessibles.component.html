@@ -207,6 +207,12 @@
             <p class="realisateurs">
               {{ formatRealisateurs(film.realisateurs) }}
             </p>
+            @if (film.auteurSousTitres) {
+              <p class="stt">
+                Sous-titres professionnels réalisés par
+                {{ film.auteurSousTitres }}
+              </p>
+            }
 
             <ul class="tags">
               @for (tag of filmTags(film); track tag) {
