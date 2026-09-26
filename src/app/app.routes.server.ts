@@ -25,6 +25,8 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'actualites', renderMode: RenderMode.Server },
   { path: 'actualites/:slug', renderMode: RenderMode.Server },
   { path: 'agenda', renderMode: RenderMode.Server },
+  { path: 'films-accessibles', renderMode: RenderMode.Server },
+  { path: 'films-accessibles/ajout', renderMode: RenderMode.Prerender },
 
   // Pages d’erreur
   { path: 'erreur', renderMode: RenderMode.Server },

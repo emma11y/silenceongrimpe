@@ -54,6 +54,16 @@ export class PlanSiteComponent implements OnInit {
         label: 'Actualités',
         children: await this.getActualites(),
       },
+      {
+        path: '/films-accessibles',
+        label: 'Films accessibles',
+        children: [
+          {
+            path: '/films-accessibles/ajout',
+            label: 'Proposer un film accessible',
+          },
+        ],
+      },
 
       {
         path: '/contact',
