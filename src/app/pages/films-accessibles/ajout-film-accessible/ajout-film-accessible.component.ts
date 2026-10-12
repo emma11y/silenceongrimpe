@@ -43,7 +43,7 @@ export class AjoutFilmAccessibleComponent {
 
       this.alertService.showAlert(
         'error',
-        'Vous devez renseigner les champs obligatoires.'
+        'Vous devez renseigner les champs obligatoires.',
       );
 
       return;
@@ -64,15 +64,16 @@ export class AjoutFilmAccessibleComponent {
           qualiteSousTitres: this.form.qualiteSousTitres,
           auteurSousTitres: this.form.auteurSousTitres,
           sousTitresIncrustes: this.formatBoolean(
-            this.form.sousTitresIncrustes
+            this.form.sousTitresIncrustes,
           ),
           sme: this.formatBoolean(this.form.sme),
           vost: this.formatBoolean(this.form.vost),
           lsf: this.formatBoolean(this.form.lsf),
           ad: this.formatBoolean(this.form.ad),
+          muet: this.formatBoolean(this.form.muet),
           adminLink: this.buildAdminLink(),
         },
-        'LVwSjhpUHzlOdDoLg'
+        'LVwSjhpUHzlOdDoLg',
       )
       .then(
         () => {
@@ -82,15 +83,15 @@ export class AjoutFilmAccessibleComponent {
           this.number2 = this.getRandomInt(1, 10);
           this.alertService.showAlert(
             'success',
-            'Votre proposition de film a bien été envoyée, merci !'
+            'Votre proposition de film a bien été envoyée, merci !',
           );
         },
         () => {
           this.alertService.showAlert(
             'error',
-            `Une erreur s'est produite lors de l'envoi de votre proposition. Veuillez réessayer.`
+            `Une erreur s'est produite lors de l'envoi de votre proposition. Veuillez réessayer.`,
           );
-        }
+        },
       );
   }
 
@@ -134,6 +135,7 @@ export class AjoutFilmAccessibleComponent {
     setIfDefined('vost', this.form.vost);
     setIfDefined('lsf', this.form.lsf);
     setIfDefined('ad', this.form.ad);
+    setIfDefined('muet', this.form.muet);
 
     return `${window.location.origin}/admin/film?${params.toString()}`;
   }

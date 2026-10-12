@@ -3,8 +3,28 @@
     ><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>
     <span>Retour vers la liste des films accessibles</span></a
   >
+
   <fieldset>
     <legend>Proposer un film accessible</legend>
+    <div class="encart">
+      <p>
+        Vous avez un
+        <span class="bold">film français sous-titré en français</span> dans
+        notre thématique (montagne, aventure, voyages) ?
+      </p>
+      <p>
+        En cas de protagonistes multi-langues (anglais, italien, français,
+        espagnol…) : votre film est éligible sur notre site
+        <span class="bold"
+          >uniquement si la langue majoritaire parlée est le français</span
+        >. Les VOSTFR ne sont pas acceptées car cela n’est pas de
+        l’accessibilité.
+      </p>
+      <p>
+        N'hésitez pas à remplir notre formulaire pour lui donner de la
+        visibilité.
+      </p>
+    </div>
     <p class="mandatory-note">
       Les champs marqués d'un astérisque (<span aria-hidden="true">*</span>)
       sont obligatoires.
@@ -236,13 +256,13 @@
           </fieldset>
         </div>
       </div>
-      @if (form.qualiteSousTitres === 'professionnelle') {
+      @if (form.qualiteSousTitres === "professionnelle") {
         <div class="row">
           <div class="col">
             <div class="group">
               <label for="auteurSousTitres"
-                >Nom de la personne / de l'agence qui a réalisé les
-                sous-titres <span aria-hidden="true">*</span></label
+                >Nom de la personne / de l'agence qui a réalisé les sous-titres
+                <span aria-hidden="true">*</span></label
               >
               <input
                 type="text"
@@ -277,9 +297,15 @@
                 (keyup.Enter)="
                   form.sousTitresIncrustes = !form.sousTitresIncrustes
                 "
+                aria-describedby="desc-stt"
               />
               <label for="sousTitresIncrustes">Sous-titres incrustés</label>
             </div>
+            <p id="desc-stt" class="desc">
+              Le film est TOUJOURS diffusé avec des sous-titres. Cocher la case
+              uniquement si vous ne déposez qu’une seule version du film auprès
+              des diffuseurs.
+            </p>
           </div>
         </div>
         <div class="row">
@@ -292,11 +318,23 @@
                 [(ngModel)]="form.sme"
                 #sme="ngModel"
                 (keyup.Enter)="form.sme = !form.sme"
+                aria-describedby="desc-sme"
               />
               <label for="sme"
                 >VFST-SME (sous-titres pour sourds et malentendants)</label
               >
             </div>
+            <p id="desc-sme" class="desc">
+              Le film est intégralement sous-titré en français AVEC la
+              description textuelle de l’environnement sonore, en savoir plus
+              sur ce sigle
+              <a
+                routerLink="/actualites/les-sigles-utilises-pour-designer-le-sous-titrage"
+                >sur notre article<span class="sr-only"
+                  >Les sigles utilisés pour désigner le sous-titrage</span
+                ></a
+              >.
+            </p>
           </div>
         </div>
         <div class="row">
@@ -309,9 +347,20 @@
                 [(ngModel)]="form.vost"
                 #vost="ngModel"
                 (keyup.Enter)="form.vost = !form.vost"
+                aria-describedby="desc-vfstfr"
               />
-              <label for="vost">VOSTFR (sous-titres "normaux")</label>
+              <label for="vost">VFSTFR (sous-titres simples)</label>
             </div>
+            <p id="desc-vfstfr" class="desc">
+              Le film est intégralement sous-titré en français, en savoir plus
+              sur ce sigle
+              <a
+                routerLink="/actualites/les-sigles-utilises-pour-designer-le-sous-titrage"
+                >sur notre article<span class="sr-only"
+                  >Les sigles utilisés pour désigner le sous-titrage</span
+                ></a
+              >.
+            </p>
           </div>
         </div>
         <div class="row">
@@ -324,9 +373,14 @@
                 [(ngModel)]="form.lsf"
                 #lsf="ngModel"
                 (keyup.Enter)="form.lsf = !form.lsf"
+                aria-describedby="desc-lsf"
               />
               <label for="lsf">Langue des Signes Française (LSF)</label>
             </div>
+            <p id="desc-lsf" class="desc">
+              Une version du film est disponible avec un.e interprète LSF
+              incrusté.e dans le film.
+            </p>
           </div>
         </div>
         <div class="row">
@@ -339,9 +393,33 @@
                 [(ngModel)]="form.ad"
                 #ad="ngModel"
                 (keyup.Enter)="form.ad = !form.ad"
+                aria-describedby="desc-ad"
               />
               <label for="ad">Audiodescription (AD)</label>
             </div>
+            <p id="desc-ad" class="desc">
+              Une version du film est disponible avec la description sonore des
+              images pour les personnes aveugles et malvoyantes.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <input
+                type="checkbox"
+                id="muet"
+                name="muet"
+                [(ngModel)]="form.muet"
+                #ad="ngModel"
+                (keyup.Enter)="form.muet = !form.muet"
+                aria-describedby="desc-muet"
+              />
+              <label for="muet">Film Muet / Film sans dialogue</label>
+            </div>
+            <p id="desc-muet" class="desc">
+              Votre film ne comporte que de la musique.
+            </p>
           </div>
         </div>
       </fieldset>
@@ -379,6 +457,15 @@
             />
           </div>
         </div>
+      </div>
+
+      <div class="row">
+        <p>
+          En cas d’évolution de l’accessibilité de votre film, merci de nous
+          envoyer un message
+          <a href="/contact">via notre formulaire de contact</a> pour mettre à
+          jour la fiche d’informations.
+        </p>
       </div>
 
       <button class="action" type="submit" (click)="onSubmit(filmForm)">

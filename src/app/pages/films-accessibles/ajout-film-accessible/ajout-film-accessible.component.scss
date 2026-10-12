@@ -6,6 +6,9 @@
     margin-right: 0.5em;
   }
 
+  .encart {
+    margin-bottom: 2em;
+  }
   .mandatory-note {
     font-size: 90%;
     text-align: center;
@@ -37,6 +40,11 @@
     @media screen and (max-width: vars.$md) {
       width: calc(100% - 2em);
     }
+  }
+
+  .desc {
+    margin-top: -0.5em;
+    font-size: 0.9em;
   }
 
   input[type="checkbox"] {

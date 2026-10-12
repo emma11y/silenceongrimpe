@@ -39,7 +39,7 @@ export class FilmFormComponent {
   }
 
   private filmFromQueryParams(
-    queryParams: Record<string, string>
+    queryParams: Record<string, string>,
   ): Partial<Film> {
     const toBoolean = (value: string | undefined) => value === 'true';
     const toNumber = (value: string | undefined) =>
@@ -62,6 +62,7 @@ export class FilmFormComponent {
       vost: toBoolean(queryParams['vost']),
       lsf: toBoolean(queryParams['lsf']),
       ad: toBoolean(queryParams['ad']),
+      muet: toBoolean(queryParams['muet']),
     };
   }
 

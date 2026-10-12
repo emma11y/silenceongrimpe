@@ -13,10 +13,11 @@
         <th class="annee">Année</th>
         <th class="qualite">Qualité des sous-titres</th>
         <th class="icon">STI</th>
-        <th class="icon">SME</th>
-        <th class="icon">VOST</th>
+        <th class="icon">VFST-SME</th>
+        <th class="icon">VFSTFR</th>
         <th class="icon">LSF</th>
         <th class="icon">AD</th>
+        <th class="icon">Muet</th>
         <th class="actions">Actions</th>
       </tr>
     </thead>
@@ -83,6 +84,17 @@
               aria-hidden="true"
             ></i>
             <span class="sr-only">{{ film.ad ? "Oui" : "Non" }}</span>
+          </td>
+          <td class="icon">
+            <i
+              class="fa fa-solid"
+              [ngClass]="{
+                'fa-square-check': film.muet,
+                'fa-xmark': !film.muet,
+              }"
+              aria-hidden="true"
+            ></i>
+            <span class="sr-only">{{ film.muet ? "Oui" : "Non" }}</span>
           </td>
           <td class="actions">
             <a

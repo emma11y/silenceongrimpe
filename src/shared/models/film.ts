@@ -14,4 +14,5 @@ export interface Film {
   vost: boolean;
   lsf: boolean;
   ad: boolean;
+  muet: boolean;
 }

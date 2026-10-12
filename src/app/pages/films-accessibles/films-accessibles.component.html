@@ -2,16 +2,25 @@
   <div class="width">
     <h1>Liste des films accessibles</h1>
     <p>
-      Avez-vous envie de savoir si un film de montagne, d'aventure ou de voyages
-      est sous-titré ? Vous cherchez une idée de film sous-titré pour votre
-      festival ? Jetez vite un coup d'oeil à la liste.
+      Avez-vous envie de savoir si un film français de montagne, d'aventure ou
+      de voyages est sous-titré ? Vous cherchez une idée de film sous-titré pour
+      votre festival ? Jetez vite un coup d'oeil à la liste.
     </p>
   </div>
   <div class="encart">
     <div class="width">
       <p>
-        Vous avez un film sous-titré dans notre thématique (montagne, aventure,
-        voyages) ?
+        Vous avez un
+        <span class="bold">film français sous-titré en français</span> dans
+        notre thématique (montagne, aventure, voyages) ?
+      </p>
+      <p>
+        En cas de protagonistes multi-langues (anglais, italien, français,
+        espagnol…) : votre film est éligible sur notre site
+        <span class="bold"
+          >uniquement si la langue majoritaire parlée est le français</span
+        >. Les VOSTFR ne sont pas acceptées car cela n’est pas de
+        l’accessibilité.
       </p>
       <p>
         N'hésitez pas à remplir notre formulaire pour lui donner de la
@@ -158,7 +167,7 @@
           <div class="col">
             <div class="group">
               <label for="realisateurs"
-                >Réalisateur/ Réalisatrice / Producteur / Productrice</label
+                >Réalisateur / Réalisatrice / Producteur / Productrice</label
               >
               <input
                 type="text"
@@ -221,6 +230,23 @@
                 </li>
               }
             </ul>
+
+            @if (film.lienVisionnage) {
+              <p class="link">
+                <a
+                  [href]="film.lienVisionnage"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  >Consulter la bande-annonce du film
+                  <span class="sr-only"
+                    >{{ film.titre }} (nouvelle fenêtre)</span
+                  ><i
+                    class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true"
+                  ></i
+                ></a>
+              </p>
+            }
 
             <p class="description" [id]="'description-' + film.id">
               {{ truncatedDescription(film) }}

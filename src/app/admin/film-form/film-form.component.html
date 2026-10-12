@@ -199,13 +199,13 @@
           </fieldset>
         </div>
       </div>
-      @if (form.qualiteSousTitres === 'professionnelle') {
+      @if (form.qualiteSousTitres === "professionnelle") {
         <div class="row">
           <div class="col">
             <div class="group">
               <label for="auteurSousTitres"
-                >Nom de la personne / de l'agence qui a réalisé les
-                sous-titres <span aria-hidden="true">*</span></label
+                >Nom de la personne / de l'agence qui a réalisé les sous-titres
+                <span aria-hidden="true">*</span></label
               >
               <input
                 type="text"
@@ -270,7 +270,7 @@
                 #vost="ngModel"
                 (keyup.Enter)="form.vost = !form.vost"
               />
-              <label for="vost">VOSTFR</label>
+              <label for="vost">VFSTFR</label>
             </div>
           </div>
         </div>
@@ -301,6 +301,21 @@
                 (keyup.Enter)="form.ad = !form.ad"
               />
               <label for="ad">Audiodescription (AD)</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="group">
+              <input
+                type="checkbox"
+                id="muet"
+                name="muet"
+                [(ngModel)]="form.muet"
+                #ad="ngModel"
+                (keyup.Enter)="form.muet = !form.muet"
+              />
+              <label for="muet">Film Muet / Film sans dialogue</label>
             </div>
           </div>
         </div>

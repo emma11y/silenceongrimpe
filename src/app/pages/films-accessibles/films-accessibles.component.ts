@@ -166,6 +166,9 @@ export class FilmsAccessiblesComponent {
     if (film.ad) {
       tags.push('AD');
     }
+    if (film.muet) {
+      tags.push('MUET / SANS DIALOGUE');
+    }
     return tags;
   }
 

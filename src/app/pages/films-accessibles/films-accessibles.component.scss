@@ -147,6 +147,15 @@
           background-color: var(--bleu-ocean);
           color: var(--blanc);
         }
+
+        .link a {
+          color: var(--bleu-ocean);
+          &:focus-visible,
+          &:hover {
+            text-decoration: none;
+            border-bottom: 0.25em solid var(--bleu-ocean);
+          }
+        }
       }
 
       &:nth-child(even) {
@@ -157,6 +166,15 @@
         .tags li {
           background-color: var(--bleu-pastel);
           color: var(--bleu-ocean);
+        }
+
+        .link a {
+          color: var(--blanc);
+          &:focus-visible,
+          &:hover {
+            text-decoration: none;
+            border-bottom: 0.25em solid var(--blanc);
+          }
         }
       }
 
@@ -225,7 +243,6 @@
       padding: 0.5em 1em;
       border-radius: 0.25em;
       text-decoration: none;
-      font-weight: bold;
 
       &:hover,
       &:focus-visible {
@@ -287,7 +304,7 @@
       a {
         background-color: var(--jaune-pale);
         border: 0.1em solid var(--bleu-ocean);
-        font-size: 1em;
+        font-size: 1.25em;
         border-radius: 0.5em;
 
         &:hover,
