@@ -22,6 +22,11 @@ import {
   DialogResult,
 } from './footnote-dialog/footnote-dialog.component';
 import { ActualiteEditorComponent } from './actualite-editor/actualite-editor.component';
+import {
+  EmbeddedImage,
+  extractEmbeddedImages,
+  replaceEmbeddedImage,
+} from '@shared/utilities/embedded-image.utility';
 
 @Component({
   selector: 'app-actualite-form',
@@ -51,6 +56,10 @@ export class ActualiteFormComponent {
   // Tant que le html n'est pas chargé, l'éditeur n'est pas monté et l'envoi
   // est bloqué (sinon le html serait écrasé par une valeur vide).
   htmlLoading: boolean = false;
+  // Images base64 dans le html : l'éditeur gèle la page avec des Mo de data-URI,
+  // on ne le monte qu'après leur migration vers la table images.
+  embeddedImages: EmbeddedImage[] = [];
+  migrating: boolean = false;
 
   constructor() {
     this.route.params.subscribe(async (value) => {
@@ -193,7 +202,60 @@ export class ActualiteFormComponent {
     const { data } = await this.superbase.getActualiteHtml(slug);
 
     this.syncContent(data?.html ?? '');
+    this.embeddedImages = extractEmbeddedImages(this.form.html);
     this.htmlLoading = false;
+  }
+
+  public async onMigrateEmbeddedImages(): Promise<void> {
+    if (!this.form.id || this.migrating) {
+      return;
+    }
+
+    this.migrating = true;
+
+    try {
+      let html = this.form.html;
+
+      // Toutes les images d'abord : si l'une échoue, le html reste inchangé.
+      for (const [index, image] of this.embeddedImages.entries()) {
+        const { data, error } = await this.superbase.createImage({
+          image: image.dataUri,
+          alt: image.alt,
+          name: `${this.form.slug}-${index + 1}`,
+          credit: '',
+        } as Picture);
+
+        if (error || !data?.[0]?.id) {
+          throw error ?? new Error("Création de l'image refusée.");
+        }
+
+        html = replaceEmbeddedImage(
+          html,
+          image.dataUri,
+          this.superbase.getUrl(data[0].id),
+        );
+      }
+
+      const { data, error } = await this.superbase.updateActualiteHtml(
+        this.form.id,
+        html,
+      );
+
+      if (error || !data?.length) {
+        throw error ?? new Error("Mise à jour de l'actualité refusée.");
+      }
+
+      this.syncContent(html);
+      this.embeddedImages = [];
+      this.alertService.showAlert('success', 'Les images ont été migrées.');
+    } catch (error) {
+      this.alertService.showAlert(
+        'error',
+        `Migration impossible : ${(error as Error).message}`,
+      );
+    } finally {
+      this.migrating = false;
+    }
   }
 
   private syncContent(content: string): void {

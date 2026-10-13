@@ -136,15 +136,35 @@
               [(ngModel)]="form.html"
               #html="ngModel"
             />
-            @defer (when !htmlLoading; on idle) {
-              <app-actualite-editor
-                [content]="form.html"
-                (contentChange)="onContentChange($any($event))"
-              ></app-actualite-editor>
-            } @placeholder {
-              <div class="editor-placeholder" aria-live="polite">
-                Chargement de l’éditeur…
+            @if (embeddedImages.length) {
+              <div class="editor-placeholder" role="alert">
+                <p>
+                  Ce contenu embarque {{ embeddedImages.length }} image{{
+                    embeddedImages.length > 1 ? "s" : ""
+                  }}
+                  en base64, ce qui ralentit fortement l’éditeur. Migrez-les
+                  vers la bibliothèque d’images pour l’afficher.
+                </p>
+                <button
+                  type="button"
+                  class="action"
+                  [disabled]="migrating"
+                  (click)="onMigrateEmbeddedImages()"
+                >
+                  {{ migrating ? "Migration en cours…" : "Migrer les images" }}
+                </button>
               </div>
+            } @else {
+              @defer (when !htmlLoading; on idle) {
+                <app-actualite-editor
+                  [content]="form.html"
+                  (contentChange)="onContentChange($any($event))"
+                ></app-actualite-editor>
+              } @placeholder {
+                <div class="editor-placeholder" aria-live="polite">
+                  Chargement de l’éditeur…
+                </div>
+              }
             }
             <p class="small">
               Utilisez le bouton Note pour insérer une note de bas de page. Elle
