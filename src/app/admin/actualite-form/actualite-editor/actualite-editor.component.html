@@ -1,4 +1,48 @@
-<div class="NgxEditor__Wrapper">
+<div class="html-view-toggle">
+  <button type="button" class="menu-button" (click)="onToggleHtmlMode()">
+    <i class="fa-solid fa-code" aria-hidden="true"></i>
+    {{ htmlMode ? "Vue éditeur" : "Vue HTML" }}
+  </button>
+</div>
+@if (htmlMode) {
+  <div class="html-view">
+    <label for="html-source">Code HTML</label>
+    <textarea
+      id="html-source"
+      name="html-source"
+      rows="24"
+      spellcheck="false"
+      [ngModel]="htmlSource"
+      [ngModelOptions]="{ standalone: true }"
+      (ngModelChange)="onHtmlSourceChange($event)"
+    ></textarea>
+    <div class="html-view-actions">
+      <button type="button" class="menu-button" (click)="onFormatHtml()">
+        Reformater
+      </button>
+    </div>
+    <div class="html-lint" aria-live="polite">
+      @if (htmlIssues.length) {
+        <ul>
+          @for (issue of htmlIssues; track $index) {
+            <li [class]="'lint-' + issue.severity">
+              Ligne {{ issue.line }} : {{ issue.message }}
+            </li>
+          }
+        </ul>
+        @if (htmlHasErrors) {
+          <p class="lint-blocking">
+            Corrigez les erreurs : tant qu'il en reste, les modifications ne
+            sont pas prises en compte.
+          </p>
+        }
+      } @else {
+        <p class="lint-ok">Aucun problème détecté.</p>
+      }
+    </div>
+  </div>
+}
+<div class="NgxEditor__Wrapper" [hidden]="htmlMode">
   <ngx-editor-menu
     [editor]="editor"
     [toolbar]="toolbar"

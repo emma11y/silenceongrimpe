@@ -14,3 +14,53 @@
     background-color: var(--jaune-pale);
   }
 }
+
+.html-view-toggle {
+  margin-bottom: 0.5em;
+
+  .menu-button {
+    border: 1px solid var(--bleu-ocean);
+    margin-left: 0;
+  }
+}
+
+.html-view {
+  textarea {
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 0.9em;
+    tab-size: 2;
+    width: 100%;
+  }
+
+  .html-view-actions .menu-button {
+    border: 1px solid var(--bleu-ocean);
+    margin-left: 0;
+  }
+
+  .html-lint {
+    margin-top: 0.5em;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .lint-error {
+      color: #b00020;
+    }
+
+    .lint-warning {
+      color: #8a5a00;
+    }
+
+    .lint-blocking {
+      font-weight: bold;
+    }
+
+    .lint-ok {
+      color: #1b6e2b;
+    }
+  }
+}

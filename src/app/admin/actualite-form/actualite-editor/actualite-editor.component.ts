@@ -23,6 +23,11 @@ import { prepareHtmlForEditor } from '@utilities/html.utility';
 import { BibliothequeImagesComponent } from '@app/admin/bibliotheque-images/bibliotheque-images.component';
 import { Picture } from '@shared/models/picture';
 import { SupabaseService } from '@core/services/supabase.service';
+import {
+  formatHtml,
+  LintIssue,
+  lintHtml,
+} from '@shared/utilities/html-lint.utility';
 
 type MarkAttrs = { attrs: Record<string, string> };
 
@@ -48,11 +53,10 @@ function colorMarkView(property: string, attribute: string) {
 // ProseMirror accepte les mark views dans la prop nodeViews.
 const colorMarkViews = {
   text_color: colorMarkView('color', 'color'),
-  text_background_color: colorMarkView(
-    'background-color',
-    'backgroundColor',
-  ),
-} as unknown as NonNullable<ConstructorParameters<typeof Editor>[0]>['nodeViews'];
+  text_background_color: colorMarkView('background-color', 'backgroundColor'),
+} as unknown as NonNullable<
+  ConstructorParameters<typeof Editor>[0]
+>['nodeViews'];
 
 @Component({
   selector: 'app-actualite-editor',
@@ -68,6 +72,9 @@ export class ActualiteEditorComponent implements OnChanges, OnDestroy {
   private readonly supabase: SupabaseService = inject(SupabaseService);
 
   editorContent: string = '';
+  htmlMode: boolean = false;
+  htmlSource: string = '';
+  htmlIssues: LintIssue[] = [];
   editor: Editor = new Editor({
     history: true,
     keyboardShortcuts: true,
@@ -101,6 +108,34 @@ export class ActualiteEditorComponent implements OnChanges, OnDestroy {
   onContentChange(value: string): void {
     this.editorContent = value ?? '';
     this.contentChange.emit(this.editorContent);
+  }
+
+  get htmlHasErrors(): boolean {
+    return this.htmlIssues.some((issue) => issue.severity === 'error');
+  }
+
+  onToggleHtmlMode(): void {
+    this.htmlMode = !this.htmlMode;
+
+    if (this.htmlMode) {
+      this.htmlSource = formatHtml(this.editorContent);
+      this.htmlIssues = lintHtml(this.htmlSource);
+    }
+  }
+
+  onHtmlSourceChange(value: string): void {
+    this.htmlSource = value;
+    this.htmlIssues = lintHtml(value);
+
+    // Le HTML invalide n'est pas répercuté : l'éditeur et le formulaire
+    // gardent la dernière version valide.
+    if (!this.htmlHasErrors) {
+      this.onContentChange(prepareHtmlForEditor(value));
+    }
+  }
+
+  onFormatHtml(): void {
+    this.onHtmlSourceChange(formatHtml(this.htmlSource));
   }
 
   async onAddFootnote(): Promise<void> {
