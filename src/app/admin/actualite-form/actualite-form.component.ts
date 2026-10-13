@@ -22,17 +22,6 @@ import {
   DialogResult,
 } from './footnote-dialog/footnote-dialog.component';
 import { ActualiteEditorComponent } from './actualite-editor/actualite-editor.component';
-import {
-  EmbeddedImage,
-  extractEmbeddedImages,
-  replaceEmbeddedImage,
-} from '@shared/utilities/embedded-image.utility';
-import {
-  countInertSpans,
-  removeInertSpans,
-} from '@shared/utilities/html-cleanup.utility';
-
-const SLOW_LOAD_DELAY_MS = 3000;
 
 @Component({
   selector: 'app-actualite-form',
@@ -62,27 +51,12 @@ export class ActualiteFormComponent {
   // Tant que le html n'est pas chargé, l'éditeur n'est pas monté et l'envoi
   // est bloqué (sinon le html serait écrasé par une valeur vide).
   htmlLoading: boolean = false;
-  // Images base64 dans le html : l'éditeur gèle la page avec des Mo de data-URI,
-  // on ne le monte qu'après leur migration vers la table images.
-  embeddedImages: EmbeddedImage[] = [];
-  migrating: boolean = false;
-  // Spans de style sans effet (copier-coller Google Docs) : en grand nombre,
-  // ils font geler l'éditeur. Même principe : pas d'éditeur avant nettoyage.
-  inertSpanCount: number = 0;
-  cleaning: boolean = false;
-  // Si le chargement traîne, on propose quand même le nettoyage sans attendre.
-  slowLoad: boolean = false;
-  private cleaned: boolean = false;
 
   constructor() {
     this.route.params.subscribe(async (value) => {
       const slug = value['slug'];
       if (slug) {
         this.htmlLoading = true;
-        this.slowLoad = false;
-        setTimeout(() => {
-          this.slowLoad = this.htmlLoading;
-        }, SLOW_LOAD_DELAY_MS);
         const { data: actualite } =
           await this.superbase.getActualiteSansHtml(slug);
         if (actualite) {
@@ -218,124 +192,8 @@ export class ActualiteFormComponent {
   private async loadHtml(slug: string): Promise<void> {
     const { data } = await this.superbase.getActualiteHtml(slug);
 
-    // Nettoyage lancé pendant le chargement : ce html-ci est déjà périmé.
-    if (!this.cleaned) {
-      this.syncContent(data?.html ?? '');
-      this.embeddedImages = extractEmbeddedImages(this.form.html);
-      this.inertSpanCount = countInertSpans(this.form.html);
-    }
-
+    this.syncContent(data?.html ?? '');
     this.htmlLoading = false;
-    this.slowLoad = false;
-  }
-
-  public async onCleanHtml(): Promise<void> {
-    if (!this.form.id || this.cleaning) {
-      return;
-    }
-
-    this.cleaning = true;
-
-    try {
-      // Pendant le chargement, form.html n'est pas encore là : on le relit.
-      let source = this.form.html;
-
-      if (this.htmlLoading) {
-        const { data: current } = await this.superbase.getActualiteHtml(
-          this.form.slug,
-        );
-
-        source = current?.html ?? '';
-      }
-
-      const html = removeInertSpans(source);
-
-      this.downloadBackup(source);
-
-      const { data, error } = await this.superbase.updateActualiteHtml(
-        this.form.id,
-        html,
-      );
-
-      if (error || !data?.length) {
-        throw error ?? new Error("Mise à jour de l'actualité refusée.");
-      }
-
-      this.cleaned = true;
-      this.syncContent(html);
-      this.inertSpanCount = 0;
-      this.slowLoad = false;
-      this.alertService.showAlert('success', 'Le HTML a été nettoyé.');
-    } catch (error) {
-      this.alertService.showAlert(
-        'error',
-        `Nettoyage impossible : ${(error as Error).message}`,
-      );
-    } finally {
-      this.cleaning = false;
-    }
-  }
-
-  private downloadBackup(html: string): void {
-    const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-    const link = document.createElement('a');
-
-    link.href = url;
-    link.download = `${this.form.slug}.sauvegarde.html`;
-    link.click();
-    URL.revokeObjectURL(url);
-  }
-
-  public async onMigrateEmbeddedImages(): Promise<void> {
-    if (!this.form.id || this.migrating) {
-      return;
-    }
-
-    this.migrating = true;
-
-    try {
-      let html = this.form.html;
-
-      // Toutes les images d'abord : si l'une échoue, le html reste inchangé.
-      for (const [index, image] of this.embeddedImages.entries()) {
-        const { data, error } = await this.superbase.createImage({
-          image: image.dataUri,
-          alt: image.alt,
-          name: `${this.form.slug}-${index + 1}`,
-          credit: '',
-        } as Picture);
-
-        if (error || !data?.[0]?.id) {
-          throw error ?? new Error("Création de l'image refusée.");
-        }
-
-        html = replaceEmbeddedImage(
-          html,
-          image.dataUri,
-          this.superbase.getUrl(data[0].id),
-        );
-      }
-
-      const { data, error } = await this.superbase.updateActualiteHtml(
-        this.form.id,
-        html,
-      );
-
-      if (error || !data?.length) {
-        throw error ?? new Error("Mise à jour de l'actualité refusée.");
-      }
-
-      this.syncContent(html);
-      this.embeddedImages = [];
-      this.alertService.showAlert('success', 'Les images ont été migrées.');
-    } catch (error) {
-      this.alertService.showAlert(
-        'error',
-        `Migration impossible : ${(error as Error).message}`,
-      );
-    } finally {
-      this.migrating = false;
-    }
   }
 
   private syncContent(content: string): void {

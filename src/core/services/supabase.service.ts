@@ -154,14 +154,6 @@ export class SupabaseService {
       .single();
   }
 
-  updateActualiteHtml(id: number, html: string) {
-    return this.supabase
-      .from('actualites')
-      .update({ html })
-      .eq('id', id)
-      .select('id');
-  }
-
   getActualiteSansHtml(slug: string): any {
     return this.supabase
       .from('actualites')

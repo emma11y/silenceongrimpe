@@ -136,59 +136,15 @@
               [(ngModel)]="form.html"
               #html="ngModel"
             />
-            @if (embeddedImages.length) {
-              <div class="editor-placeholder" role="alert">
-                <p>
-                  Ce contenu embarque {{ embeddedImages.length }} image{{
-                    embeddedImages.length > 1 ? "s" : ""
-                  }}
-                  en base64, ce qui ralentit fortement l’éditeur. Migrez-les
-                  vers la bibliothèque d’images pour l’afficher.
-                </p>
-                <button
-                  type="button"
-                  class="action"
-                  [disabled]="migrating"
-                  (click)="onMigrateEmbeddedImages()"
-                >
-                  {{ migrating ? "Migration en cours…" : "Migrer les images" }}
-                </button>
+            @defer (when !htmlLoading; on idle) {
+              <app-actualite-editor
+                [content]="form.html"
+                (contentChange)="onContentChange($any($event))"
+              ></app-actualite-editor>
+            } @placeholder {
+              <div class="editor-placeholder" aria-live="polite">
+                Chargement de l’éditeur…
               </div>
-            } @else if (inertSpanCount || slowLoad) {
-              <div class="editor-placeholder" role="alert">
-                <p>
-                  @if (inertSpanCount) {
-                    Ce contenu contient {{ inertSpanCount }} balises de style
-                    inutiles (texte noir sur fond transparent, issues d’un
-                    copier-coller), ce qui fait geler l’éditeur.
-                  } @else {
-                    Le chargement du contenu est long : il contient
-                    probablement des balises de style inutiles (texte noir sur
-                    fond transparent, issues d’un copier-coller).
-                  }
-                  Le rendu ne change pas. Une sauvegarde du HTML actuel sera
-                  téléchargée avant le nettoyage.
-                </p>
-                <button
-                  type="button"
-                  class="action"
-                  [disabled]="cleaning || !form.id"
-                  (click)="onCleanHtml()"
-                >
-                  {{ cleaning ? "Nettoyage en cours…" : "Nettoyer le HTML" }}
-                </button>
-              </div>
-            } @else {
-              @defer (when !htmlLoading; on idle) {
-                <app-actualite-editor
-                  [content]="form.html"
-                  (contentChange)="onContentChange($any($event))"
-                ></app-actualite-editor>
-              } @placeholder {
-                <div class="editor-placeholder" aria-live="polite">
-                  Chargement de l’éditeur…
-                </div>
-              }
             }
             <p class="small">
               Utilisez le bouton Note pour insérer une note de bas de page. Elle

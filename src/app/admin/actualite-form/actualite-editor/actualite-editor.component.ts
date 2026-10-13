@@ -8,7 +8,6 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Meta } from '@angular/platform-browser';
 import { PopupComponentService } from '@core/services/popup-component.service';
 import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 import { createFootnoteToken } from '@shared/utilities/footnote.utility';
@@ -25,6 +24,36 @@ import { BibliothequeImagesComponent } from '@app/admin/bibliotheque-images/bibl
 import { Picture } from '@shared/models/picture';
 import { SupabaseService } from '@core/services/supabase.service';
 
+type MarkAttrs = { attrs: Record<string, string> };
+
+// Dark Reader réécrit les couleurs inline (data-darkreader-inline-color) des
+// <span style="color">. Par défaut ProseMirror voit cette mutation, re-rend le
+// span, Dark Reader réécrit, etc. : boucle infinie qui gèle l'onglet. Ces mark
+// views ignorent les mutations d'attributs, donc Dark Reader reste actif.
+function colorMarkView(property: string, attribute: string) {
+  return (mark: MarkAttrs) => {
+    const dom = document.createElement('span');
+
+    dom.style.setProperty(property, mark.attrs[attribute]);
+
+    return {
+      dom,
+      contentDOM: dom,
+      ignoreMutation: (mutation: { type: string }) =>
+        mutation.type === 'attributes',
+    };
+  };
+}
+
+// ProseMirror accepte les mark views dans la prop nodeViews.
+const colorMarkViews = {
+  text_color: colorMarkView('color', 'color'),
+  text_background_color: colorMarkView(
+    'background-color',
+    'backgroundColor',
+  ),
+} as unknown as NonNullable<ConstructorParameters<typeof Editor>[0]>['nodeViews'];
+
 @Component({
   selector: 'app-actualite-editor',
   imports: [FormsModule, NgxEditorModule],
@@ -37,19 +66,13 @@ export class ActualiteEditorComponent implements OnChanges, OnDestroy {
 
   private readonly popup: PopupComponentService = inject(PopupComponentService);
   private readonly supabase: SupabaseService = inject(SupabaseService);
-  private readonly meta: Meta = inject(Meta);
-  // Dark Reader réécrit les couleurs inline (data-darkreader-inline-color) ;
-  // ProseMirror voit ces mutations, re-rend, Dark Reader réécrit... : boucle
-  // infinie qui gèle l'onglet dès que le contenu a des <span style="color">.
-  private readonly darkReaderLock: HTMLMetaElement | null = this.meta.addTag({
-    name: 'darkreader-lock',
-  });
 
   editorContent: string = '';
   editor: Editor = new Editor({
     history: true,
     keyboardShortcuts: true,
     plugins: [],
+    nodeViews: colorMarkViews,
   });
 
   toolbar: Toolbar = [
@@ -72,10 +95,6 @@ export class ActualiteEditorComponent implements OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.darkReaderLock) {
-      this.meta.removeTagElement(this.darkReaderLock);
-    }
-
     this.editor.destroy();
   }
 
