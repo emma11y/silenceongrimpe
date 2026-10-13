@@ -154,6 +154,24 @@
                   {{ migrating ? "Migration en cours…" : "Migrer les images" }}
                 </button>
               </div>
+            } @else if (inertSpanCount) {
+              <div class="editor-placeholder" role="alert">
+                <p>
+                  Ce contenu contient {{ inertSpanCount }} balises de style
+                  inutiles (texte noir sur fond transparent, issues d’un
+                  copier-coller), ce qui fait geler l’éditeur. Le rendu ne
+                  change pas. Une sauvegarde du HTML actuel sera téléchargée
+                  avant le nettoyage.
+                </p>
+                <button
+                  type="button"
+                  class="action"
+                  [disabled]="cleaning"
+                  (click)="onCleanHtml()"
+                >
+                  {{ cleaning ? "Nettoyage en cours…" : "Nettoyer le HTML" }}
+                </button>
+              </div>
             } @else {
               @defer (when !htmlLoading; on idle) {
                 <app-actualite-editor

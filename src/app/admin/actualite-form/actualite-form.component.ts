@@ -27,6 +27,10 @@ import {
   extractEmbeddedImages,
   replaceEmbeddedImage,
 } from '@shared/utilities/embedded-image.utility';
+import {
+  countInertSpans,
+  removeInertSpans,
+} from '@shared/utilities/html-cleanup.utility';
 
 @Component({
   selector: 'app-actualite-form',
@@ -60,6 +64,10 @@ export class ActualiteFormComponent {
   // on ne le monte qu'après leur migration vers la table images.
   embeddedImages: EmbeddedImage[] = [];
   migrating: boolean = false;
+  // Spans de style sans effet (copier-coller Google Docs) : en grand nombre,
+  // ils font geler l'éditeur. Même principe : pas d'éditeur avant nettoyage.
+  inertSpanCount: number = 0;
+  cleaning: boolean = false;
 
   constructor() {
     this.route.params.subscribe(async (value) => {
@@ -203,7 +211,52 @@ export class ActualiteFormComponent {
 
     this.syncContent(data?.html ?? '');
     this.embeddedImages = extractEmbeddedImages(this.form.html);
+    this.inertSpanCount = countInertSpans(this.form.html);
     this.htmlLoading = false;
+  }
+
+  public async onCleanHtml(): Promise<void> {
+    if (!this.form.id || this.cleaning) {
+      return;
+    }
+
+    this.cleaning = true;
+
+    try {
+      const html = removeInertSpans(this.form.html);
+
+      this.downloadBackup(this.form.html);
+
+      const { data, error } = await this.superbase.updateActualiteHtml(
+        this.form.id,
+        html,
+      );
+
+      if (error || !data?.length) {
+        throw error ?? new Error("Mise à jour de l'actualité refusée.");
+      }
+
+      this.syncContent(html);
+      this.inertSpanCount = 0;
+      this.alertService.showAlert('success', 'Le HTML a été nettoyé.');
+    } catch (error) {
+      this.alertService.showAlert(
+        'error',
+        `Nettoyage impossible : ${(error as Error).message}`,
+      );
+    } finally {
+      this.cleaning = false;
+    }
+  }
+
+  private downloadBackup(html: string): void {
+    const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    const link = document.createElement('a');
+
+    link.href = url;
+    link.download = `${this.form.slug}.sauvegarde.html`;
+    link.click();
+    URL.revokeObjectURL(url);
   }
 
   public async onMigrateEmbeddedImages(): Promise<void> {
