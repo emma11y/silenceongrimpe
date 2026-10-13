@@ -154,19 +154,25 @@
                   {{ migrating ? "Migration en cours…" : "Migrer les images" }}
                 </button>
               </div>
-            } @else if (inertSpanCount) {
+            } @else if (inertSpanCount || slowLoad) {
               <div class="editor-placeholder" role="alert">
                 <p>
-                  Ce contenu contient {{ inertSpanCount }} balises de style
-                  inutiles (texte noir sur fond transparent, issues d’un
-                  copier-coller), ce qui fait geler l’éditeur. Le rendu ne
-                  change pas. Une sauvegarde du HTML actuel sera téléchargée
-                  avant le nettoyage.
+                  @if (inertSpanCount) {
+                    Ce contenu contient {{ inertSpanCount }} balises de style
+                    inutiles (texte noir sur fond transparent, issues d’un
+                    copier-coller), ce qui fait geler l’éditeur.
+                  } @else {
+                    Le chargement du contenu est long : il contient
+                    probablement des balises de style inutiles (texte noir sur
+                    fond transparent, issues d’un copier-coller).
+                  }
+                  Le rendu ne change pas. Une sauvegarde du HTML actuel sera
+                  téléchargée avant le nettoyage.
                 </p>
                 <button
                   type="button"
                   class="action"
-                  [disabled]="cleaning"
+                  [disabled]="cleaning || !form.id"
                   (click)="onCleanHtml()"
                 >
                   {{ cleaning ? "Nettoyage en cours…" : "Nettoyer le HTML" }}

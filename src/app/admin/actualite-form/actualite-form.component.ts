@@ -32,6 +32,8 @@ import {
   removeInertSpans,
 } from '@shared/utilities/html-cleanup.utility';
 
+const SLOW_LOAD_DELAY_MS = 3000;
+
 @Component({
   selector: 'app-actualite-form',
   imports: [
@@ -68,12 +70,19 @@ export class ActualiteFormComponent {
   // ils font geler l'éditeur. Même principe : pas d'éditeur avant nettoyage.
   inertSpanCount: number = 0;
   cleaning: boolean = false;
+  // Si le chargement traîne, on propose quand même le nettoyage sans attendre.
+  slowLoad: boolean = false;
+  private cleaned: boolean = false;
 
   constructor() {
     this.route.params.subscribe(async (value) => {
       const slug = value['slug'];
       if (slug) {
         this.htmlLoading = true;
+        this.slowLoad = false;
+        setTimeout(() => {
+          this.slowLoad = this.htmlLoading;
+        }, SLOW_LOAD_DELAY_MS);
         const { data: actualite } =
           await this.superbase.getActualiteSansHtml(slug);
         if (actualite) {
@@ -209,10 +218,15 @@ export class ActualiteFormComponent {
   private async loadHtml(slug: string): Promise<void> {
     const { data } = await this.superbase.getActualiteHtml(slug);
 
-    this.syncContent(data?.html ?? '');
-    this.embeddedImages = extractEmbeddedImages(this.form.html);
-    this.inertSpanCount = countInertSpans(this.form.html);
+    // Nettoyage lancé pendant le chargement : ce html-ci est déjà périmé.
+    if (!this.cleaned) {
+      this.syncContent(data?.html ?? '');
+      this.embeddedImages = extractEmbeddedImages(this.form.html);
+      this.inertSpanCount = countInertSpans(this.form.html);
+    }
+
     this.htmlLoading = false;
+    this.slowLoad = false;
   }
 
   public async onCleanHtml(): Promise<void> {
@@ -223,9 +237,20 @@ export class ActualiteFormComponent {
     this.cleaning = true;
 
     try {
-      const html = removeInertSpans(this.form.html);
+      // Pendant le chargement, form.html n'est pas encore là : on le relit.
+      let source = this.form.html;
 
-      this.downloadBackup(this.form.html);
+      if (this.htmlLoading) {
+        const { data: current } = await this.superbase.getActualiteHtml(
+          this.form.slug,
+        );
+
+        source = current?.html ?? '';
+      }
+
+      const html = removeInertSpans(source);
+
+      this.downloadBackup(source);
 
       const { data, error } = await this.superbase.updateActualiteHtml(
         this.form.id,
@@ -236,8 +261,10 @@ export class ActualiteFormComponent {
         throw error ?? new Error("Mise à jour de l'actualité refusée.");
       }
 
+      this.cleaned = true;
       this.syncContent(html);
       this.inertSpanCount = 0;
+      this.slowLoad = false;
       this.alertService.showAlert('success', 'Le HTML a été nettoyé.');
     } catch (error) {
       this.alertService.showAlert(
