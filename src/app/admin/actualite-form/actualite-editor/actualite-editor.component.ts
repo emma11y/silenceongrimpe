@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   inject,
@@ -9,6 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Meta } from '@angular/platform-browser';
 import { PopupComponentService } from '@core/services/popup-component.service';
 import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 import { createFootnoteToken } from '@shared/utilities/footnote.utility';
@@ -31,17 +31,21 @@ import { SupabaseService } from '@core/services/supabase.service';
   templateUrl: './actualite-editor.component.html',
   styleUrl: './actualite-editor.component.scss',
 })
-export class ActualiteEditorComponent
-  implements OnChanges, AfterViewInit, OnDestroy
-{
+export class ActualiteEditorComponent implements OnChanges, OnDestroy {
   @Input() content: string = '';
   @Output() contentChange = new EventEmitter<string>();
 
   private readonly popup: PopupComponentService = inject(PopupComponentService);
   private readonly supabase: SupabaseService = inject(SupabaseService);
+  private readonly meta: Meta = inject(Meta);
+  // Dark Reader réécrit les couleurs inline (data-darkreader-inline-color) ;
+  // ProseMirror voit ces mutations, re-rend, Dark Reader réécrit... : boucle
+  // infinie qui gèle l'onglet dès que le contenu a des <span style="color">.
+  private readonly darkReaderLock: HTMLMetaElement | null = this.meta.addTag({
+    name: 'darkreader-lock',
+  });
 
   editorContent: string = '';
-  private imageObserver?: MutationObserver;
   editor: Editor = new Editor({
     history: true,
     keyboardShortcuts: true,
@@ -67,12 +71,11 @@ export class ActualiteEditorComponent
     }
   }
 
-  ngAfterViewInit(): void {
-    this.lazyLoadImages();
-  }
-
   ngOnDestroy(): void {
-    this.imageObserver?.disconnect();
+    if (this.darkReaderLock) {
+      this.meta.removeTagElement(this.darkReaderLock);
+    }
+
     this.editor.destroy();
   }
 
@@ -100,37 +103,6 @@ export class ActualiteEditorComponent
     dispatch(transaction);
     this.emitCurrentContent();
     this.editor.view.focus();
-  }
-
-  // Le node view d'image de ngx-editor (resizeImage) ne pose pas loading="lazy".
-  // Le <img> entre dans le DOM avant que [src] soit bindé : on le marque à
-  // l'insertion pour que le navigateur diffère le chargement.
-  private lazyLoadImages(): void {
-    const root = this.editor.view?.dom;
-
-    if (!root) {
-      return;
-    }
-
-    const markLazy = (node: Node): void => {
-      if (!(node instanceof Element)) {
-        return;
-      }
-
-      const images =
-        node instanceof HTMLImageElement
-          ? [node]
-          : Array.from(node.querySelectorAll('img'));
-
-      images.forEach((image) => image.setAttribute('loading', 'lazy'));
-    };
-
-    markLazy(root);
-
-    this.imageObserver = new MutationObserver((mutations) =>
-      mutations.forEach((mutation) => mutation.addedNodes.forEach(markLazy)),
-    );
-    this.imageObserver.observe(root, { childList: true, subtree: true });
   }
 
   private emitCurrentContent(): void {
