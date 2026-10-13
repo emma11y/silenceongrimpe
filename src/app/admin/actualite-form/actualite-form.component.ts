@@ -48,17 +48,24 @@ export class ActualiteFormComponent {
 
   isUpdate: boolean = false;
   currentSlug: string = '';
+  // Tant que le html n'est pas chargé, l'éditeur n'est pas monté et l'envoi
+  // est bloqué (sinon le html serait écrasé par une valeur vide).
+  htmlLoading: boolean = false;
 
   constructor() {
     this.route.params.subscribe(async (value) => {
       const slug = value['slug'];
       if (slug) {
-        const { data: actualite } = await this.superbase.getActualite(slug);
+        this.htmlLoading = true;
+        const { data: actualite } =
+          await this.superbase.getActualiteSansHtml(slug);
         if (actualite) {
           this.isUpdate = true;
           this.form = actualite as unknown as Actualite;
           this.currentSlug = { ...actualite.slug };
-          this.syncContent(this.form.html ?? '');
+          await this.loadHtml(slug);
+        } else {
+          this.htmlLoading = false;
         }
       }
     });
@@ -180,6 +187,13 @@ export class ActualiteFormComponent {
     );
 
     return promise;
+  }
+
+  private async loadHtml(slug: string): Promise<void> {
+    const { data } = await this.superbase.getActualiteHtml(slug);
+
+    this.syncContent(data?.html ?? '');
+    this.htmlLoading = false;
   }
 
   private syncContent(content: string): void {

@@ -136,7 +136,7 @@
               [(ngModel)]="form.html"
               #html="ngModel"
             />
-            @defer (on idle) {
+            @defer (when !htmlLoading; on idle) {
               <app-actualite-editor
                 [content]="form.html"
                 (contentChange)="onContentChange($any($event))"
@@ -280,7 +280,12 @@
      
       </div>-->
 
-      <button class="action" type="submit" (click)="onClick(actualiteForm)">
+      <button
+        class="action"
+        type="submit"
+        [disabled]="htmlLoading"
+        (click)="onClick(actualiteForm)"
+      >
         {{ isUpdate ? "Modifier l'actualité" : "Créer l'actualité" }}
       </button>
     </form>
