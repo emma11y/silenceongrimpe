@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 .cache/prerender-routes.txt
 prerender-routes.txt
+scripts/backup/

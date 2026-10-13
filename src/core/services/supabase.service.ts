@@ -154,6 +154,24 @@ export class SupabaseService {
       .single();
   }
 
+  getActualiteSansHtml(slug: string): any {
+    return this.supabase
+      .from('actualites')
+      .select(
+        'id, slug, titre, courtDescription, description, datePublication, publie, aLaUne, vignetteId, vignettePosition',
+      )
+      .eq('slug', slug)
+      .single();
+  }
+
+  getActualiteHtml(slug: string): any {
+    return this.supabase
+      .from('actualites')
+      .select('html')
+      .eq('slug', slug)
+      .single();
+  }
+
   getActualites() {
     return this.supabase.from('actualites').select('*');
   }

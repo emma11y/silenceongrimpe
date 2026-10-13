@@ -24,6 +24,36 @@ import { BibliothequeImagesComponent } from '@app/admin/bibliotheque-images/bibl
 import { Picture } from '@shared/models/picture';
 import { SupabaseService } from '@core/services/supabase.service';
 
+type MarkAttrs = { attrs: Record<string, string> };
+
+// Dark Reader réécrit les couleurs inline (data-darkreader-inline-color) des
+// <span style="color">. Par défaut ProseMirror voit cette mutation, re-rend le
+// span, Dark Reader réécrit, etc. : boucle infinie qui gèle l'onglet. Ces mark
+// views ignorent les mutations d'attributs, donc Dark Reader reste actif.
+function colorMarkView(property: string, attribute: string) {
+  return (mark: MarkAttrs) => {
+    const dom = document.createElement('span');
+
+    dom.style.setProperty(property, mark.attrs[attribute]);
+
+    return {
+      dom,
+      contentDOM: dom,
+      ignoreMutation: (mutation: { type: string }) =>
+        mutation.type === 'attributes',
+    };
+  };
+}
+
+// ProseMirror accepte les mark views dans la prop nodeViews.
+const colorMarkViews = {
+  text_color: colorMarkView('color', 'color'),
+  text_background_color: colorMarkView(
+    'background-color',
+    'backgroundColor',
+  ),
+} as unknown as NonNullable<ConstructorParameters<typeof Editor>[0]>['nodeViews'];
+
 @Component({
   selector: 'app-actualite-editor',
   imports: [FormsModule, NgxEditorModule],
@@ -42,6 +72,7 @@ export class ActualiteEditorComponent implements OnChanges, OnDestroy {
     history: true,
     keyboardShortcuts: true,
     plugins: [],
+    nodeViews: colorMarkViews,
   });
 
   toolbar: Toolbar = [
