@@ -11,7 +11,7 @@ export interface Film {
   realisateurs: string;
   sousTitresIncrustes: boolean;
   sme: boolean;
-  vost: boolean;
+  vfstfr: boolean;
   lsf: boolean;
   ad: boolean;
   muet: boolean;

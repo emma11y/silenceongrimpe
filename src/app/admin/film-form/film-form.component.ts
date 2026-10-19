@@ -59,7 +59,7 @@ export class FilmFormComponent {
       auteurSousTitres: queryParams['auteurSousTitres'],
       sousTitresIncrustes: toBoolean(queryParams['sousTitresIncrustes']),
       sme: toBoolean(queryParams['sme']),
-      vost: toBoolean(queryParams['vost']),
+      vfstfr: toBoolean(queryParams['vfstfr']),
       lsf: toBoolean(queryParams['lsf']),
       ad: toBoolean(queryParams['ad']),
       muet: toBoolean(queryParams['muet']),

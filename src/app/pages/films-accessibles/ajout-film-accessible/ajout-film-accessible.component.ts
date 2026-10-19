@@ -67,7 +67,7 @@ export class AjoutFilmAccessibleComponent {
             this.form.sousTitresIncrustes,
           ),
           sme: this.formatBoolean(this.form.sme),
-          vost: this.formatBoolean(this.form.vost),
+          vfstfr: this.formatBoolean(this.form.vfstfr),
           lsf: this.formatBoolean(this.form.lsf),
           ad: this.formatBoolean(this.form.ad),
           muet: this.formatBoolean(this.form.muet),
@@ -132,7 +132,7 @@ export class AjoutFilmAccessibleComponent {
     setIfDefined('auteurSousTitres', this.form.auteurSousTitres);
     setIfDefined('sousTitresIncrustes', this.form.sousTitresIncrustes);
     setIfDefined('sme', this.form.sme);
-    setIfDefined('vost', this.form.vost);
+    setIfDefined('vfstfr', this.form.vfstfr);
     setIfDefined('lsf', this.form.lsf);
     setIfDefined('ad', this.form.ad);
     setIfDefined('muet', this.form.muet);

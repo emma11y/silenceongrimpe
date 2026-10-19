@@ -153,7 +153,15 @@ export class FilmsAccessiblesComponent {
 
   filmTags(film: Film): string[] {
     const tags: string[] = [];
-    tags.push(film.vost ? 'VOSTFR' : film.sme ? 'VFST-SME' : 'VFST');
+
+    if (film.vfstfr) {
+      tags.push('VFSTFR');
+    }
+
+    if (film.sme) {
+      tags.push('VFST-SME');
+    }
+
     tags.push(
       film.qualiteSousTitres === 'professionnelle' ? 'ST PRO' : 'ST AMATEUR',
     );
