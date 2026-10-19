@@ -205,8 +205,9 @@
         <div role="listitem" class="card">
           <div class="picture">
             <img
-              [src]="film.vignetteUrl"
+              [src]="film.vignetteUrl | directImageUrl"
               [alt]="'Affiche du film ' + film.titre"
+              loading="lazy"
             />
           </div>
           <div class="body">

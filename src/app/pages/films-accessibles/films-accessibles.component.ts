@@ -2,6 +2,7 @@ import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Film } from '@shared/models/film';
+import { DirectImageUrlPipe } from '@shared/pipes/direct-image-url.pipe';
 
 interface FilmsSearchFilters {
   titre: string;
@@ -16,7 +17,7 @@ interface FilmsSearchFilters {
 
 @Component({
   selector: 'app-films-accessibles',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, DirectImageUrlPipe],
   templateUrl: './films-accessibles.component.html',
   styleUrl: './films-accessibles.component.scss',
 })
