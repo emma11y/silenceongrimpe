@@ -63,7 +63,7 @@ export function filtrerPeriodes(
           .replace(/[^\p{L}]+/gu, ' ')
           .trim()
           .split(' ')
-          .find((m) => mapping[m.toLowerCase()]);
+          .find((m) => mapping[m.toLowerCase()] !== undefined);
         if (mois) {
           date = `${mois}`;
           day = Number.parseInt(match[0]);
