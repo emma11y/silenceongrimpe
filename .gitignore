@@ -44,3 +44,6 @@ Thumbs.db
 .cache/prerender-routes.txt
 prerender-routes.txt
 scripts/backup/
+scripts/cli
+scripts/executed
+.env
