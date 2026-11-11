@@ -50,6 +50,8 @@ export class FilmsComponent implements OnInit {
                 return;
               }
 
+              this.supabaseService.deleteVignetteByUrl(film.vignetteUrl);
+
               this.getFilms();
               this.alertService.showAlert(
                 'success',

@@ -214,6 +214,18 @@ export class SupabaseService {
     return `${this.supabaseUrl}/functions/v1/get-film-vignette?id=${id}`;
   }
 
+  async deleteVignetteByUrl(url: string | undefined) {
+    if (!url?.startsWith(this.getVignetteUrl(''))) {
+      return;
+    }
+
+    const id = new URL(url).searchParams.get('id');
+
+    if (id) {
+      await this.supabase.from('vignettes').delete().eq('id', id);
+    }
+  }
+
   createOrUpdateFilm(film: Partial<Film>) {
     if (film.id) {
       return this.supabase.from('films').update(film).eq('id', film.id);
