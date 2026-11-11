@@ -28,6 +28,21 @@ if (!supabaseUrl || !serviceRoleKey) {
   process.exit(1);
 }
 
+try {
+  const role = JSON.parse(
+    Buffer.from(serviceRoleKey.split('.')[1], 'base64url').toString(),
+  ).role;
+
+  if (role !== 'service_role') {
+    console.error(
+      `La clé de SUPABASE_SERVICE_ROLE_KEY a le rôle "${role}" : il faut la clé service_role (Settings > API).`,
+    );
+    process.exit(1);
+  }
+} catch {
+  // Clé au format non JWT (sb_secret_...) : on laisse Supabase valider.
+}
+
 const supabase = createClient(supabaseUrl, serviceRoleKey);
 
 function toDirectUrl(url) {
@@ -123,11 +138,14 @@ for (const film of films) {
     const update = await supabase
       .from('films')
       .update({ vignetteId: id })
-      .eq('id', film.id);
+      .eq('id', film.id)
+      .select('id');
 
-    if (update.error) {
+    if (update.error || !update.data?.length) {
       await supabase.from('vignettes').delete().eq('id', id);
-      throw new Error(`mise à jour du film : ${update.error.message}`);
+      throw new Error(
+        `mise à jour du film : ${update.error?.message ?? 'aucune ligne modifiée (clé service role ?)'}`,
+      );
     }
 
     console.log(`#${film.id} ${film.titre} : migré`);
