@@ -214,16 +214,28 @@ export class SupabaseService {
     return `${this.supabaseUrl}/functions/v1/get-film-vignette?id=${id}`;
   }
 
-  async deleteVignetteByUrl(url: string | undefined) {
-    if (!url?.startsWith(this.getVignetteUrl(''))) {
-      return;
+  /** Renvoie false si l'url pointe vers une vignette qui n'a pas pu être supprimée. */
+  async deleteVignetteByUrl(url: string | undefined): Promise<boolean> {
+    const id = url?.match(
+      /get-film-vignette\?id=([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i,
+    )?.[1];
+
+    if (!id) {
+      return true;
     }
 
-    const id = new URL(url).searchParams.get('id');
+    const { data, error } = await this.supabase
+      .from('vignettes')
+      .delete()
+      .eq('id', id)
+      .select('id');
 
-    if (id) {
-      await this.supabase.from('vignettes').delete().eq('id', id);
+    if (error || !data?.length) {
+      console.error('Suppression de la vignette échouée', id, error);
+      return false;
     }
+
+    return true;
   }
 
   createOrUpdateFilm(film: Partial<Film>) {

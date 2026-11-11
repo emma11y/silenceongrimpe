@@ -50,13 +50,22 @@ export class FilmsComponent implements OnInit {
                 return;
               }
 
-              this.supabaseService.deleteVignetteByUrl(film.vignetteUrl);
-
               this.getFilms();
               this.alertService.showAlert(
                 'success',
                 'La suppression du film a réussie.'
               );
+
+              this.supabaseService
+                .deleteVignetteByUrl(film.vignetteUrl)
+                .then((deleted) => {
+                  if (!deleted) {
+                    this.alertService.showAlert(
+                      'error',
+                      'La vignette du film n’a pas pu être supprimée.'
+                    );
+                  }
+                });
             });
           },
           class: 'button-primary',
