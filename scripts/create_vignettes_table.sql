@@ -19,6 +19,13 @@ create policy "Vignettes créables par tous"
     and length(image) <= 1450000
   );
 
+-- Nécessaire au delete : Postgres exige une policy select pour un delete filtré par colonne (.eq('id', ...)).
+create policy "Vignettes visibles par les utilisateurs authentifiés"
+  on public.vignettes
+  for select
+  to authenticated
+  using (true);
+
 create policy "Vignettes supprimables par les utilisateurs authentifiés"
   on public.vignettes
   for delete
