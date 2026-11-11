@@ -1,20 +1,24 @@
 // Migration one-shot : télécharge les vignettes externes des films, les stocke en base64
 // dans la table "vignettes" et remplace films.vignetteUrl par le lien de l'edge function.
+// Les images de plus de 1 Mo sont réencodées en webp et redimensionnées (sharp).
 //
 // Usage (bash) :
-//   SUPABASE_URL=https://xxx.supabase.co SUPABASE_SERVICE_ROLE_KEY=... node scripts/migrate-vignettes.mjs --dry-run
-//   SUPABASE_URL=https://xxx.supabase.co SUPABASE_SERVICE_ROLE_KEY=... node scripts/migrate-vignettes.mjs
+//   node --env-file=.env scripts/migrate-vignettes.mjs --dry-run
+//   node --env-file=.env scripts/migrate-vignettes.mjs
+// (.env : SUPABASE_URL et SUPABASE_SERVICE_ROLE_KEY)
 //
 // Sauvegarde des anciens liens : scripts/backup/vignettes-backup-<date>.json (ignoré par git).
 // Ne jamais commiter la clé service role.
 
 import { createClient } from '@supabase/supabase-js';
+import sharp from 'sharp';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { randomUUID } from 'node:crypto';
 
 const MAX_SIZE_BYTES = 1024 * 1024;
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
-const DROPBOX_HOSTS = ['www.dropbox.com', 'dropbox.com'];
+const SHRINK_WIDTHS = [1600, 1200, 900, 600];
+const DROPBOX_HOSTS =['www.dropbox.com', 'dropbox.com'];
 
 const dryRun = process.argv.includes('--dry-run');
 const supabaseUrl = process.env.SUPABASE_URL?.replace(/\/$/, '');
@@ -52,13 +56,34 @@ async function downloadAsDataUri(url) {
     throw new Error(`format non supporté (${contentType ?? 'inconnu'})`);
   }
 
-  const bytes = Buffer.from(await response.arrayBuffer());
+  let bytes = Buffer.from(await response.arrayBuffer());
+  let type = contentType;
 
   if (bytes.length > MAX_SIZE_BYTES) {
-    throw new Error(`image trop lourde (${Math.round(bytes.length / 1024)} Ko)`);
+    const originalKo = Math.round(bytes.length / 1024);
+    bytes = await shrink(bytes);
+    type = 'image/webp';
+    console.log(`  réduite : ${originalKo} Ko -> ${Math.round(bytes.length / 1024)} Ko`);
   }
 
-  return `data:${contentType};base64,${bytes.toString('base64')}`;
+  return `data:${type};base64,${bytes.toString('base64')}`;
+}
+
+// Réencode en webp en réduisant la largeur jusqu'à passer sous la limite.
+async function shrink(bytes) {
+  for (const width of SHRINK_WIDTHS) {
+    const result = await sharp(bytes)
+      .rotate()
+      .resize({ width, withoutEnlargement: true })
+      .webp({ quality: 80 })
+      .toBuffer();
+
+    if (result.length <= MAX_SIZE_BYTES) {
+      return result;
+    }
+  }
+
+  throw new Error('image impossible à réduire sous 1 Mo');
 }
 
 const { data: films, error } = await supabase
