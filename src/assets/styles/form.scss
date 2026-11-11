@@ -94,6 +94,40 @@ input[type="tel"] {
   }
 }
 
+input[type="file"] {
+  margin-top: 0.5em;
+  padding: 0.5em;
+  font-size: 1em;
+  font-family: var(--main-family);
+  color: var(--bleu-ocean);
+  border: 0.15em solid var(--bleu-ocean);
+  border-radius: 0.25em;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--orange);
+  }
+
+  &::file-selector-button {
+    margin-right: 1em;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    font-family: var(--main-family);
+    color: var(--bleu-ocean);
+    background-color: var(--bleu-pastel);
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+  }
+
+  &:hover::file-selector-button,
+  &:focus-visible::file-selector-button {
+    background-color: var(--jaune-pale);
+    text-decoration: underline;
+  }
+}
+
 .radio-group,
 .checkbox-group {
   display: flex;
