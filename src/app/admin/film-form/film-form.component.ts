@@ -44,6 +44,10 @@ export class FilmFormComponent {
     });
   }
 
+  vignetteSrc(id: string): string {
+    return this.supabase.getVignetteUrl(id);
+  }
+
   private filmFromQueryParams(
     queryParams: Record<string, string>,
   ): Partial<Film> {
@@ -54,7 +58,7 @@ export class FilmFormComponent {
     return {
       titre: queryParams['titre'],
       description: queryParams['description'],
-      vignetteUrl: queryParams['vignetteUrl'],
+      vignetteId: queryParams['vignetteId'],
       realisateurs: queryParams['realisateurs'],
       duree: toNumber(queryParams['duree']) as number,
       anneeDiffusion: toNumber(queryParams['anneeDiffusion']) as number,

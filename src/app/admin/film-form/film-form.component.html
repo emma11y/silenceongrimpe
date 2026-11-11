@@ -55,7 +55,10 @@
         <div class="col">
           <div class="group">
             <label for="vignetteUrl"
-              >Lien de la vignette <span aria-hidden="true">*</span></label
+              >Lien de la vignette
+              @if (!form.vignetteId) {
+                <span aria-hidden="true">*</span>
+              }</label
             >
             <input
               type="url"
@@ -63,7 +66,7 @@
               name="vignetteUrl"
               [(ngModel)]="form.vignetteUrl"
               #vignetteUrl="ngModel"
-              required
+              [required]="!form.vignetteId"
             />
 
             <validation-summary
@@ -71,7 +74,13 @@
               fieldName="Lien de la vignette"
             />
 
-            @if (form.vignetteUrl) {
+            @if (form.vignetteId) {
+              <img
+                class="vignette-preview"
+                [src]="vignetteSrc(form.vignetteId)"
+                alt="Aperçu de la vignette"
+              />
+            } @else if (form.vignetteUrl) {
               <img
                 class="vignette-preview"
                 [src]="form.vignetteUrl | directImageUrl"

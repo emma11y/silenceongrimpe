@@ -99,8 +99,6 @@ export class AjoutFilmAccessibleComponent {
       return;
     }
 
-    this.form.vignetteUrl = this.supabase.getVignetteUrl(vignetteId);
-
     emailjs
       .send(
         'service_vjz4nem',
@@ -109,7 +107,7 @@ export class AjoutFilmAccessibleComponent {
           titre: this.form.titre,
           description: this.form.description,
           vignetteId,
-          vignetteUrl: this.form.vignetteUrl,
+          vignetteUrl: this.supabase.getVignetteUrl(vignetteId),
           realisateurs: this.form.realisateurs,
           duree: this.form.duree,
           anneeDiffusion: this.form.anneeDiffusion,
@@ -124,7 +122,7 @@ export class AjoutFilmAccessibleComponent {
           lsf: this.formatBoolean(this.form.lsf),
           ad: this.formatBoolean(this.form.ad),
           muet: this.formatBoolean(this.form.muet),
-          adminLink: this.buildAdminLink(),
+          adminLink: this.buildAdminLink(vignetteId),
         },
         'LVwSjhpUHzlOdDoLg',
       )
@@ -168,7 +166,7 @@ export class AjoutFilmAccessibleComponent {
     return value ? 'Oui' : 'Non';
   }
 
-  private buildAdminLink(): string {
+  private buildAdminLink(vignetteId: string): string {
     const params = new URLSearchParams();
 
     const setIfDefined = (key: string, value: unknown) => {
@@ -179,7 +177,7 @@ export class AjoutFilmAccessibleComponent {
 
     setIfDefined('titre', this.form.titre);
     setIfDefined('description', this.form.description);
-    setIfDefined('vignetteUrl', this.form.vignetteUrl);
+    setIfDefined('vignetteId', vignetteId);
     setIfDefined('realisateurs', this.form.realisateurs);
     setIfDefined('duree', this.form.duree);
     setIfDefined('anneeDiffusion', this.form.anneeDiffusion);

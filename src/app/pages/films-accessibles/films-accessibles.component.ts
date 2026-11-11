@@ -1,6 +1,7 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { SupabaseService } from '@core/services/supabase.service';
 import { Film } from '@shared/models/film';
 import { DirectImageUrlPipe } from '@shared/pipes/direct-image-url.pipe';
 
@@ -33,6 +34,7 @@ export class FilmsAccessiblesComponent {
   };
 
   private route: ActivatedRoute = inject(ActivatedRoute);
+  private supabase: SupabaseService = inject(SupabaseService);
 
   @ViewChild('results', { static: true })
   private resultsSection!: ElementRef<HTMLElement>;
@@ -51,6 +53,10 @@ export class FilmsAccessiblesComponent {
     this.films = this.route.snapshot.data['films'] as Film[];
 
     this.filteredFilms = this.films;
+  }
+
+  vignetteSrc(id: string): string {
+    return this.supabase.getVignetteUrl(id);
   }
 
   onSearch(): void {

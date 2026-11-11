@@ -7,7 +7,8 @@ export interface Film {
   qualiteSousTitres: 'professionnelle' | 'amateur';
   auteurSousTitres?: string;
   description: string;
-  vignetteUrl: string;
+  vignetteUrl?: string;
+  vignetteId?: string | null;
   realisateurs: string;
   sousTitresIncrustes: boolean;
   sme: boolean;

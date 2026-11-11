@@ -205,7 +205,11 @@
         <div role="listitem" class="card">
           <div class="picture">
             <img
-              [src]="film.vignetteUrl | directImageUrl"
+              [src]="
+                film.vignetteId
+                  ? vignetteSrc(film.vignetteId)
+                  : (film.vignetteUrl | directImageUrl)
+              "
               [alt]="'Affiche du film ' + film.titre"
               loading="lazy"
             />

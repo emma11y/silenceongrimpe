@@ -214,13 +214,11 @@ export class SupabaseService {
     return `${this.supabaseUrl}/functions/v1/get-film-vignette?id=${id}`;
   }
 
-  /** Renvoie false si l'url pointe vers une vignette qui n'a pas pu être supprimée. */
-  async deleteVignetteByUrl(url: string | undefined): Promise<boolean> {
-    if (!url?.startsWith(this.getVignetteUrl(''))) {
+  /** Renvoie false si la vignette n'a pas pu être supprimée. */
+  async deleteVignette(id: string | null | undefined): Promise<boolean> {
+    if (!id) {
       return true;
     }
-
-    const id = new URL(url).searchParams.get('id');
 
     const { data, error } = await this.supabase
       .from('vignettes')

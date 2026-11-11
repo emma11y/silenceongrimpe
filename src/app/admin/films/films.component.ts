@@ -57,7 +57,7 @@ export class FilmsComponent implements OnInit {
               );
 
               this.supabaseService
-                .deleteVignetteByUrl(film.vignetteUrl)
+                .deleteVignette(film.vignetteId)
                 .then((deleted) => {
                   if (!deleted) {
                     this.alertService.showAlert(
