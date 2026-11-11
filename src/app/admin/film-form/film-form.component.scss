@@ -20,6 +20,11 @@
     font-size: 80%;
   }
 
+  .error {
+    margin: 0.5em 0;
+    color: var(--erreur);
+  }
+
   .group:has(input[type="checkbox"]) {
     flex-direction: row;
     border: 0.15em solid var(--bleu-ocean);

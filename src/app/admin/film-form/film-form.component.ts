@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AlertService } from '@core/services/alert.service';
@@ -7,6 +7,11 @@ import { ValidationSummaryComponent } from '@shared/components/validation-summar
 import { Film } from '@shared/models/film';
 import { DirectImageUrlPipe } from '@shared/pipes/direct-image-url.pipe';
 import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
+import {
+  IMAGE_ACCEPT_ATTRIBUTE,
+  readFileAsDataUrl,
+  validateImageFile,
+} from '@shared/utilities/image-file.utility';
 
 @Component({
   selector: 'app-film-form',
@@ -25,9 +30,16 @@ export class FilmFormComponent {
   private readonly supabase: SupabaseService = inject(SupabaseService);
   private readonly alertService: AlertService = inject(AlertService);
 
+  private readonly vignetteInput =
+    viewChild<ElementRef<HTMLInputElement>>('vignetteInput');
+
   form: Partial<Film> = {};
 
   isUpdate: boolean = false;
+
+  readonly imageAccept: string = IMAGE_ACCEPT_ATTRIBUTE;
+  vignetteDataUrl: string | undefined;
+  vignetteError: string | undefined;
 
   constructor() {
     this.route.params.subscribe(async (value) => {
@@ -46,6 +58,25 @@ export class FilmFormComponent {
 
   vignetteSrc(id: string): string {
     return this.supabase.getVignetteUrl(id);
+  }
+
+  async onVignetteSelected(event: Event): Promise<void> {
+    const file = (event.target as HTMLInputElement).files?.[0];
+
+    this.vignetteDataUrl = undefined;
+    this.vignetteError = undefined;
+
+    if (!file) {
+      return;
+    }
+
+    this.vignetteError = validateImageFile(file);
+
+    if (this.vignetteError) {
+      return;
+    }
+
+    this.vignetteDataUrl = await readFileAsDataUrl(file);
   }
 
   private filmFromQueryParams(
@@ -77,15 +108,57 @@ export class FilmFormComponent {
   }
 
   public async onClick(form: NgForm): Promise<void> {
-    if (!form.valid) {
+    const hasVignette =
+      this.vignetteDataUrl || this.form.vignetteId || this.form.vignetteUrl;
+
+    if (!hasVignette && !this.vignetteError) {
+      this.vignetteError = 'La vignette est obligatoire.';
+    }
+
+    if (!form.valid || this.vignetteError) {
       markControlAsTouchedOnForm(form.form);
       return;
+    }
+
+    const previousVignetteId = this.form.vignetteId;
+    let newVignetteId: string | undefined;
+
+    if (this.vignetteDataUrl) {
+      newVignetteId = crypto.randomUUID();
+      const { error: vignetteError } = await this.supabase.createVignette(
+        newVignetteId,
+        this.vignetteDataUrl,
+      );
+
+      if (vignetteError) {
+        this.alertService.showAlert(
+          'error',
+          'L’envoi de la vignette a échoué. Veuillez réessayer.',
+        );
+        return;
+      }
+
+      this.form.vignetteId = newVignetteId;
     }
 
     const { data, error } = await this.supabase.createOrUpdateFilm(this.form);
 
     if (error) {
+      if (newVignetteId) {
+        this.form.vignetteId = previousVignetteId;
+        await this.supabase.deleteVignette(newVignetteId);
+      }
+
       throw error;
+    }
+
+    if (newVignetteId) {
+      if (previousVignetteId) {
+        await this.supabase.deleteVignette(previousVignetteId);
+      }
+
+      this.vignetteDataUrl = undefined;
+      this.vignetteInput()!.nativeElement.value = '';
     }
 
     if (!this.isUpdate) {

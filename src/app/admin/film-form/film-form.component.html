@@ -54,27 +54,36 @@
       <div class="row">
         <div class="col">
           <div class="group">
-            <label for="vignetteUrl"
-              >Lien de la vignette
-              @if (!form.vignetteId) {
-                <span aria-hidden="true">*</span>
-              }</label
+            <label for="vignette"
+              >Vignette <span aria-hidden="true">*</span></label
             >
             <input
-              type="url"
-              id="vignetteUrl"
-              name="vignetteUrl"
-              [(ngModel)]="form.vignetteUrl"
-              #vignetteUrl="ngModel"
-              [required]="!form.vignetteId"
+              #vignetteInput
+              type="file"
+              id="vignette"
+              name="vignette"
+              [accept]="imageAccept"
+              (change)="onVignetteSelected($event)"
+              aria-describedby="expVignette errVignette"
+              [attr.aria-invalid]="vignetteError ? true : null"
             />
 
-            <validation-summary
-              [controlModel]="vignetteUrl"
-              fieldName="Lien de la vignette"
-            />
+            <p class="small" id="expVignette">
+              Formats acceptés : jpeg, jpg, png ou webp. Taille maximale : 1 Mo.
+              Laisser vide pour conserver la vignette actuelle.
+            </p>
 
-            @if (form.vignetteId) {
+            <p class="error" id="errVignette" aria-live="polite">
+              {{ vignetteError }}
+            </p>
+
+            @if (vignetteDataUrl) {
+              <img
+                class="vignette-preview"
+                [src]="vignetteDataUrl"
+                alt="Aperçu de la nouvelle vignette"
+              />
+            } @else if (form.vignetteId) {
               <img
                 class="vignette-preview"
                 [src]="vignetteSrc(form.vignetteId)"
