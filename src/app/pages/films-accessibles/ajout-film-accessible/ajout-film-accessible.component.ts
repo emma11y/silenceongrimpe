@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import emailjs from 'emailjs-com';
@@ -6,6 +6,11 @@ import { AlertService } from '@core/services/alert.service';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
 import { Film } from '@shared/models/film';
 import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
+import {
+  IMAGE_ACCEPT_ATTRIBUTE,
+  readFileAsDataUrl,
+  validateImageFile,
+} from '@shared/utilities/image-file.utility';
 
 @Component({
   selector: 'app-ajout-film-accessible',
@@ -16,22 +21,51 @@ import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
 export class AjoutFilmAccessibleComponent {
   private readonly alertService: AlertService = inject(AlertService);
 
+  private readonly vignetteInput =
+    viewChild<ElementRef<HTMLInputElement>>('vignetteInput');
+
   form: Partial<Film> = {};
 
   public number1: number = this.getRandomInt(1, 10);
   public number2: number = this.getRandomInt(1, 10);
   public captcha: string | undefined;
   public siteWeb: string | undefined;
-  public vignetteUrlRegex: RegExp =
-    /^https?:\/\/[^\s]+\.(jpeg|jpg|png|webp|gif|svg)(\?[^\s#]*)?(#[^\s]*)?$/i;
   public lienVisionnageRegex: RegExp = /^https:\/\/[^\s]+$/;
+  public readonly imageAccept: string = IMAGE_ACCEPT_ATTRIBUTE;
+  public vignetteDataUrl: string | undefined;
+  public vignetteError: string | undefined;
+
+  public async onVignetteSelected(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    this.vignetteDataUrl = undefined;
+    this.vignetteError = undefined;
+
+    if (!file) {
+      return;
+    }
+
+    this.vignetteError = validateImageFile(file);
+
+    if (this.vignetteError) {
+      input.value = '';
+      return;
+    }
+
+    this.vignetteDataUrl = await readFileAsDataUrl(file);
+  }
 
   public async onSubmit(form: NgForm): Promise<void> {
     if (this.siteWeb) {
       return;
     }
 
-    if (!form.valid || !this.isCaptchaValid()) {
+    if (!this.vignetteDataUrl && !this.vignetteError) {
+      this.vignetteError = 'L’affiche est obligatoire.';
+    }
+
+    if (!form.valid || !this.isCaptchaValid() || this.vignetteError) {
       markControlAsTouchedOnForm(form.form);
 
       if (this.captcha) {
@@ -56,7 +90,7 @@ export class AjoutFilmAccessibleComponent {
         {
           titre: this.form.titre,
           description: this.form.description,
-          vignetteUrl: this.form.vignetteUrl,
+          vignette: this.vignetteDataUrl,
           realisateurs: this.form.realisateurs,
           duree: this.form.duree,
           anneeDiffusion: this.form.anneeDiffusion,
@@ -79,6 +113,9 @@ export class AjoutFilmAccessibleComponent {
         () => {
           form.resetForm();
           this.form = {};
+          this.vignetteDataUrl = undefined;
+          this.vignetteError = undefined;
+          this.vignetteInput()!.nativeElement.value = '';
           this.number1 = this.getRandomInt(1, 10);
           this.number2 = this.getRandomInt(1, 10);
           this.alertService.showAlert(
@@ -123,7 +160,6 @@ export class AjoutFilmAccessibleComponent {
 
     setIfDefined('titre', this.form.titre);
     setIfDefined('description', this.form.description);
-    setIfDefined('vignetteUrl', this.form.vignetteUrl);
     setIfDefined('realisateurs', this.form.realisateurs);
     setIfDefined('duree', this.form.duree);
     setIfDefined('anneeDiffusion', this.form.anneeDiffusion);

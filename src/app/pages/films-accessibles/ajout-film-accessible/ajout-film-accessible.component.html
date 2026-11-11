@@ -88,32 +88,27 @@
       <div class="row">
         <div class="col">
           <div class="group">
-            <label for="vignetteUrl"
-              >Lien de l'affiche <span aria-hidden="true">*</span></label
+            <label for="vignette"
+              >Affiche du film <span aria-hidden="true">*</span></label
             >
             <input
-              type="url"
-              id="vignetteUrl"
-              name="vignetteUrl"
-              [(ngModel)]="form.vignetteUrl"
-              #vignetteUrl="ngModel"
-              required
-              [pattern]="vignetteUrlRegex"
-              aria-describedby="expVignetteUrl"
-              [attr.aria-invalid]="vignetteUrl.invalid"
+              #vignetteInput
+              type="file"
+              id="vignette"
+              name="vignette"
+              [accept]="imageAccept"
+              (change)="onVignetteSelected($event)"
+              aria-describedby="expVignette errVignette"
+              [attr.aria-invalid]="vignetteError ? true : null"
             />
 
-            <p class="small" id="expVignetteUrl">
-              Doit être un lien direct vers une image (jpg, png, webp, gif ou
-              svg).
-              <br />
-              {{ "Format attendu : https://exemple.fr/affiche.jpg" }}
+            <p class="small" id="expVignette">
+              Formats acceptés : jpeg, jpg, png ou webp. Taille maximale : 1 Mo.
             </p>
 
-            <validation-summary
-              [controlModel]="vignetteUrl"
-              fieldName="Lien de la vignette"
-            />
+            <p class="error" id="errVignette" aria-live="polite">
+              {{ vignetteError }}
+            </p>
           </div>
         </div>
       </div>
