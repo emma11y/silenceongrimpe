@@ -216,13 +216,11 @@ export class SupabaseService {
 
   /** Renvoie false si l'url pointe vers une vignette qui n'a pas pu être supprimée. */
   async deleteVignetteByUrl(url: string | undefined): Promise<boolean> {
-    const id = url?.match(
-      /get-film-vignette\?id=([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i,
-    )?.[1];
-
-    if (!id) {
+    if (!url?.startsWith(this.getVignetteUrl(''))) {
       return true;
     }
+
+    const id = new URL(url).searchParams.get('id');
 
     const { data, error } = await this.supabase
       .from('vignettes')
