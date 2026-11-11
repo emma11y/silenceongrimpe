@@ -5,11 +5,17 @@ import { AlertService } from '@core/services/alert.service';
 import { SupabaseService } from '@core/services/supabase.service';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
 import { Film } from '@shared/models/film';
+import { DirectImageUrlPipe } from '@shared/pipes/direct-image-url.pipe';
 import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
 
 @Component({
   selector: 'app-film-form',
-  imports: [RouterLink, FormsModule, ValidationSummaryComponent],
+  imports: [
+    RouterLink,
+    FormsModule,
+    ValidationSummaryComponent,
+    DirectImageUrlPipe,
+  ],
   templateUrl: './film-form.component.html',
   styleUrl: './film-form.component.scss',
 })

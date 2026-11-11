@@ -70,6 +70,14 @@
               [controlModel]="vignetteUrl"
               fieldName="Lien de la vignette"
             />
+
+            @if (form.vignetteUrl) {
+              <img
+                class="vignette-preview"
+                [src]="form.vignetteUrl | directImageUrl"
+                alt="Aperçu de la vignette"
+              />
+            }
           </div>
         </div>
       </div>
