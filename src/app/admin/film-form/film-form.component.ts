@@ -5,22 +5,11 @@ import { AlertService } from '@core/services/alert.service';
 import { SupabaseService } from '@core/services/supabase.service';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
 import { Film } from '@shared/models/film';
-import { DirectImageUrlPipe } from '@shared/pipes/direct-image-url.pipe';
 import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
-import {
-  IMAGE_ACCEPT_ATTRIBUTE,
-  readFileAsDataUrl,
-  validateImageFile,
-} from '@shared/utilities/image-file.utility';
 
 @Component({
   selector: 'app-film-form',
-  imports: [
-    RouterLink,
-    FormsModule,
-    ValidationSummaryComponent,
-    DirectImageUrlPipe,
-  ],
+  imports: [RouterLink, FormsModule, ValidationSummaryComponent],
   templateUrl: './film-form.component.html',
   styleUrl: './film-form.component.scss',
 })
@@ -33,9 +22,6 @@ export class FilmFormComponent {
   form: Partial<Film> = {};
 
   isUpdate: boolean = false;
-
-  public readonly imageAccept: string = IMAGE_ACCEPT_ATTRIBUTE;
-  public vignetteError: string | undefined;
 
   constructor() {
     this.route.params.subscribe(async (value) => {
@@ -62,6 +48,7 @@ export class FilmFormComponent {
     return {
       titre: queryParams['titre'],
       description: queryParams['description'],
+      vignetteUrl: queryParams['vignetteUrl'],
       realisateurs: queryParams['realisateurs'],
       duree: toNumber(queryParams['duree']) as number,
       anneeDiffusion: toNumber(queryParams['anneeDiffusion']) as number,
@@ -79,32 +66,8 @@ export class FilmFormComponent {
     };
   }
 
-  public async onVignetteSelected(event: Event): Promise<void> {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-
-    this.vignetteError = undefined;
-
-    if (!file) {
-      return;
-    }
-
-    this.vignetteError = validateImageFile(file);
-
-    if (this.vignetteError) {
-      input.value = '';
-      return;
-    }
-
-    this.form.vignetteUrl = await readFileAsDataUrl(file);
-  }
-
   public async onClick(form: NgForm): Promise<void> {
-    if (!this.form.vignetteUrl && !this.vignetteError) {
-      this.vignetteError = 'La vignette est obligatoire.';
-    }
-
-    if (!form.valid || this.vignetteError) {
+    if (!form.valid) {
       markControlAsTouchedOnForm(form.form);
       return;
     }

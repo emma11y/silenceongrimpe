@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import emailjs from 'emailjs-com';
 import { AlertService } from '@core/services/alert.service';
+import { SupabaseService } from '@core/services/supabase.service';
 import { ValidationSummaryComponent } from '@shared/components/validation-summary/validation-summary.component';
 import { Film } from '@shared/models/film';
 import { markControlAsTouchedOnForm } from '@shared/utilities/form.utility';
@@ -20,6 +21,7 @@ import {
 })
 export class AjoutFilmAccessibleComponent {
   private readonly alertService: AlertService = inject(AlertService);
+  private readonly supabase: SupabaseService = inject(SupabaseService);
 
   private readonly vignetteInput =
     viewChild<ElementRef<HTMLInputElement>>('vignetteInput');
@@ -83,6 +85,22 @@ export class AjoutFilmAccessibleComponent {
       return;
     }
 
+    const vignetteId = crypto.randomUUID();
+    const { error } = await this.supabase.createVignette(
+      vignetteId,
+      this.vignetteDataUrl!,
+    );
+
+    if (error) {
+      this.alertService.showAlert(
+        'error',
+        `Une erreur s'est produite lors de l'envoi de l'affiche. Veuillez réessayer.`,
+      );
+      return;
+    }
+
+    this.form.vignetteUrl = this.supabase.getVignetteUrl(vignetteId);
+
     emailjs
       .send(
         'service_vjz4nem',
@@ -90,7 +108,8 @@ export class AjoutFilmAccessibleComponent {
         {
           titre: this.form.titre,
           description: this.form.description,
-          vignette: this.vignetteDataUrl,
+          vignetteId,
+          vignetteUrl: this.form.vignetteUrl,
           realisateurs: this.form.realisateurs,
           duree: this.form.duree,
           anneeDiffusion: this.form.anneeDiffusion,
@@ -160,6 +179,7 @@ export class AjoutFilmAccessibleComponent {
 
     setIfDefined('titre', this.form.titre);
     setIfDefined('description', this.form.description);
+    setIfDefined('vignetteUrl', this.form.vignetteUrl);
     setIfDefined('realisateurs', this.form.realisateurs);
     setIfDefined('duree', this.form.duree);
     setIfDefined('anneeDiffusion', this.form.anneeDiffusion);

@@ -206,6 +206,14 @@ export class SupabaseService {
     return `${this.supabaseUrl}/functions/v1/get-image?guid=${guid}`;
   }
 
+  createVignette(id: string, image: string) {
+    return this.supabase.from('vignettes').insert({ id, image });
+  }
+
+  getVignetteUrl(id: string): string {
+    return `${this.supabaseUrl}/functions/v1/get-film-vignette?id=${id}`;
+  }
+
   createOrUpdateFilm(film: Partial<Film>) {
     if (film.id) {
       return this.supabase.from('films').update(film).eq('id', film.id);

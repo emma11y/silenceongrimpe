@@ -1,4 +1,4 @@
-export const IMAGE_MAX_SIZE_BYTES = 500 * 1024;
+export const IMAGE_MAX_SIZE_BYTES = 1024 * 1024;
 
 export const IMAGE_ACCEPTED_TYPES: string[] = [
   'image/jpeg',
@@ -14,7 +14,7 @@ export function validateImageFile(file: File): string | undefined {
   }
 
   if (file.size > IMAGE_MAX_SIZE_BYTES) {
-    return 'L’image ne doit pas dépasser 500 Ko.';
+    return 'L’image ne doit pas dépasser 1 Mo.';
   }
 
   return undefined;
